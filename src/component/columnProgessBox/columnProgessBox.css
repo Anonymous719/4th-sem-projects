@@ -1,0 +1,88 @@
+.columnProgessBox {
+  margin-top: 20px;
+  background-color: #f3f4f8;
+  height: 100vh;
+  width: 250px;
+  margin-left: 50px;
+}
+.title {
+  max-width: 100%;
+  height: 54px;
+  background: #ffffff;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  padding: 0px 15px;
+  justify-content: space-between;
+}
+h5 {
+  text-align: left;
+  font-family: "DM Sans";
+  font-size: 25px;
+  line-height: 22px;
+  color: #232360;
+}
+.addIcon {
+  width: 24px;
+  height: 24px;
+  color: #6772fe;
+  background-color: #c7cafb;
+  border-radius: 25%;
+}
+.content {
+  border-radius: 20px;
+  max-width: 100%;
+  height: fit-content;
+  padding-bottom: 20px;
+  margin-top: 20px;
+  background-color: white;
+  padding: 20px;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))
+    drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+.label {
+  width: fit-content;
+  padding: 0px 5px;
+  border-radius: 5px;
+  color: white;
+  font-size: 20px;
+  background-color: #1ea7ff;
+}
+.projectTitle {
+  font-weight: bolder;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: "DM Sans";
+  font-style: normal;
+  font-size: 20px;
+  height: 17px;
+  line-height: 17px;
+  margin-top: 20px;
+  color: #232360;
+}
+
+.projectSubTitle {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  margin: 10px;
+  height: 32px;
+  font-family: "DM Sans";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 16px;
+  color: #768396;
+}
+.datebox{
+  border:2px solid #E2E2E2  ; 
+  width:fit-content;
+  border-radius: 4px;
+  padding:0 5px ;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+margin-top: 20px;
+}
