@@ -6,7 +6,14 @@ import InputField from "../InputField/InputField";
 import Errormsg from "../ErrorMsgField/ErrorMsgField";
 import PasswordField from "../PasswordField/passwordField";
 import Apple from "./../../apple.png";
+import { useNavigate } from "react-router-dom";
+
 const LogIn_Part = () => {
+  const navigate=useNavigate();
+  const navigateToDashboard=()=>
+  {
+    navigate("/dashboard");
+  }
   const [detail, setdetail] = useState({
     username: "",
     password: "",
@@ -15,6 +22,7 @@ const LogIn_Part = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(`Submitted username: ${detail.username + detail.password}`);
+    navigateToDashboard();
   };
 
   const handleUsernameChange = (event) => {

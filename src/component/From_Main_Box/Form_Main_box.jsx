@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Form_Main_box.css";
-import SlideBar from "./../SlideBar/slideBar.jsx"
+import SlideBar from "../SlideBar/slideBar.jsx"
 import SubFormBox from "../subFormBox/subFormBox.jsx"
 
 const FormBox = () => {

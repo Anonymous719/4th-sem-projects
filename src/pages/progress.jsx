@@ -3,9 +3,12 @@ import "./progress.css";
 import TopProgressBar from "../component/topBar/topProgressBar";
 import ColumnProgessBox from "../component/columnProgessBox/columnProgessBox.jsx";
 import MemberListBox from "../component/memberListBox/memberListBox";
+import { Topbar } from "../component/navBar/topbar";
 const ProgressPage = () => {
   return (
-    <div className="progressContainer">
+    <div>  <Topbar />
+      <div className="progressContainer">
+  
       <div className="leftCointainer">
         <TopProgressBar />
         <div className="columns" >
@@ -19,6 +22,8 @@ const ProgressPage = () => {
     <MemberListBox />
       </div>
     </div>
+    </div>
+    
   );
 };
 

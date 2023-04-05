@@ -1,8 +1,8 @@
 import React from "react";
 import "./memberListBox.css";
 import { Avatar } from "@material-ui/core";
-import avatar from "./../../avatar.png";
-import avatar2 from "./../../avatar2.png";
+import avatar from "./../../Images/avatar.png"
+import avatar2 from "./../../Images/avatar2.png";
 const MemberListBox = () => {
   const members = [
     { id: 1, names: "Samantha", imgSrc: avatar },
