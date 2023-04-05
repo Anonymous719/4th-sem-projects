@@ -3,6 +3,10 @@
     justify-content: space-between;
     align-items: center;
     background-color: #afafaf;
+    height:70px ;
+}
+.TopbarLogo{
+    height:60px ;
 }
 
 .dashboardTopbar h1{
@@ -11,9 +15,12 @@
 }
 
 .dashboardEndbutton{
+    width: 15%;
     display: flex;
-    justify-content: space-between;
-    align-items: center;background-color: #afafaf;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: #afafaf;
+    margin-right: 20px;
 }
 
 .dashboardEndbutton p{
