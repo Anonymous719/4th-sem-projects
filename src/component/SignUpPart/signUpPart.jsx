@@ -5,8 +5,7 @@ import { Button } from "@material-ui/core";
 import InputField from "../InputField/InputField";
 import Errormsg from "../ErrorMsgField/ErrorMsgField";
 import PasswordField from "../PasswordField/passwordField";
-
-import Apple from "./../../apple.png";
+import MainLogo from "./../../Images/MainLogo.png"
 const SignUp_Part = () => {
   const [detail, setdetail] = useState({
     name: "",
@@ -65,7 +64,7 @@ setHideError(true);
   };
   return (
     <form onSubmit={handleSubmit}>
-    <img class="Logo_image" src={Apple} alt="Alt text for logo" />
+    <img class="Logo_image" src={MainLogo} alt="Alt text for logo" />
       <h2>Welcome</h2>
       <div className="inputFieldBox">
         

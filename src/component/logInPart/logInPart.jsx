@@ -5,9 +5,8 @@ import { Button } from "@material-ui/core";
 import InputField from "../InputField/InputField";
 import Errormsg from "../ErrorMsgField/ErrorMsgField";
 import PasswordField from "../PasswordField/passwordField";
-import Apple from "./../../apple.png";
 import { useNavigate } from "react-router-dom";
-
+import MainLogo from "./../../Images/MainLogo.png"
 const LogIn_Part = () => {
   const navigate=useNavigate();
   const navigateToDashboard=()=>
@@ -37,7 +36,7 @@ const LogIn_Part = () => {
   };
   return (
     <form onSubmit={handleSubmit}>
-      <img class="Logo_image" src={Apple} alt="Alt text for logo" />
+      <img class="Logo_image" src={MainLogo} alt="Alt text for logo" />
       <h1>Welcome back</h1>
       <div className="inputFieldBox">
         <InputField
