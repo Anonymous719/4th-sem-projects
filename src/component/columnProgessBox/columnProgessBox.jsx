@@ -1,15 +1,15 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./columnProgessBox.css";
 import AddIcon from "@mui/icons-material/Add";
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 const ColumnProgessBox = ({
   title,
   contentInfo,
   onClick,
   changeContentInfo,
 }) => {
-  const [toWhere,changeToWhere]=useState("");
-  const onClickChange = (id) => {
+  const [toWhere, changeToWhere] = useState("");
+
+  const onClickChange = (id, toWhere) => {
     var changeable_data = {
       title: "",
       id: 0,
@@ -18,17 +18,26 @@ const ColumnProgessBox = ({
       projectSubTitle: "",
       date: " ",
     };
+    var info = {
+      title: "",
+      id: 0,
+      label: "",
+      projectTitle: "",
+      projectSubTitle: "",
+      date: " ",
+    };
+
     console.log("dss");
     changeable_data = contentInfo.filter((element) => element.id === id);
     console.log(changeable_data);
-    changeable_data[0].title=toWhere;
+    changeable_data[0].title = toWhere;
     console.log(changeable_data);
-    changeContentInfo((current) => current.filter((element) => element.id !== id));
-    console.log(contentInfo);
-    changeContentInfo([...contentInfo, changeable_data]);
-    console.log(contentInfo);
-    console.log(toWhere)
-  }
+    info=contentInfo.filter((element) => element.id !== id)
+    console.log(info);
+    info.push(changeable_data[0])
+    console.log(info);
+    changeContentInfo(info);
+  };
   return (
     <div className="columnProgessBox">
       <Title
@@ -43,7 +52,10 @@ const ColumnProgessBox = ({
             key={content.id}
             {...content}
             changeToWhere={changeToWhere}
-            onClick={() => onClickChange(content.id,toWhere)}
+            toWhere={toWhere}
+            onClick={() => {
+              onClickChange(content.id, toWhere);
+            }}
           />
         ) : (
           ""
@@ -63,13 +75,14 @@ const Title = ({ title, onPressed }) => {
   );
 };
 const Content = ({
+  toWhere,
   label,
   projectTitle,
   projectSubTitle,
   date,
   onClick,
   onDoubleClick,
-  changeToWhere
+  changeToWhere,
 }) => {
   const [open, setOpen] = useState(false);
 
@@ -79,7 +92,7 @@ const Content = ({
     let handler = (e) => {
       if (!menuRef.current.contains(e.target)) {
         setOpen(false);
-        console.log(menuRef.current);
+        // console.log(menuRef.current);
       }
     };
 
@@ -91,7 +104,7 @@ const Content = ({
   });
 
   return (
-    <div className="content"  onDrag={onDoubleClick}>
+    <div className="content" onDrag={onDoubleClick}>
       <div className="date_DropDown">
         <div className="label">{label}</div>
         <div className="menu-container" ref={menuRef}>
@@ -106,10 +119,30 @@ const Content = ({
 
           <div className={`dropdown-menu ${open ? "active" : "inactive"}`}>
             <ul>
-              <DropdownItem changeToWhere={changeToWhere} onClick={onClick} text={"BackLog"} />
-              <DropdownItem changeToWhere={changeToWhere} onClick={onClick} text={"To Do"} />
-              <DropdownItem changeToWhere={changeToWhere} onClick={onClick} text={"In Progress"} />
-              <DropdownItem changeToWhere={changeToWhere} onClick={onClick} text={"Review"} />
+              <DropdownItem
+                changeToWhere={changeToWhere}
+                onClick={onClick}
+                text={"BackLog"}
+                toWhere={toWhere}
+              />
+              <DropdownItem
+                changeToWhere={changeToWhere}
+                onClick={onClick}
+                text={"To Do"}
+                toWhere={toWhere}
+              />
+              <DropdownItem
+                changeToWhere={changeToWhere}
+                onClick={onClick}
+                text={"In Progress"}
+                toWhere={toWhere}
+              />
+              <DropdownItem
+                changeToWhere={changeToWhere}
+                onClick={onClick}
+                text={"Review"}
+                toWhere={toWhere}
+              />
             </ul>
           </div>
         </div>
@@ -121,12 +154,22 @@ const Content = ({
     </div>
   );
 };
-function DropdownItem({changeToWhere,onClick,text}) {
-  const handleClicked=()=>{
-    changeToWhere(text);console.log("dfvsdfdsfsdfsdfdsf");
-    onClick();
-    
+function DropdownItem({ changeToWhere, onClick, text, toWhere }) {
+  const [d,cd]=useState(false);
+  async function handleClicked() {
+    changeToWhere(text);
+    cd(true);
+      
+    console.log(d);
+    console.log("dfvsdfdsfsdfsdfdsf");
   }
+  useEffect(() => {
+    if(d)
+    { console.log("34");
+      onClick();
+    }
+    // 
+  },[d]);
   return (
     <li className="dropdownItem" onClick={handleClicked}>
       <a> {text} </a>
@@ -135,40 +178,6 @@ function DropdownItem({changeToWhere,onClick,text}) {
 }
 
 export default ColumnProgessBox;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // const [contentInfo1,changeContentInfo1] = useState([
 //   {
@@ -219,10 +228,6 @@ export default ColumnProgessBox;
 //   changeContentInfo((current) => current.filter((fruit) => fruit.id !== e));
 // };
 
-
-
-
-
 // import React from "react";
 // import "./columnProgessBox.css";
 // import AddIcon from "@mui/icons-material/Add";
@@ -232,7 +237,7 @@ export default ColumnProgessBox;
 //   onClick,
 //   changeContentInfo,
 // }) => {
-  
+
 //   const onClickChange = (id) => {
 //     var changeable_data = {
 //       title: "",
@@ -303,24 +308,6 @@ export default ColumnProgessBox;
 // };
 
 // export default ColumnProgessBox;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // // const [contentInfo1,changeContentInfo1] = useState([
 //   //   {
