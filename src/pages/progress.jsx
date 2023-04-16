@@ -11,7 +11,7 @@ const ProgressPage = () => {
       id: 1,
       label: "Research",
       projectTitle:
-        "    Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        " BackLog Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
       projectSubTitle:
         "Duis sit amet urna sed ante sodales commodo eu quis odio.",
       date: "YYYY-MM-DD",
@@ -21,7 +21,7 @@ const ProgressPage = () => {
       id: 2,
       label: "Research",
       projectTitle:
-        "Aenean iaculis nibh sed neque scelerisque, vel consequat risus ornare.",
+        "BackLog Aenean iaculis nibh sed neque scelerisque, vel consequat risus ornare.",
       projectSubTitle:
         "Praesent sit amet sem eget justo lacinia vehicula eget et purus.",
       date: "1994-11-28",
@@ -30,7 +30,7 @@ const ProgressPage = () => {
       title: "BackLog",
       id: 3,
       label: "Research",
-      projectTitle: "Etiam ultricies diam eget rutrum vestibulum.",
+      projectTitle: "BackLog Etiam ultricies diam eget rutrum vestibulum.",
       projectSubTitle: "Etiam gravida quam id lacus pellentesque ultrices.",
       date: "1987-08-09, ",
     },
@@ -38,7 +38,7 @@ const ProgressPage = () => {
       title: "BackLog",
       id: 4,
       label: "Research",
-      projectTitle: "Etiam ultricies diam eget rutrum vestibulum.",
+      projectTitle: "BackLog Etiam ultricies diam eget rutrum vestibulum.",
       projectSubTitle: "Etiam gravida quam id lacus pellentesque ultrices.",
       date: "1987-08-09, ",
     },
@@ -48,7 +48,7 @@ const ProgressPage = () => {
       id: 11,
       label: "Research",
       projectTitle:
-        "    Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        " To Do  Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
       projectSubTitle:
         "Duis sit amet urna sed ante sodales commodo eu quis odio.",
       date: "YYYY-MM-DD",
@@ -59,7 +59,7 @@ const ProgressPage = () => {
       id: 12,
       label: "Research",
       projectTitle:
-        "Aenean iaculis nibh sed neque scelerisque, vel consequat risus ornare.",
+        "To Do Aenean iaculis nibh sed neque scelerisque, vel consequat risus ornare.",
       projectSubTitle:
         "Praesent sit amet sem eget justo lacinia vehicula eget et purus.",
       date: "1994-11-28",
@@ -69,7 +69,7 @@ const ProgressPage = () => {
 
       id: 13,
       label: "Research",
-      projectTitle: "Etiam ultricies diam eget rutrum vestibulum.",
+      projectTitle: "To Do Etiam ultricies diam eget rutrum vestibulum.",
       projectSubTitle: "Etiam gravida quam id lacus pellentesque ultrices.",
       date: "1987-08-09, ",
     },
@@ -78,7 +78,7 @@ const ProgressPage = () => {
 
       id: 14,
       label: "Research",
-      projectTitle: "Etiam ultricies diam eget rutrum vestibulum.",
+      projectTitle: "To Do Etiam ultricies diam eget rutrum vestibulum.",
       projectSubTitle: "Etiam gravida quam id lacus pellentesque ultrices.",
       date: "1987-08-09, ",
     },
@@ -89,7 +89,7 @@ const ProgressPage = () => {
       id: 21,
       label: "Research",
       projectTitle:
-        "    Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        " In Progress   Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
       projectSubTitle:
         "Duis sit amet urna sed ante sodales commodo eu quis odio.",
       date: "YYYY-MM-DD",
@@ -100,7 +100,7 @@ const ProgressPage = () => {
       id: 22,
       label: "Research",
       projectTitle:
-        "Aenean iaculis nibh sed neque scelerisque, vel consequat risus ornare.",
+        "In Progress Aenean iaculis nibh sed neque scelerisque, vel consequat risus ornare.",
       projectSubTitle:
         "Praesent sit amet sem eget justo lacinia vehicula eget et purus.",
       date: "1994-11-28",
@@ -109,7 +109,7 @@ const ProgressPage = () => {
       title: "In Progress",
 
       id: 23,
-      label: "Research",
+      label: "In ProgressResearch",
       projectTitle: "Etiam ultricies diam eget rutrum vestibulum.",
       projectSubTitle: "Etiam gravida quam id lacus pellentesque ultrices.",
       date: "1987-08-09, ",
@@ -118,7 +118,7 @@ const ProgressPage = () => {
       title: "In Progress",
       id: 24,
       label: "Research",
-      projectTitle: "Etiam ultricies diam eget rutrum vestibulum.",
+      projectTitle: "In Progress Etiam ultricies diam eget rutrum vestibulum.",
       projectSubTitle: "Etiam gravida quam id lacus pellentesque ultrices.",
       date: "1987-08-09, ",
     },
@@ -128,7 +128,7 @@ const ProgressPage = () => {
       id: 31,
       label: "Research",
       projectTitle:
-        "    Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        " Review   Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
       projectSubTitle:
         "Duis sit amet urna sed ante sodales commodo eu quis odio.",
       date: "YYYY-MM-DD",
@@ -138,7 +138,7 @@ const ProgressPage = () => {
       id: 32,
       label: "Research",
       projectTitle:
-        "Aenean iaculis nibh sed neque scelerisque, vel consequat risus ornare.",
+        " Review Aenean iaculis nibh sed neque scelerisque, vel consequat risus ornare.",
       projectSubTitle:
         "Praesent sit amet sem eget justo lacinia vehicula eget et purus.",
       date: "1994-11-28",
@@ -147,7 +147,7 @@ const ProgressPage = () => {
       title: "Review",
       id: 33,
       label: "Research",
-      projectTitle: "Etiam ultricies diam eget rutrum vestibulum.",
+      projectTitle: " Review Etiam ultricies diam eget rutrum vestibulum.",
       projectSubTitle: "Etiam gravida quam id lacus pellentesque ultrices.",
       date: "1987-08-09, ",
     },
@@ -155,7 +155,7 @@ const ProgressPage = () => {
       title: "Review",
       id: 34,
       label: "Research",
-      projectTitle: "Etiam ultricies diam eget rutrum vestibulum.",
+      projectTitle: " Review Etiam ultricies diam eget rutrum vestibulum.",
       projectSubTitle: "Etiam gravida quam id lacus pellentesque ultrices.",
       date: "1987-08-09, ",
     },
