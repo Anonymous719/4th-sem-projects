@@ -1,7 +1,7 @@
 .columnProgessBox {
   margin-top: 20px;
   background-color: #f3f4f8;
-  height: 100vh;
+  height: fit-content;
   width: 250px;
   margin-left: 50px;
 }

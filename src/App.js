@@ -10,11 +10,12 @@ function App() {
   return (
     <BrowserRouter>
       <Box sx={{ backgroundColor: "#000" }}>
-        <Routes>
+      <ProgressPage/>
+        {/* <Routes>
           <Route path="/" element={<LogIn />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/progress" element={<ProgressPage />} />
-        </Routes>
+        </Routes> */}
       </Box>
     </BrowserRouter>
   );
