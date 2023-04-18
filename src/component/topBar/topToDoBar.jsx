@@ -1,9 +1,9 @@
 import React from "react";
-import "./topProgressBar.css";
+import "./topToDoBar.css";
 import { Avatar } from "@material-ui/core";
 import Avatar1 from "./../../Images/avatar.png";
 import Avatar2 from "./../../Images/avatar2.png";
-const TopProgressBar = () => {
+const TopToDoBar = () => {
   const avatarList = [
     { id: 1, alt: "Remy Sharp", src: Avatar1 },
     { id: 2, alt: "Remy Sharp", src: Avatar2 },
@@ -12,7 +12,7 @@ const TopProgressBar = () => {
   ];
   return (
     <div className="topProgessBar">
-      <h2>Progress</h2>
+      <h2>To Do</h2>
       <div class="avatars">
         {avatarList.map((avatar) => (
           <Avatar key={avatar.id} className="avatarItems" {...avatar} />
@@ -23,4 +23,4 @@ const TopProgressBar = () => {
   );
 };
 
-export default TopProgressBar;
+export default TopToDoBar;

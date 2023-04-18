@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./toDo.css";
-import TopProgressBar from "../component/topBar/topProgressBar";
+import TopToDoBar from "../component/topBar/topToDoBar";
 import ColumnProgessBox from "../component/columnProgessBox/columnProgessBox.jsx";
 import MemberListBox from "../component/memberListBox/memberListBox";
 import { Topbar } from "../component/navBar/topbar";
@@ -166,7 +166,7 @@ const ToDoPage = () => {
       <Topbar />
       <div className="progressContainer">
         <div className="leftCointainer">
-          <TopProgressBar />
+          <TopToDoBar />
           <div className="columns">
             <ColumnProgessBox
               onAddPressed={()=>{ChangeAddPressed(true);

@@ -158,8 +158,9 @@ function DropdownItem({ changeToWhere, onClick, text }) {
     // eslint-disable-next-line
   }, [d]);
   return (
+    // eslint-disable-next-line
     <li className="dropdownItem" onClick={handleClicked}>
-      <a href="e"> {text} </a>
+      <div > {text} </div>
     </li>
   );
 }
