@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./deadline.css";
-import { Topbar } from "../component/navBar/topbar";
+import  Topbar from "../component/navBar/topbar";
 
 function DigitalTimer({ deadline }) {
   // const [days, setDays] = useState(deadline.daysLeft);

@@ -5,20 +5,21 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"; // eslint-disab
 import LogIn from "./pages/loginSignup"; // eslint-disable-next-line
 import ToDoPage from "./pages/toDo"; // eslint-disable-next-line
 import Dashboard from "./pages/dashboard";// eslint-disable-next-line
-import PopUpToDo from "./component/popUp/popUp";
-import DeadlineList from "./pages/deadline"
+import DeadlineList from "./pages/deadline"// eslint-disable-next-line
+import ProjectPage from "./pages/projectpage";
 function App() {
   return (
     <BrowserRouter>
       <Box sx={{ backgroundColor: "#fff" }}>
-      <DeadlineList />
-      {/* <PopUpToDo /> */}
-      {/* <ToDoPage/> */}
-        {/* <Routes>
+      {/* <ProjectPage></ProjectPage> */}
+      {/* <DeadlineList /> */}
+        <Routes>
           <Route path="/" element={<LogIn />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/progress" element={<ToDoPage />} />
-        </Routes> */}
+          <Route path="/todo" element={<ToDoPage />} />
+          <Route path="/projectPage" element={<ProjectPage />} />
+          <Route path="/deadline" element={<DeadlineList />} />
+        </Routes>
       </Box>
     </BrowserRouter>
   );

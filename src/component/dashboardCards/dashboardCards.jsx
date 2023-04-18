@@ -1,17 +1,18 @@
 import React from "react";
-import "./cards.css";
+import "./dashboardCards.css";
 import DeadlineBox from "../deadlineBox/deadlineBox";
 import CompleteDateBox from "../deadlineBox/completedDateBox";
 import { useNavigate } from "react-router-dom";
 
 const Cards = ({ ProjectsName, ProjectHead, Date, ImgSrc, isCompleted }) => {
-const navigate=useNavigate();
-const navigateToToDoPage=()=>
+  const navigateToProjectPage=()=>
 {
-   navigate("/progress");
+   navigate("/projectPage");
 }
+const navigate=useNavigate();
+
   return (
-    <div onClick={navigateToToDoPage} class="dashboardCardsBox">
+    <div onClick={navigateToProjectPage} class="dashboardCardsBox">
       <img
         className="projectProfilePic"
         src={ImgSrc}

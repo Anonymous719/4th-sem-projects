@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./dashboard.css";
-import { Topbar } from "../component/navBar/topbar";
-import { Cards } from "../component/dashboardCards/cards";
+import  Topbar  from "../component/navBar/topbar";
+import { Cards } from "../component/dashboardCards/dashboardCards";
 import DashBoardSlideBar from "../component/SlideBar/dashBoardSlidebar";
 import { Avatar } from "@material-ui/core";
 import Avatar1 from "./../Images/avatar.png"

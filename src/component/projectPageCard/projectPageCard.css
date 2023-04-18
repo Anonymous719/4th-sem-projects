@@ -1,0 +1,129 @@
+.projectCardsBox{
+    margin: 2%;
+    padding:2%;
+    background-color: #ffffff;
+    border-radius: 10px;
+    width:40%;
+}
+
+.projectCardsBox h1{
+    font-size:1rem;
+    font-weight: bold;
+    padding-bottom: 4%;
+}
+
+.projectCardsBox hr{
+    border:1px solid #000;
+}
+
+.progress_title{
+    display: flex;
+    align-items: space-between;
+    justify-content: space-between;
+}
+
+.progress_members{
+    padding-top: 2%;
+    font-size:1.1rem;
+}
+
+.progress_members p{
+    margin-top: 5px;
+}
+
+.progress_scores{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.progress_scores hr{
+    border:2px solid #3a3a3a;
+    border-radius: 18%;
+    width: 300px;
+    height:0.01px;
+}
+
+.progress_namebar{
+    display: flex;
+    align-items: center;
+}
+
+.todo_title{
+    display: flex;
+    justify-content: space-between;
+}
+
+.todo_list{
+    
+}
+
+.todo_task{
+    display: flex;
+    justify-content: space-between;
+    margin:2%;
+}/* .projectCardsBox{
+    margin: 2%;
+    padding:2%;
+    background-color: #ffffff;
+    border-radius: 10px;
+    width:40%;
+}
+
+.projectCardsBox h1{
+    font-size:1.4rem;
+    font-weight: bold;
+    padding-bottom: 4%;
+}
+
+.projectCardsBox hr{
+    border:1px solid #000;
+}
+
+.progress_title{
+    display: flex;
+    align-items: space-between;
+    justify-content: space-between;
+}
+
+.progress_members{
+    padding-top: 2%;
+    font-size:1.1rem;
+}
+
+.progress_members p{
+    margin-top: 1.4%;
+}
+
+.progress_scores{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.progress_scores hr{
+    border:2px solid #3a3a3a;
+    border-radius: 18%;
+    width: 300px;
+    height:0.01px;
+}
+
+.progress_namebar{
+    display: flex;
+    align-items: center;
+}
+
+.todo_title{
+    display: flex;
+    justify-content: space-between;
+}
+
+.todo_list{
+    
+}
+
+.todo_task{
+    display: flex;
+    justify-content: space-between;
+    margin:2%;
+} */
