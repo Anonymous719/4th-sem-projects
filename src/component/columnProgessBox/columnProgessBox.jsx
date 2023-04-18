@@ -1,50 +1,29 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./columnProgessBox.css";
 import AddIcon from "@mui/icons-material/Add";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
+import PopUpToDo from "../popUp/popUp";
+import Popup from 'reactjs-popup';
 const ColumnProgessBox = ({
   title,
   contentInfo,
-  onClick,
+  onAddPressed,
   changeContentInfo,
 }) => {
   const [toWhere, changeToWhere] = useState("");
 
   const onClickChange = (id, toWhere) => {
-    var changeable_data = {
-      title: "",
-      id: 0,
-      label: "",
-      projectTitle: "",
-      projectSubTitle: "",
-      date: " ",
-    };
-    var info = {
-      title: "",
-      id: 0,
-      label: "",
-      projectTitle: "",
-      projectSubTitle: "",
-      date: " ",
-    };
-
-    console.log("dss");
-    changeable_data = contentInfo.filter((element) => element.id === id);
-    console.log(changeable_data);
-    changeable_data[0].title = toWhere;
-    console.log(changeable_data);
-    info=contentInfo.filter((element) => element.id !== id)
-    console.log(info);
-    info.push(changeable_data[0])
-    console.log(info);
-    changeContentInfo(info);
+    const updatedContentInfo = contentInfo.map((element) =>
+      element.id === id ? { ...element, title: toWhere } : element
+    );
+    changeContentInfo(updatedContentInfo);
   };
   return (
     <div className="columnProgessBox">
       <Title
         title={title}
-        onPressed={() => {
-          console.log("BackLog add button is pressed");
-        }}
+        onPressed={onAddPressed}
       />
       {contentInfo.map((content) =>
         content.title === title ? (
@@ -52,7 +31,6 @@ const ColumnProgessBox = ({
             key={content.id}
             {...content}
             changeToWhere={changeToWhere}
-            toWhere={toWhere}
             onClick={() => {
               onClickChange(content.id, toWhere);
             }}
@@ -64,18 +42,32 @@ const ColumnProgessBox = ({
     </div>
   );
 };
+
+
 const Title = ({ title, onPressed }) => {
+  // const [showPopup, setShowPopup] = useState(true);
+
+  // const handleFormSubmit = () => {
+  //   // Handle form submission
+  //   setShowPopup(false);
+  // };
+  const [open, setOpen] = useState(false);
+  const closeModal = () => setOpen(false);
   return (
     <div>
       <div className="title">
         <h5>{title}</h5>
-        <AddIcon onClick={onPressed} className="addIcon" />
+        <AddIcon onClick={() => setOpen(o => !o)} className="addIcon" />
+        <Popup open={open} closeOnDocumentClick onClose={closeModal}>
+        <PopUpToDo onClose={closeModal} />
+      </Popup>
       </div>
     </div>
   );
 };
+
+
 const Content = ({
-  toWhere,
   label,
   projectTitle,
   projectSubTitle,
@@ -92,7 +84,6 @@ const Content = ({
     let handler = (e) => {
       if (!menuRef.current.contains(e.target)) {
         setOpen(false);
-        // console.log(menuRef.current);
       }
     };
 
@@ -114,7 +105,7 @@ const Content = ({
               setOpen(!open);
             }}
           >
-            V
+            {open ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
           </div>
 
           <div className={`dropdown-menu ${open ? "active" : "inactive"}`}>
@@ -123,25 +114,21 @@ const Content = ({
                 changeToWhere={changeToWhere}
                 onClick={onClick}
                 text={"BackLog"}
-                toWhere={toWhere}
               />
               <DropdownItem
                 changeToWhere={changeToWhere}
                 onClick={onClick}
                 text={"To Do"}
-                toWhere={toWhere}
               />
               <DropdownItem
                 changeToWhere={changeToWhere}
                 onClick={onClick}
                 text={"In Progress"}
-                toWhere={toWhere}
               />
               <DropdownItem
                 changeToWhere={changeToWhere}
                 onClick={onClick}
                 text={"Review"}
-                toWhere={toWhere}
               />
             </ul>
           </div>
@@ -154,25 +141,25 @@ const Content = ({
     </div>
   );
 };
-function DropdownItem({ changeToWhere, onClick, text, toWhere }) {
-  const [d,cd]=useState(false);
+function DropdownItem({ changeToWhere, onClick, text }) {
+  const [d, cd] = useState(false);
   async function handleClicked() {
     changeToWhere(text);
     cd(true);
-      
+
     console.log(d);
     console.log("dfvsdfdsfsdfsdfdsf");
   }
   useEffect(() => {
-    if(d)
-    { console.log("34");
+    if (d) {
+      console.log("34");
       onClick();
     }
-    // 
-  },[d]);
+    // eslint-disable-next-line
+  }, [d]);
   return (
     <li className="dropdownItem" onClick={handleClicked}>
-      <a> {text} </a>
+      <a href="e"> {text} </a>
     </li>
   );
 }

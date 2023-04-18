@@ -63,7 +63,7 @@ setHideError(true);
     });
   };
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="signupForm" onSubmit={handleSubmit}>
     <img class="Logo_image" src={MainLogo} alt="Alt text for logo" />
       <h2>Welcome</h2>
       <div className="inputFieldBox">

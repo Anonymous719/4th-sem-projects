@@ -35,7 +35,7 @@ const LogIn_Part = () => {
     });
   };
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="loginForm" onSubmit={handleSubmit}>
       <img class="Logo_image" src={MainLogo} alt="Alt text for logo" />
       <h1>Welcome back</h1>
       <div className="inputFieldBox">

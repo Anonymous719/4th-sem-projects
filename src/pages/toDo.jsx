@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import "./progress.css";
+import "./toDo.css";
 import TopProgressBar from "../component/topBar/topProgressBar";
 import ColumnProgessBox from "../component/columnProgessBox/columnProgessBox.jsx";
 import MemberListBox from "../component/memberListBox/memberListBox";
 import { Topbar } from "../component/navBar/topbar";
-const ProgressPage = () => {
+const ToDoPage = () => {
   const [contentInfo, changeContentInfo] = useState([
     {
       title: "BackLog",
@@ -45,7 +45,7 @@ const ProgressPage = () => {
 
     {
       title: "To Do",
-      id: 11,
+      id: 5,
       label: "Research",
       projectTitle:
         " To Do  Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -56,7 +56,7 @@ const ProgressPage = () => {
     {
       title: "To Do",
 
-      id: 12,
+      id: 6,
       label: "Research",
       projectTitle:
         "To Do Aenean iaculis nibh sed neque scelerisque, vel consequat risus ornare.",
@@ -67,7 +67,7 @@ const ProgressPage = () => {
     {
       title: "To Do",
 
-      id: 13,
+      id: 7,
       label: "Research",
       projectTitle: "To Do Etiam ultricies diam eget rutrum vestibulum.",
       projectSubTitle: "Etiam gravida quam id lacus pellentesque ultrices.",
@@ -76,7 +76,7 @@ const ProgressPage = () => {
     {
       title: "To Do",
 
-      id: 14,
+      id: 8,
       label: "Research",
       projectTitle: "To Do Etiam ultricies diam eget rutrum vestibulum.",
       projectSubTitle: "Etiam gravida quam id lacus pellentesque ultrices.",
@@ -86,7 +86,7 @@ const ProgressPage = () => {
     {
       title: "In Progress",
 
-      id: 21,
+      id: 9,
       label: "Research",
       projectTitle:
         " In Progress   Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -97,7 +97,7 @@ const ProgressPage = () => {
     {
       title: "In Progress",
 
-      id: 22,
+      id: 10,
       label: "Research",
       projectTitle:
         "In Progress Aenean iaculis nibh sed neque scelerisque, vel consequat risus ornare.",
@@ -108,7 +108,7 @@ const ProgressPage = () => {
     {
       title: "In Progress",
 
-      id: 23,
+      id: 11,
       label: "In ProgressResearch",
       projectTitle: "Etiam ultricies diam eget rutrum vestibulum.",
       projectSubTitle: "Etiam gravida quam id lacus pellentesque ultrices.",
@@ -116,7 +116,7 @@ const ProgressPage = () => {
     },
     {
       title: "In Progress",
-      id: 24,
+      id: 12,
       label: "Research",
       projectTitle: "In Progress Etiam ultricies diam eget rutrum vestibulum.",
       projectSubTitle: "Etiam gravida quam id lacus pellentesque ultrices.",
@@ -125,7 +125,7 @@ const ProgressPage = () => {
 
     {
       title: "Review",
-      id: 31,
+      id: 13,
       label: "Research",
       projectTitle:
         " Review   Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -135,7 +135,7 @@ const ProgressPage = () => {
     },
     {
       title: "Review",
-      id: 32,
+      id:14,
       label: "Research",
       projectTitle:
         " Review Aenean iaculis nibh sed neque scelerisque, vel consequat risus ornare.",
@@ -145,7 +145,7 @@ const ProgressPage = () => {
     },
     {
       title: "Review",
-      id: 33,
+      id: 15,
       label: "Research",
       projectTitle: " Review Etiam ultricies diam eget rutrum vestibulum.",
       projectSubTitle: "Etiam gravida quam id lacus pellentesque ultrices.",
@@ -153,13 +153,14 @@ const ProgressPage = () => {
     },
     {
       title: "Review",
-      id: 34,
+      id: 16,
       label: "Research",
       projectTitle: " Review Etiam ultricies diam eget rutrum vestibulum.",
       projectSubTitle: "Etiam gravida quam id lacus pellentesque ultrices.",
       date: "1987-08-09, ",
     },
   ]);
+  const [addPressed,ChangeAddPressed]=useState("False")
   return (
     <div>
       <Topbar />
@@ -168,6 +169,8 @@ const ProgressPage = () => {
           <TopProgressBar />
           <div className="columns">
             <ColumnProgessBox
+              onAddPressed={()=>{ChangeAddPressed(true);
+              console.log(addPressed)}}
               title={"BackLog"}
               contentInfo={contentInfo}
               onClick={() => {
@@ -203,4 +206,4 @@ const ProgressPage = () => {
   );
 };
 
-export default ProgressPage;
+export default ToDoPage;

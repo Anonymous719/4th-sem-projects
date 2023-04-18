@@ -6,12 +6,12 @@ import { useNavigate } from "react-router-dom";
 
 const Cards = ({ ProjectsName, ProjectHead, Date, ImgSrc, isCompleted }) => {
 const navigate=useNavigate();
-const navigateToProgressPage=()=>
+const navigateToToDoPage=()=>
 {
    navigate("/progress");
 }
   return (
-    <div onClick={navigateToProgressPage} class="dashboardCardsBox">
+    <div onClick={navigateToToDoPage} class="dashboardCardsBox">
       <img
         className="projectProfilePic"
         src={ImgSrc}

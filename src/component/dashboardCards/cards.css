@@ -17,7 +17,6 @@
     border-radius: 25px;
 }
 .dashboardCardsBox:hover{
-    transform: scale(1.2);
-    transition: transform 0.3s ease-in-out;
+   
     box-shadow: 5px 5px 10px rgba(31, 5, 5, 0.2);
 }

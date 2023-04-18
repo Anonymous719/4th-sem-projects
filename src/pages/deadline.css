@@ -1,0 +1,40 @@
+.deadline-card{
+    width: fit-content;
+    margin: 10% 10%;
+    padding: 10px;
+    border-radius: 25px;
+    box-shadow: 10px 10px 10px rgba(0,0,0,0.3);
+}
+.digital-timer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: Arial, sans-serif;
+    color: #333;
+    width:fit-content;
+  }
+  
+  .digits {
+    display: flex;
+  }
+  
+  .digit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 0.3rem;
+    font-size: 1rem;
+    text-shadow: 1px 1px #ccc;
+  }
+  
+  .digit span:first-child {
+    font-weight: bold;
+  }
+  
+  .digit span:last-child {
+    font-size: 1rem;
+    /* margin-top: -0.5rem; */
+    text-transform: uppercase;
+  }
+  
