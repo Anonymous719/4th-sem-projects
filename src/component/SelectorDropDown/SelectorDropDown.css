@@ -1,0 +1,55 @@
+/* @tailwind base;
+@tailwind components;
+@tailwind utilities; */
+.dropDownSelectorContainer{
+    width:72px;
+    font-size: medium;
+    height: 8px;
+
+}
+
+.selector-wrapper {
+    width: 18rem;
+    font-family: sans-serif;
+  }
+  
+  .selector-header {
+    background-color: #fff;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 0.25rem;
+    cursor: pointer;
+  }
+  
+  .selector-header:hover {
+    background-color: #f7fafc;
+  }
+  
+  .selector-header.selected {
+    background-color: #1c64f2;
+    color: #fff;
+  }
+  
+  .selector-header.selected:hover {
+    background-color: #0053c2;
+  }
+  
+  .rotate-180 {
+    transform: rotate(180deg);
+  }
+  
+  .selector-list {
+    background-color: #fff;
+    margin-top: 0.5rem;
+    overflow-y: auto;
+    max-height: 0;
+    transition: max-height 0.2s ease-out;
+  }
+  
+  .selector-list.open {
+    max-height: 15rem;
+    transition: max-height 0.2s ease
+  }  
