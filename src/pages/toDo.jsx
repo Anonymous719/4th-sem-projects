@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./toDo.css";
 import TopToDoBar from "../component/topBar/topToDoBar";
-import ColumnProgessBox from "../component/columnProgessBox/columnProgessBox.jsx";
+import ColumnProgessBox from "../component/columnToDoBox/columnToDoBox.jsx";
 import MemberListBox from "../component/memberListBox/memberListBox";
 import Topbar  from "../component/navBar/topbar";
 const ToDoPage = () => {
@@ -71,7 +71,7 @@ const ToDoPage = () => {
       label: "Research",
       projectTitle: "To Do Etiam ultricies diam eget rutrum vestibulum.",
       projectSubTitle: "Etiam gravida quam id lacus pellentesque ultrices.",
-      date: "1987-08-09, ",
+      date: "1987-08-09",
     },
     {
       title: "To Do",
@@ -80,7 +80,7 @@ const ToDoPage = () => {
       label: "Research",
       projectTitle: "To Do Etiam ultricies diam eget rutrum vestibulum.",
       projectSubTitle: "Etiam gravida quam id lacus pellentesque ultrices.",
-      date: "1987-08-09, ",
+      date: "1987-08-09",
     },
 
     {
@@ -112,7 +112,7 @@ const ToDoPage = () => {
       label: "In ProgressResearch",
       projectTitle: "Etiam ultricies diam eget rutrum vestibulum.",
       projectSubTitle: "Etiam gravida quam id lacus pellentesque ultrices.",
-      date: "1987-08-09, ",
+      date: "1987-08-09",
     },
     {
       title: "In Progress",
@@ -120,7 +120,7 @@ const ToDoPage = () => {
       label: "Research",
       projectTitle: "In Progress Etiam ultricies diam eget rutrum vestibulum.",
       projectSubTitle: "Etiam gravida quam id lacus pellentesque ultrices.",
-      date: "1987-08-09, ",
+      date: "1987-08-09",
     },
 
     {
@@ -149,7 +149,7 @@ const ToDoPage = () => {
       label: "Research",
       projectTitle: " Review Etiam ultricies diam eget rutrum vestibulum.",
       projectSubTitle: "Etiam gravida quam id lacus pellentesque ultrices.",
-      date: "1987-08-09, ",
+      date: "1987-08-09",
     },
     {
       title: "Review",
@@ -157,7 +157,7 @@ const ToDoPage = () => {
       label: "Research",
       projectTitle: " Review Etiam ultricies diam eget rutrum vestibulum.",
       projectSubTitle: "Etiam gravida quam id lacus pellentesque ultrices.",
-      date: "1987-08-09, ",
+      date: "1987-08-09",
     },
   ]);
   const [addPressed,ChangeAddPressed]=useState("False")

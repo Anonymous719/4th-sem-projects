@@ -1,36 +1,36 @@
 import React, { useEffect, useState } from "react";
 import { BiChevronDown } from "react-icons/bi";
-import { AiOutlineSearch } from "react-icons/ai";
+
 
 import "./SelectorDropDown.css";
-const SelectorDropDown = () => {
-  return <Selector />;
-};
-const Selector = () => {
-  const [countries, setCountries] = useState(null);
+const SelectorDropDown = ({setProjectCategory}) => {
+  // const [countries, setCountries] = useState(null);
   const [inputValue, setInputValue] = useState("");
   const [selected, setSelected] = useState("");
   const [open, setOpen] = useState(false);
   const optionCategories = ["BackLog", "To Do", "In Progress", "Review"];
-  useEffect(() => {
-    fetch("https://restcountries.com/v2/all?fields=name")
-      .then((res) => res.json())
-      .then((data) => {
-        setCountries(data);
-      });
-  }, []);
+  // useEffect(() => {
+  //   fetch("https://restcountries.com/v2/all?fields=name")
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setCountries(data);
+  //     });
+  // }, []);
 
   const handleOpen = () => {
     setOpen(!open);
   };
 
-  const handleInputChange = (e) => {
-    setInputValue(e.target.value.toLowerCase());
-  };
-
+  // const handleInputChange = (e) => {
+  //   setInputValue(e.target.value.toLowerCase());
+  // };
+  const handleCategoryChange=(option)=>{
+     setSelected(option);
+  }
   const handleSelect = (option) => {
     if (option !== selected) {
-      setSelected(option);
+      setProjectCategory(option)
+      handleCategoryChange(option);
       setOpen(false);
       setInputValue("");
     }
@@ -76,6 +76,9 @@ const Selector = () => {
       </ul>
     </div>
   );
+};
+const Selector = () => {
+  
 };
 // const Selector = () => {
 //   const [countries, setCountries] = useState(null);

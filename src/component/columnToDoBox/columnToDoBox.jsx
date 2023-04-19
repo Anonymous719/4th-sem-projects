@@ -1,16 +1,17 @@
 import React, { useState, useRef, useEffect } from "react";
-import "./columnProgessBox.css";
+import "./columnToDoBox.css";
 import AddIcon from "@mui/icons-material/Add";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import PopUpToDo from "../popUp/popUp";
-import Popup from 'reactjs-popup';
+import Popup from "reactjs-popup";
 const ColumnProgessBox = ({
   title,
-  contentInfo,
+  contentInfo,changeContentInfo,
   onAddPressed,
-  changeContentInfo,
+  
 }) => {
+  
   const [toWhere, changeToWhere] = useState("");
 
   const onClickChange = (id, toWhere) => {
@@ -21,10 +22,7 @@ const ColumnProgessBox = ({
   };
   return (
     <div className="columnProgessBox">
-      <Title
-        title={title}
-        onPressed={onAddPressed}
-      />
+      <Title title={title} contentInfo={contentInfo} changeContentInfo={changeContentInfo} />
       {contentInfo.map((content) =>
         content.title === title ? (
           <Content
@@ -43,29 +41,22 @@ const ColumnProgessBox = ({
   );
 };
 
-
-const Title = ({ title, onPressed }) => {
-  // const [showPopup, setShowPopup] = useState(true);
-
-  // const handleFormSubmit = () => {
-  //   // Handle form submission
-  //   setShowPopup(false);
-  // };
+const Title = ({ title,contentInfo,changeContentInfo, }) => {
   const [open, setOpen] = useState(false);
+ 
   const closeModal = () => setOpen(false);
   return (
     <div>
       <div className="title">
         <h5>{title}</h5>
-        <AddIcon onClick={() => setOpen(o => !o)} className="addIcon" />
+        <AddIcon onClick={() => setOpen((o) => !o)} className="addIcon" />
         <Popup open={open} closeOnDocumentClick onClose={closeModal}>
-        <PopUpToDo onClose={closeModal} />
-      </Popup>
+          <PopUpToDo  contentInfo={contentInfo} changeContentInfo={changeContentInfo} onClose={closeModal} />
+        </Popup>
       </div>
     </div>
   );
 };
-
 
 const Content = ({
   label,
@@ -160,7 +151,7 @@ function DropdownItem({ changeToWhere, onClick, text }) {
   return (
     // eslint-disable-next-line
     <li className="dropdownItem" onClick={handleClicked}>
-      <div > {text} </div>
+      <div> {text} </div>
     </li>
   );
 }
