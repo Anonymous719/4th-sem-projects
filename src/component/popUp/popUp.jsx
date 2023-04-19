@@ -4,6 +4,7 @@ import AssignmentIcon from "@mui/icons-material/Assignment";
 import InputField from "../InputField/InputField";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import SelectorDropDown from "../SelectorDropDown/SelectorDropDown";
 //
 const PopUpToDo = ({ onClose }) => {
   const [projectLabel, setProjectLabel] = useState("");
@@ -39,7 +40,7 @@ const PopUpToDo = ({ onClose }) => {
           <div className="iconDiv">
             <AssignmentIcon fontSize="large" className="assignmentIcon" />
           </div>
-
+<SelectorDropDown />
           <InputField
             label={""}
             type={"text"}

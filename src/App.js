@@ -9,12 +9,14 @@ import DeadlineList from "./pages/deadline"// eslint-disable-next-line
 import ProjectPage from "./pages/projectpage";
 import SelectorDropDown from "./component/SelectorDropDown/SelectorDropDown.js"
 import ProfilePage from "./pages/profilePage";
+import PopUpToDo from "./component/popUp/popUp";
 function App() {
   return (
     <BrowserRouter>
       <Box sx={{ backgroundColor: "#fff" }}>
       {/* <SelectorDropDown /> */}
       {/* <ProjectPage></ProjectPage> */}
+      {/* <PopUpToDo/> */}
       {/* <DeadlineList /> */}
         <Routes>
           <Route path="/" element={<LogIn />} />

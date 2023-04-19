@@ -2,19 +2,16 @@ import React, { useEffect, useState } from "react";
 import { BiChevronDown } from "react-icons/bi";
 import { AiOutlineSearch } from "react-icons/ai";
 
-import "./SelectorDropDown.css"
+import "./SelectorDropDown.css";
 const SelectorDropDown = () => {
-  return (
-   
-      <Selector />
-  )
-}
+  return <Selector />;
+};
 const Selector = () => {
   const [countries, setCountries] = useState(null);
   const [inputValue, setInputValue] = useState("");
   const [selected, setSelected] = useState("");
   const [open, setOpen] = useState(false);
-
+  const optionCategories = ["BackLog", "To Do", "In Progress", "Review"];
   useEffect(() => {
     fetch("https://restcountries.com/v2/all?fields=name")
       .then((res) => res.json())
@@ -31,9 +28,9 @@ const Selector = () => {
     setInputValue(e.target.value.toLowerCase());
   };
 
-  const handleSelect = (country) => {
-    if (country?.name?.toLowerCase() !== selected.toLowerCase()) {
-      setSelected(country?.name);
+  const handleSelect = (option) => {
+    if (option !== selected) {
+      setSelected(option);
       setOpen(false);
       setInputValue("");
     }
@@ -43,27 +40,23 @@ const Selector = () => {
     <div className="selector-wrapper">
       <div
         onClick={handleOpen}
-        className={`selector-header ${!selected && "text-gray-700"}`}
+        className={`selector-header ${!selected && "selected"}`}
       >
-        {selected
-          ? selected?.length > 25
-            ? selected?.substring(0, 25) + "..."
-            : selected
-          : "Select Country"}
+        {selected ? selected : "Select Category"}
         <BiChevronDown size={20} className={`${open && "rotate-180"}`} />
       </div>
       <ul className={`selector-list ${open ? "open" : ""}`}>
-        <div className="selector-search-wrapper">
-          <AiOutlineSearch size={18} className="search-icon" />
-          <input
-            type="text"
-            value={inputValue}
-            onChange={handleInputChange}
-            placeholder="Enter country name"
-            className="selector-search-input"
-          />
-        </div>
-        {countries?.map((country) => (
+        {optionCategories.map((option) => (
+          <li
+            key={option.name}
+            className={`selector-item ${option === selected && "selected"}`}
+            onClick={() => handleSelect(option)}
+          >
+            {option}<hr></hr>
+          </li>
+          
+        ))}
+        {/* {countries?.map((country) => (
           <li
             key={country?.name}
             className={`selector-item ${
@@ -79,7 +72,7 @@ const Selector = () => {
           >
             {country?.name}
           </li>
-        ))}
+        ))} */}
       </ul>
     </div>
   );
@@ -156,6 +149,4 @@ const Selector = () => {
 //   );
 // };
 
-
-
-export default SelectorDropDown
+export default SelectorDropDown;
