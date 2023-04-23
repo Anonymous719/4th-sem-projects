@@ -3,11 +3,13 @@ import "./toDo.css";
 import TopToDoBar from "../component/topBar/topToDoBar";
 import ColumnProgessBox from "../component/columnToDoBox/columnToDoBox.jsx";
 import MemberListBox from "../component/memberListBox/memberListBox";
-import Topbar  from "../component/navBar/topbar";
+import Topbar from "../component/navBar/topbar";
 const ToDoPage = () => {
+
   const [contentInfo, changeContentInfo] = useState([
     {
       title: "BackLog",
+      points: 10,
       id: 1,
       label: "Research",
       projectTitle:
@@ -28,6 +30,7 @@ const ToDoPage = () => {
     },
     {
       title: "BackLog",
+      points: 10,
       id: 3,
       label: "Research",
       projectTitle: "BackLog Etiam ultricies diam eget rutrum vestibulum.",
@@ -36,6 +39,7 @@ const ToDoPage = () => {
     },
     {
       title: "BackLog",
+      points: 10,
       id: 4,
       label: "Research",
       projectTitle: "BackLog Etiam ultricies diam eget rutrum vestibulum.",
@@ -45,6 +49,7 @@ const ToDoPage = () => {
 
     {
       title: "To Do",
+      points: 10,
       id: 5,
       label: "Research",
       projectTitle:
@@ -55,6 +60,7 @@ const ToDoPage = () => {
     },
     {
       title: "To Do",
+      points: 10,
 
       id: 6,
       label: "Research",
@@ -66,6 +72,7 @@ const ToDoPage = () => {
     },
     {
       title: "To Do",
+      points: 10,
 
       id: 7,
       label: "Research",
@@ -75,6 +82,7 @@ const ToDoPage = () => {
     },
     {
       title: "To Do",
+      points: 10,
 
       id: 8,
       label: "Research",
@@ -85,6 +93,7 @@ const ToDoPage = () => {
 
     {
       title: "In Progress",
+      points: 10,
 
       id: 9,
       label: "Research",
@@ -96,7 +105,7 @@ const ToDoPage = () => {
     },
     {
       title: "In Progress",
-
+      points: 10,
       id: 10,
       label: "Research",
       projectTitle:
@@ -107,6 +116,7 @@ const ToDoPage = () => {
     },
     {
       title: "In Progress",
+      points: 10,
 
       id: 11,
       label: "In ProgressResearch",
@@ -116,6 +126,7 @@ const ToDoPage = () => {
     },
     {
       title: "In Progress",
+      points: 10,
       id: 12,
       label: "Research",
       projectTitle: "In Progress Etiam ultricies diam eget rutrum vestibulum.",
@@ -125,6 +136,7 @@ const ToDoPage = () => {
 
     {
       title: "Review",
+      points: 10,
       id: 13,
       label: "Research",
       projectTitle:
@@ -135,7 +147,8 @@ const ToDoPage = () => {
     },
     {
       title: "Review",
-      id:14,
+      points: 10,
+      id: 14,
       label: "Research",
       projectTitle:
         " Review Aenean iaculis nibh sed neque scelerisque, vel consequat risus ornare.",
@@ -145,6 +158,7 @@ const ToDoPage = () => {
     },
     {
       title: "Review",
+      points: 10,
       id: 15,
       label: "Research",
       projectTitle: " Review Etiam ultricies diam eget rutrum vestibulum.",
@@ -153,6 +167,7 @@ const ToDoPage = () => {
     },
     {
       title: "Review",
+      points: 10,
       id: 16,
       label: "Research",
       projectTitle: " Review Etiam ultricies diam eget rutrum vestibulum.",
@@ -160,7 +175,7 @@ const ToDoPage = () => {
       date: "1987-08-09",
     },
   ]);
-  const [addPressed,ChangeAddPressed]=useState("False")
+  const [addPressed, ChangeAddPressed] = useState("False");
   return (
     <div>
       <Topbar />
@@ -169,8 +184,10 @@ const ToDoPage = () => {
           <TopToDoBar />
           <div className="columns">
             <ColumnProgessBox
-              onAddPressed={()=>{ChangeAddPressed(true);
-              console.log(addPressed)}}
+              onAddPressed={() => {
+                ChangeAddPressed(true);
+                console.log(addPressed);
+              }}
               title={"BackLog"}
               contentInfo={contentInfo}
               onClick={() => {

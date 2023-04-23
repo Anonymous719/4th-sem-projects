@@ -6,6 +6,9 @@
               border-radius: 20px;
               background-color: transparent;
 }
+.label{
+  margin-bottom: 5px;
+}
 /* Target autofilled inputs in all major browsers
 input:-internal-autofill-selected{
   background-color: yellow !important;

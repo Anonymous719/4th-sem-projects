@@ -3,7 +3,7 @@ import "./columnToDoBox.css";
 import AddIcon from "@mui/icons-material/Add";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
-import PopUpToDo from "../popUp/popUp";
+import PopUpToDo from "../popUp/LandingPopUp";
 import Popup from "reactjs-popup";
 const ColumnProgessBox = ({
   title,
@@ -11,7 +11,7 @@ const ColumnProgessBox = ({
   onAddPressed,
   
 }) => {
-  
+  const isHead=true;
   const [toWhere, changeToWhere] = useState("");
 
   const onClickChange = (id, toWhere) => {
@@ -22,10 +22,10 @@ const ColumnProgessBox = ({
   };
   return (
     <div className="columnProgessBox">
-      <Title title={title} contentInfo={contentInfo} changeContentInfo={changeContentInfo} />
+      <Title isHead={isHead} title={title} contentInfo={contentInfo} changeContentInfo={changeContentInfo} />
       {contentInfo.map((content) =>
         content.title === title ? (
-          <Content
+          <Content isHead={isHead}
             key={content.id}
             {...content}
             changeToWhere={changeToWhere}
@@ -41,7 +41,7 @@ const ColumnProgessBox = ({
   );
 };
 
-const Title = ({ title,contentInfo,changeContentInfo, }) => {
+const Title = ({ title,contentInfo,changeContentInfo, isHead}) => {
   const [open, setOpen] = useState(false);
  
   const closeModal = () => setOpen(false);
@@ -49,11 +49,11 @@ const Title = ({ title,contentInfo,changeContentInfo, }) => {
     <div>
       <div className="title">
         <h5>{title}</h5>
-        <AddIcon onClick={() => setOpen((o) => !o)} className="addIcon" />
+        {isHead ? <AddIcon onClick={() => setOpen((o) => !o)} className="addIcon" /> :""}
         <Popup open={open} closeOnDocumentClick onClose={closeModal}>
           <PopUpToDo  contentInfo={contentInfo} changeContentInfo={changeContentInfo} onClose={closeModal} />
         </Popup>
-      </div>
+      </div> 
     </div>
   );
 };
@@ -66,6 +66,7 @@ const Content = ({
   onClick,
   onDoubleClick,
   changeToWhere,
+  isHead,
 }) => {
   const [open, setOpen] = useState(false);
 
@@ -116,11 +117,14 @@ const Content = ({
                 onClick={onClick}
                 text={"In Progress"}
               />
-              <DropdownItem
+              {
+                isHead?<DropdownItem
                 changeToWhere={changeToWhere}
                 onClick={onClick}
                 text={"Review"}
-              />
+              />:""
+              }
+              
             </ul>
           </div>
         </div>

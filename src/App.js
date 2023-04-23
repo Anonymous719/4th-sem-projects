@@ -6,18 +6,35 @@ import LogIn from "./pages/loginSignup"; // eslint-disable-next-line
 import ToDoPage from "./pages/toDo"; // eslint-disable-next-line
 import Dashboard from "./pages/dashboard";// eslint-disable-next-line
 import DeadlineList from "./pages/deadline"// eslint-disable-next-line
-import ProjectPage from "./pages/projectpage";
-import SelectorDropDown from "./component/SelectorDropDown/SelectorDropDown.js"
-import ProfilePage from "./pages/profilePage";
-import PopUpToDo from "./component/popUp/popUp";
+import ProjectPage from "./pages/projectpage";// eslint-disable-next-line
+import SelectorDropDown from "./component/SelectorDropDown/SelectorDropDown.js"// eslint-disable-next-line
+import ProfilePage from "./pages/profilePage";// eslint-disable-next-line
+import PopUpToDo from "./component/popUp/LandingPopUp";// eslint-disable-next-line
+import PopUpDashboard from "./component/popUp/dashboardPopUP";
+import ResourcesPage from "./pages/resourcespage";
+import Chatpage from "./pages/chatpage";
 function App() {
   return (
     <BrowserRouter>
       <Box sx={{ backgroundColor: "#fff" }}>
+      {/* <PopUpDashboard/> */}
       {/* <SelectorDropDown /> */}
       {/* <ProjectPage></ProjectPage> */}
       {/* <PopUpToDo/> */}
       {/* <DeadlineList /> */}
+      {/* <ResourcesPage /> */}
+      {/* <Chatpage /> */}
+
+       {/* email and pass and redirect to  create profile page ,Gender(dropDown male Female other),required((phno, name, git link,)) DoB,  */}
+       {/* hr assigned not added sir snga discuss */}
+       {/* dashborad ko radio button click garda ,front end bata backend ma change requews for status compted
+        */}
+        {/* create /join project ko sucess msg */}
+        {/* dashboard maa completed attribute add garera loop chalaunu paryo */}
+        {/* set as completed ko radio button add */}
+        {/* self more color other dim  */}
+        {/* self drop down foe only head  */}
+        {/* todo completed to tag/aattribute */}
         <Routes>
           <Route path="/" element={<LogIn />} />
           <Route path="/dashboard" element={<Dashboard />} />
@@ -25,6 +42,8 @@ function App() {
           <Route path="/projectPage" element={<ProjectPage />} />
           <Route path="/deadline" element={<DeadlineList />} />
           <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/resources" element={<ResourcesPage />} />
+          <Route path="/chat" element={<Chatpage/>} />
         </Routes>
       </Box>
     </BrowserRouter>

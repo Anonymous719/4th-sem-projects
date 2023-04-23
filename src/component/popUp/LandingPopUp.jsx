@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./popUp.css";
+import "./LandingPopUp.css";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import InputField from "../InputField/InputField";
 import DatePicker from "react-datepicker";
@@ -59,8 +59,8 @@ const PopUpToDo = ({ onClose, onPressed, contentInfo, changeContentInfo }) => {
   // ${onClose?"closed":"opened"}
   return (
     <div className="modal">
-      <div className="popUpDiv " style={{ background: "transparent" }}>
-        <form className="popup-form" onSubmit={handleSubmit}>
+      <div className="LandingpopUpDiv " style={{ background: "transparent" }}>
+        <form className="Landingpopup-form" onSubmit={handleSubmit}>
           <div className="iconDiv">
             <AssignmentIcon fontSize="large" className="assignmentIcon" />
           </div>
@@ -83,6 +83,20 @@ const PopUpToDo = ({ onClose, onPressed, contentInfo, changeContentInfo }) => {
             label={""}
             type={"text"}
             placeholder={"Project Description"}
+            onChange={(event) => setProjectDescription(event.target.value)}
+            value={projectDescription}
+          />
+           <InputField
+            label={""}
+            type={"number"}
+            placeholder={"Task Points"}
+            onChange={(event) => setProjectDescription(event.target.value)}
+            value={projectDescription}
+          />
+           <InputField
+            label={""}
+            type={"text"}
+            placeholder={"Assigned to:"}
             onChange={(event) => setProjectDescription(event.target.value)}
             value={projectDescription}
           />

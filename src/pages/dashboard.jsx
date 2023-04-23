@@ -13,6 +13,8 @@ import profilePic_5 from "../Images/CardProfilePic_5.png";
 import profilePic_6 from "../Images/CardProfilePic_6.png";
 import { Fab } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
+import PopUpDashboard from "../component/popUp/dashboardPopUP";
+import Popup from "reactjs-popup";
 const Dashboard = () => {
   const projectDetails = [
     {
@@ -87,7 +89,8 @@ const Dashboard = () => {
     },
   ];
   const [isCompleted, changeCompleted] = useState(false);
-
+  const [open, setOpen] = useState(false);
+  const closeModal = () => setOpen(false);
   return (
     <div className="DashBoard">
       <Topbar />
@@ -110,7 +113,11 @@ const Dashboard = () => {
           <Cards isCompleted={isCompleted} key={projects.id} {...projects} />
         ))}
       </div>
-      <Fab color="primary" aria-label="add" style={{position: 'fixed', bottom: 32, right: 32, zIndex: 999}}>
+      
+      <Fab onClick={() => setOpen((o) => !o)} color="primary" aria-label="add" style={{position: 'fixed', bottom: 32, right: 32, zIndex: 999}}>
+      <Popup open={open} closeOnDocumentClick onClose={closeModal}>
+          <PopUpDashboard  onClose={closeModal} />
+        </Popup>
   <AddIcon />
 </Fab>
     </div>
