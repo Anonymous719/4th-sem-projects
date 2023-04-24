@@ -13,6 +13,7 @@ import PopUpToDo from "./component/popUp/LandingPopUp";// eslint-disable-next-li
 import PopUpDashboard from "./component/popUp/dashboardPopUP";
 import ResourcesPage from "./pages/resourcespage";
 import Chatpage from "./pages/chatpage";
+import Tryyy from "./component/API/api";
 function App() {
   return (
     <BrowserRouter>
@@ -26,7 +27,7 @@ function App() {
       {/* <Chatpage /> */}
 
        {/* email and pass and redirect to  create profile page ,Gender(dropDown male Female other),required((phno, name, git link,)) DoB,  */}
-       {/* hr assigned not added sir snga discuss */}
+       {/* hr assignednpm not added sir snga discuss */}
        {/* dashborad ko radio button click garda ,front end bata backend ma change requews for status compted
         */}
         {/* create /join project ko sucess msg */}
@@ -35,6 +36,9 @@ function App() {
         {/* self more color other dim  */}
         {/* self drop down foe only head  */}
         {/* todo completed to tag/aattribute */}
+{/* <Tryyy /> */}
+
+
         <Routes>
           <Route path="/" element={<LogIn />} />
           <Route path="/dashboard" element={<Dashboard />} />
