@@ -1,19 +1,34 @@
 import React, { useState } from "react";
-import axios from "axios";
-
-import "./signUpPart.css";
 import { Google, Facebook, GitHub } from "@mui/icons-material";
 import { Button } from "@material-ui/core";
+import DatePicker from "react-datepicker";
+import Popup from "reactjs-popup";
+import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
+
+import "./signUpPart.css";
+
 import InputField from "../InputField/InputField";
 import Errormsg from "../ErrorMsgField/ErrorMsgField";
 import PasswordField from "../PasswordField/passwordField";
 import MainLogo from "./../../Images/MainLogo.png";
-import DatePicker from "react-datepicker";
 import GenderSelectorDropdown from "../SelectorDropDown/GenderSelectorDropdown";
 import "react-datepicker/dist/react-datepicker.css";
 import { apiAddress } from "../API/api";
+import { PositivepopUp } from "../popUp/ErrorpopUp";
+import ErrorpopUp from "../popUp/ErrorpopUp";
+
 const SignUp_Part = () => {
-  // const [selectedDate, setSelectedDate] = useState(new Date());
+  const navigate = useNavigate();
+  const navigateToDashboard = () => {
+    navigate("/dashboard");
+  };
+
+  const [errorMsg, setErrorMsg] = useState("");
+  const [openResponse, setOpenResponse] = useState(false);
+  const [openError, setOpenError] = useState(false);
+  const closeModalError = () => setOpenError(false);
+  const closeModalResponse = () => setOpenResponse(false);
   const [forwardCreateProfile, createForwardCreateProfile] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -23,22 +38,6 @@ const SignUp_Part = () => {
   const [gender, setGender] = useState("");
   const [dob, setDoB] = useState(new Date());
   const [phonenumber, setPhonenumber] = useState("");
-
-  // const [detail, setdetail] = useState({
-  //   // email and pass and redirect to profile page
-
-  //   username: "",
-  //   password: "",
-  //   confirmPassword: "",
-  // });
-  // const [profileDetails, setprofileDetails] = useState({
-  //   name: "",
-  //   phoneNumber: "",
-  //   gitLinks: "",
-  //   gender: "",
-  //   DoB: new Date(),
-  // });
-
   const [hideError, setHideError] = useState(true);
 
   const handleDateChange = (date) => {
@@ -46,7 +45,7 @@ const SignUp_Part = () => {
     const month = date.getMonth() + 1; // Month is zero-indexed, so we add 1
     const day = date.getDate();
     const newDate = new Date(`${year}-${month}-${day}`);
-    // handleDateafterConvertChange(newDate);
+
     setDoB(newDate);
   };
 
@@ -70,7 +69,16 @@ const SignUp_Part = () => {
         });
         const result = await response.json();
         console.log(result);
-        console.log(response.status)
+        console.log(response.status);
+        if (response.status === 200) {
+          Cookies.set("token", result.token, { expires: 7 });
+          createForwardCreateProfile(true);
+        } else {
+          console.log(result.error);
+          setErrorMsg(result.error);
+          setOpenError((o) => !o);
+          console.log();
+        }
       }
       console.log(
         `Submitted username: ${email} Submitted passowrd ${password} Submitted passowrd ${confirmPassword}`
@@ -79,120 +87,53 @@ const SignUp_Part = () => {
       console.error("Error:", error);
     }
   };
-  // const handleSubmit= async(event)=>{
-  //   event.preventDefault();
-  //   try {
-
-  //   try {
-  //     const response = await axios.post(`${apiAddress}user/signup`, {
-  //       email,password
-  //     });
-  //     console.log(response); // handle response from server
-  //   } catch (error) {
-  //     console.error(error); // handle error
-  //   }
-  // }
-  // const handleSubmit = async (event) => {
-  //   event.preventDefault();
-  //   try {
-  //   if (password !== confirmPassword) {
-  //     setHideError(false);
-  //   }
-  //   if (password === confirmPassword) {
-  //     setHideError(true);
-  //     // createForwardCreateProfile(true);
-  //     event.preventDefault();
-  //   console.log (email ,password)
-  //   const data = {  email, password };
-  //   const response = await fetch(`${apiAddress}user/signup`, {
-  //     method: 'POST',
-  //     headers: {'Content-Type': 'application/json',
-  //   },
-  //     body: JSON.stringify(data)
-  //   });
-  //   const result = await response.json();
-  //   setPassword(response);
-  //   console.log(result);
-  //   }
-  //   console.log(
-  //     `Submitted username: ${email} Submitted passowrd ${password} Submitted passowrd ${confirmPassword}`
-  //   );
-  // } catch (error) {
-  //   console.error("Error:", error);
-  //   // handle the error here
-  // }
-  // };
 
   const handleCreateProfile = async (event) => {
     event.preventDefault();
+    console.log(
+      ` Submitted name ${name} Submitted pphonme ${phonenumber} git links ${gitlink} DOB ${dob}  Gender ${gender}`
+    );
     try {
       const data = { name, phonenumber, gitlink, gender, dob };
       const response = await fetch(`${apiAddress}user/createprofile`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${Cookies.get("token")}`,
+        },
         body: JSON.stringify(data),
       });
       const result = await response.json();
-      setPassword(response);
       console.log(result);
+      if (response.status === 200) {
+        console.log(`Successfully created`);
+        setOpenResponse((o) => !o);
+      } else {
+        console.log(result.error);
+        setErrorMsg(result.error);
+        setOpenError((o) => !o);
+        console.log();
+      }
     } catch (error) {
       console.error("Error:", error);
-      // handle the error here
     }
-    console.log(
-      ` Submitted name ${name} Submitted pphonme ${phonenumber} git links ${gitlink} DOB ${dob}  Gender ${gender}`
-    );
   };
-
-  // const handleUsernameChange = (event) => {
-  //   setdetail((preValue) => {
-  //     return { ...preValue, username: event.target.value };
-  //   });
-  // };
-  // const handlePasswordChange = (event) => {
-  //   if (setHideError === false) {
-  //     setHideError(true);
-  //   }
-  //   setdetail((preValue) => {
-  //     return { ...preValue, password: event.target.value };
-  //   });
-  // };
-  // const handleNameChange = (event) => {
-  //   setprofileDetails((preValue) => {
-  //     return { ...preValue, name: event.target.value };
-  //   });
-  // };
-  // const handlePhoneNumberChange = (event) => {
-  //   setprofileDetails((preValue) => {
-  //     return { ...preValue, phoneNumber: event.target.value };
-  //   });
-  // };
-  // const handleConfirmPasswordChange = (event) => {
-  //   if (setHideError === false) {
-  //     setHideError(true);
-  //   }
-  //   setdetail((preValue) => {
-  //     return { ...preValue, confirmPassword: event.target.value };
-  //   });
-  // };
-  // const handleGitChange = (event) => {
-  //   setprofileDetails((preValue) => {
-  //     return { ...preValue, gitLinks: event.target.value };
-  //   });
-  // };
-  // const handleDateafterConvertChange = (event) => {
-  //   setprofileDetails((preValue) => {
-  //     return { ...preValue, DoB: event.target.value };
-  //   });
-  // };
-  // const handleGenderChange = (event) => {
-  //   setprofileDetails((preValue) => {
-  //     return { ...preValue, gender: event };
-  //   });
-  // };
-
   return (
     <div>
+      <Popup
+        open={openResponse}
+        closeOnDocumentClick
+        onClose={closeModalResponse}
+      >
+        <PositivepopUp
+          PositiveHeading={"Your profile has been created"}
+          Positivemsg={""}
+          onClose={() => navigateToDashboard()}
+        />
+      </Popup>
+      <Popup open={openError} closeOnDocumentClick onClose={closeModalError}>
+        <ErrorpopUp Errormsg={errorMsg} onClose={closeModalError} />
+      </Popup>
       {!forwardCreateProfile ? (
         <form className="signupForm" onSubmit={handleSubmit}>
           <img class="Logo_image" src={MainLogo} alt="Alt text for logo" />
@@ -202,12 +143,9 @@ const SignUp_Part = () => {
               label={""}
               type={"email"}
               placeholder={"Email"}
-              onChange={
-                (event) => {
-                  setEmail(event.target.value);
-                }
-                // handleUsernameChange
-              }
+              onChange={(event) => {
+                setEmail(event.target.value);
+              }}
               value={email}
               title={"Please enter your valid email address"}
             />
@@ -217,7 +155,6 @@ const SignUp_Part = () => {
               onChange={(event) => {
                 setPassword(event.target.value);
               }}
-              // {handlePasswordChange}
               value={password}
               pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
             />
@@ -256,7 +193,6 @@ const SignUp_Part = () => {
                 onChange={(event) => {
                   setName(event.target.value);
                 }}
-                // {handleNameChange}
                 value={name}
               />
               <InputField
@@ -266,7 +202,6 @@ const SignUp_Part = () => {
                 onChange={(event) => {
                   setPhonenumber(event.target.value);
                 }}
-                // {handlePhoneNumberChange}
                 value={phonenumber}
               />
               <InputField
@@ -276,7 +211,6 @@ const SignUp_Part = () => {
                 onChange={(event) => {
                   setgitLinks(event.target.value);
                 }}
-                // {handleGitChange}
                 value={gitlink}
               />
               <GenderSelectorDropdown setGender={setGender} />

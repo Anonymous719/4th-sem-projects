@@ -1,0 +1,2 @@
+var globalToken ;
+export  {globalToken};

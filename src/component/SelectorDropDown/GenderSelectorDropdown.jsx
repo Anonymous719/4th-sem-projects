@@ -8,7 +8,7 @@ const GenderSelectorDropdown = ({setGender}) => {
   const [inputValue, setInputValue] = useState("");
   const [selected, setSelected] = useState("");
   const [open, setOpen] = useState(false);
-  const optionCategories = ["Male","Female","Other"];
+  const optionCategories = ["Male","Female","Non-Binary"];
   const handleOpen = () => {
     setOpen(!open);
   };

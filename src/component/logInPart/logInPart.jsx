@@ -2,36 +2,41 @@ import React, { useState, useEffect } from "react";
 import "./logInPart.css";
 import { Google, Facebook, GitHub } from "@mui/icons-material";
 import { Button } from "@material-ui/core";
+import { useNavigate } from "react-router-dom";
+import Popup from "reactjs-popup";
+import Cookies from "js-cookie";
+
+
+
 import InputField from "../InputField/InputField";
 import Errormsg from "../ErrorMsgField/ErrorMsgField";
 import PasswordField from "../PasswordField/passwordField";
-import { useNavigate } from "react-router-dom";
 import MainLogo from "./../../Images/MainLogo.png";
 import { apiAddress } from "../API/api";
-import axios from "axios";
+import { PositivepopUp } from "../popUp/ErrorpopUp";
+import ErrorpopUp from "../popUp/ErrorpopUp";
+
 const LogIn_Part = () => {
   const navigate = useNavigate();
   const navigateToDashboard = () => {
     navigate("/dashboard");
   };
+ const [isError, setIsError] = useState("");
+  const [openResponse, setOpenResponse] = useState(false);
+  const [openError, setOpenError] = useState(false);
+  const closeModalError = () => setOpenError(false);
+  const closeModalResponse = () => setOpenResponse(false);
   const [data, setData] = useState({});
   const [response, setResponse] = useState({});
   const [email, setUsername] = useState("");
   const [password, setPassword] = useState("");
-const [myData, setMyData] = useState([]);
-    const [isError, setIsError] = useState("");
+  const [myData, setMyData] = useState([]);
+ 
+
+  
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    
-      // const data = { email, password };
-      // axios.post(`${apiAddress}user/login`, {
-      //  data
-      // })
-      // .then((response) => {
-      //   console.log(response);
-      // }, (error) => {
-      //   console.log(error);
-      // });}
     try {
       console.log(email, password);
       const data = { email, password };
@@ -40,34 +45,25 @@ const [myData, setMyData] = useState([]);
         headers: {
           "Content-Type": "application/json",
         },
-    
+
         body: JSON.stringify(data),
       });
-      const result = await response.json();console.log(result);
-      console.log(response.status)
-      if(response.status===200){
-        navigateToDashboard();
+      const result = await response.json();
+      console.log(result);
+      console.log(response.status);
+      if (response.status === 200) {
+        Cookies.set("token", result.token, { expires: 7 }); // expires after 7 days
+        setOpenResponse((o) => !o);
+       
+      } else {
+        console.log(result.error);
+        setIsError(result.error);
+        setOpenError((o) => !o);
       }
-      
     } catch (error) {
       console.error("Error:", error);
-      
     }
   };
-
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   const data = { username, detail };
-  //   const response = await fetch('/api/login', {
-  //     method: 'POST',
-  //     headers: { 'Content-Type': 'application/json' },
-  //     body: JSON.stringify(data)
-  //   });
-  //   const result = await response.json();
-  //   console.log(result);
-  //   console.log(`Submitted username: ${detail.username + detail.password}`);
-  //   navigateToDashboard();
-  // };
 
   useEffect(() => {
     console.log(myData);
@@ -75,34 +71,43 @@ const [myData, setMyData] = useState([]);
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
-    // setdetail((preValue) => {
-    //   return { ...preValue, username: event.target.value };
-    // });
-  };
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-    // setdetail((preValue) => {
-    //   return { ...preValue, password: event.target.value };
-    // });
   };
 
-  useEffect(() => {
-    console.log(data);
-    // fetchData();
-  }, [data]);
-  useEffect(() => {
-    console.log(isError);
-    // fetchData();
-  }, [isError]);
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+  };
+
+  // useEffect(() => {
+  //   console.log(data);
+  //   // fetchData();
+  // }, [data]);
+  // useEffect(() => {
+  //   console.log(isError);
+  //   // fetchData();
+  // }, [isError]);
   async function fetchData() {
     const response = await fetch("http://172.17.1.58:8000/api/user/login");
     const json = await response.json();
     setData(json);
     await console.log(data);
   }
-
+  console.log(Cookies.get("token"));
   return (
     <form className="loginForm" onSubmit={handleSubmit}>
+      <Popup
+        open={openResponse}
+        closeOnDocumentClick
+        onClose={closeModalResponse}
+      >
+        <PositivepopUp
+          PositiveHeading={"Sucessfully LogIN"}
+          Positivemsg={"You have successfully logged in"}
+          onClose={ ()=>navigateToDashboard()}
+        />
+      </Popup>
+      <Popup open={openError} closeOnDocumentClick onClose={closeModalError}>
+        <ErrorpopUp Errormsg={isError} onClose={closeModalError} />
+      </Popup>
       <img class="Logo_image" src={MainLogo} alt="Alt text for logo" />
       <h1>Welcome back</h1>
       <div className="inputFieldBox">

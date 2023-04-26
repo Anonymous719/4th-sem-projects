@@ -14,6 +14,7 @@ import PopUpDashboard from "./component/popUp/dashboardPopUP";
 import ResourcesPage from "./pages/resourcespage";
 import Chatpage from "./pages/chatpage";
 import Tryyy from "./component/API/api";
+import  ErrorpopUp from "./component/popUp/ErrorpopUp"
 function App() {
   return (
     <BrowserRouter>
@@ -38,7 +39,7 @@ function App() {
         {/* todo completed to tag/aattribute */}
 {/* <Tryyy /> */}
 
-
+{/* <ErrorpopUp /> */}
         <Routes>
           <Route path="/" element={<LogIn />} />
           <Route path="/dashboard" element={<Dashboard />} />
