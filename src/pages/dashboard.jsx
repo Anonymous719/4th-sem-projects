@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./dashboard.css";
 import Topbar from "../component/navBar/topbar";
 import { Cards } from "../component/dashboardCards/dashboardCards";
@@ -20,54 +20,22 @@ import { GetToken } from "../GlobalVariable";
 import ErrorpopUp, { PositivepopUp } from "../component/popUp/ErrorpopUp";
 
 const Dashboard = () => {
-  const projectDetails1 = [
-    { id: 0, title: "", createdby: "", deadline: "", ImgSrc: profilePic_1 },
-  ];
-  window.onload = async function () {
-    setIsLoading(true);
-    
-    const token = GetToken();
-    console.log(token);
-    try {
-      const response = await fetch(`${apiAddress}project/getall`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      const result = await response.json();
-      console.log(result);
-      console.log(
-        result[0].title,
-        result[0].deadline,
-        result[0].createdby.name,
-        result[0].createdby._id
-      );
-      for (let i = 0; i < result.length; i++) {
-        projectDetails1[i] = {
-          id: result[i].createdby._id,
-          title: result[i].title,
-          createdby:  result[i].createdby.name,
-          deadline:  result[i].deadline,
-          ImgSrc: profilePic_1,
-        };
-      }
-      console.log(projectDetails1)
-      setIsLoading(false);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  // useEffect(() => {
+  const [projectDetails1, setData] = useState([]);
+  // const projectDetails1 = [
+  //   { id: 0, title: "", createdby: "", deadline: "", ImgSrc: profilePic_1 },
+  // ];
+  // window.onload = async function () {
   //   setIsLoading(true);
+
   //   const token = GetToken();
   //   console.log(token);
   //   try {
-  //     const response =fetch(`${apiAddress}project/getall`, {
+  //     const response = await fetch(`${apiAddress}project/getall`, {
   //       headers: {
   //         Authorization: `Bearer ${token}`,
   //       },
   //     });
-  //     const result = response.json();
+  //     const result = await response.json();
   //     console.log(result);
   //     console.log(
   //       result[0].title,
@@ -75,8 +43,7 @@ const Dashboard = () => {
   //       result[0].createdby.name,
   //       result[0].createdby._id
   //     );
-  //     let i = 0;
-  //     for (let i = 0; i < response.length; i++) {
+  //     for (let i = 0; i < result.length; i++) {
   //       projectDetails1[i] = {
   //         id: result[i].createdby._id,
   //         title: result[i].title,
@@ -84,12 +51,44 @@ const Dashboard = () => {
   //         deadline:  result[i].deadline,
   //         ImgSrc: profilePic_1,
   //       };
-  //       setIsLoading(false);
   //     }
+  //     console.log(projectDetails1)
+  //     setIsLoading(false);
   //   } catch (error) {
   //     console.error(error);
   //   }
-  // }, []);
+  // };
+  useEffect(() => {
+    const token = GetToken();
+    setIsLoading(true);
+    // console.log("dsfdv")
+    // fetch()
+    fetch(`${apiAddress}project/getall`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        setResponseCode(response.status);
+        return response.json();
+      })
+      .then((data) => {
+        for (let i = 0; i < data.length; i++) {
+          const newData = {
+            id: data[i].createdby._id,
+            title: data[i].title,
+            createdby: data[i].createdby.name,
+            deadline: data[i].deadline,
+            ImgSrc: profilePic_1,
+          };
+          setData((prevData) => 
+            [...prevData, newData]
+          );
+        }
+        console.log(projectDetails1);
+        setIsLoading(false);
+      });
+  }, []);
 
   const projectDetails = [
     {
@@ -164,6 +163,7 @@ const Dashboard = () => {
     },
   ];
 
+  const [responseCode, setResponseCode] = useState(null);
   const [errorMsg, setErrorMsg] = useState("");
   const [openResponse, setOpenResponse] = useState(false);
   const [openError, setOpenError] = useState(false);
@@ -173,6 +173,19 @@ const Dashboard = () => {
   const closeModal = () => setOpen(false);
 
   const [isLoading, setIsLoading] = useState(false);
+
+  function CardGenerator({ data }) {
+    return (
+      <div class="dashboardBlocks">
+        {console.log("dfgdfgdfgfg")}
+        {console.log(projectDetails1)}
+        {projectDetails.map((projects) => (
+          <Cards isCompleted={isCompleted} key={projects.id} {...projects} />
+        ))}
+      </div>
+    );
+  }
+
   return (
     <div className="DashBoard">
       <Topbar />
@@ -191,12 +204,16 @@ const Dashboard = () => {
       </div>
       <hr />
       {isLoading && <p>Loading...</p>}
-      {!isLoading && <p>Render the component here</p>}
+      {!isLoading && projectDetails1 && (
+        <CardGenerator data={projectDetails1} />
+      )}
       {/* <div class="dashboardBlocks">
+      {console.log("dfgdfgdfgfg")}{console.log(projectDetails1)}
         {projectDetails1.map((projects) => (
           <Cards isCompleted={isCompleted} key={projects.id} {...projects} />
         ))}
       </div> */}
+      {/* { console.log(responseCode)} */}
 
       <Fab
         onClick={() => setOpen((o) => !o)}
