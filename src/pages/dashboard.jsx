@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./dashboard.css";
 import Topbar from "../component/navBar/topbar";
 import { Cards } from "../component/dashboardCards/dashboardCards";
@@ -18,9 +18,10 @@ import Popup from "reactjs-popup";
 import { apiAddress } from "../component/API/api";
 import { GetToken } from "../GlobalVariable";
 import ErrorpopUp, { PositivepopUp } from "../component/popUp/ErrorpopUp";
+import {ThreeCircles as Loading} from 'react-loader-spinner';
 
 const Dashboard = () => {
-  const [projectDetails1, setData] = useState([]);
+
   // const projectDetails1 = [
   //   { id: 0, title: "", createdby: "", deadline: "", ImgSrc: profilePic_1 },
   // ];
@@ -58,36 +59,59 @@ const Dashboard = () => {
   //     console.error(error);
   //   }
   // };
+  let run=true;
   useEffect(() => {
+    if(run==true){
     const token = GetToken();
     setIsLoading(true);
-    // console.log("dsfdv")
-    // fetch()
+     fetch(`${apiAddress}user/getname`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((response) => {
+          setResponseNameCode(response.status);
+          return response.json();
+        })
+        .then((data) => {
+          setUsername(data.name)
+          setIsLoading(false);
+        });
     fetch(`${apiAddress}project/getall`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     })
       .then((response) => {
-        setResponseCode(response.status);
+        setResponsedataCode(response.status);
         return response.json();
       })
       .then((data) => {
+        console.log(data)
         for (let i = 0; i < data.length; i++) {
+          
           const newData = {
             id: data[i].createdby._id,
             title: data[i].title,
             createdby: data[i].createdby.name,
-            deadline: data[i].deadline,
+            deadline:data[i].deadline.toString().slice(0,10),
+          
             ImgSrc: profilePic_1,
           };
           setData((prevData) => 
             [...prevData, newData]
           );
         }
-        console.log(projectDetails1);
+        // setTimeout(() => {
+        //   setData('Some data');
+        //   setIsLoading(false);
+        // }, 2000);
+        // console.log(projectDetails1);
         setIsLoading(false);
       });
+     
+      run=false;
+    }
   }, []);
 
   const projectDetails = [
@@ -163,7 +187,8 @@ const Dashboard = () => {
     },
   ];
 
-  const [responseCode, setResponseCode] = useState(null);
+  const [responseNameCode, setResponseNameCode] = useState(null);
+  const [responseDataCode, setResponsedataCode] = useState(null);
   const [errorMsg, setErrorMsg] = useState("");
   const [openResponse, setOpenResponse] = useState(false);
   const [openError, setOpenError] = useState(false);
@@ -173,26 +198,32 @@ const Dashboard = () => {
   const closeModal = () => setOpen(false);
 
   const [isLoading, setIsLoading] = useState(false);
-
+  const [projectDetails1, setData] = useState([]);
+  const [userName,setUsername] = useState("Loading");
   function CardGenerator({ data }) {
     return (
       <div class="dashboardBlocks">
-        {console.log("dfgdfgdfgfg")}
-        {console.log(projectDetails1)}
-        {projectDetails.map((projects) => (
+        {/* {console.log("dfgdfgdfgfg")}
+        {console.log(projectDetails1)} */}
+        {projectDetails1.map((projects) => (
           <Cards isCompleted={isCompleted} key={projects.id} {...projects} />
         ))}
       </div>
     );
   }
+ 
 
   return (
     <div className="DashBoard">
+   { responseNameCode ||responseDataCode!==200? <Popup open={openError} closeOnDocumentClick onClose={closeModalError}>
+        <ErrorpopUp Errormsg={"Error has Occured"} onClose={closeModalError} />
+      </Popup>:""}
+   
       <Topbar />
       <div class="greetings">
         <div className="greetingsUser">
           <Avatar className="avatarItems" src={Avatar1} />
-          <div>Welcome, Username</div>
+          <div>Welcome, {userName}</div>
         </div>
 
         <div>
@@ -203,10 +234,12 @@ const Dashboard = () => {
         </div>
       </div>
       <hr />
-      {isLoading && <p>Loading...</p>}
-      {!isLoading && projectDetails1 && (
+      {/* {isLoading && ( */}
+        <Loading className="Spinnner" type="Puff" color="#00BFFF" height={300} width={window.innerWidth} />
+      {/* )} */}
+      {/* {!isLoading && projectDetails1 && (
         <CardGenerator data={projectDetails1} />
-      )}
+      )} */}
       {/* <div class="dashboardBlocks">
       {console.log("dfgdfgdfgfg")}{console.log(projectDetails1)}
         {projectDetails1.map((projects) => (

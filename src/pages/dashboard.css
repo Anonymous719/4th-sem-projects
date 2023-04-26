@@ -3,7 +3,9 @@
   max-height: fit-content;
   background-color: #bef0ff;
 }
-
+.Spinnner{
+  box-shadow: 0 0 100vmax rgb(85, 37, 37);
+}
 .dashboardBlocks {
   display: flex;
   flex-wrap: wrap;

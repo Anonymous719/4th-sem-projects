@@ -83,7 +83,9 @@ const PopUpDashboard = ({ onClose }) => {
         <PositivepopUp
           PositiveHeading={"Your Project has been created"}
           Positivemsg={""}
-          onClose={() => {}}
+          onClose={() => 
+            closeModalResponse
+            }
         />
       </Popup>
       <Popup open={openError} closeOnDocumentClick onClose={closeModalError}>
