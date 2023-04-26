@@ -16,10 +16,18 @@ const Topbar = () => {
   const navigateToProfilePage = () => {
     return navigate("/profile");
   };
+  const navigateToDashboard = () => {
+    return navigate("/dashboard");
+  };
 
   return (
     <div class="dashboardTopbar">
-      <img className="TopbarLogo" alt="  Project Hub" src={MainLogo} />
+      <img
+        onClick={navigateToDashboard}
+        className="TopbarLogo"
+        alt="  Project Hub"
+        src={MainLogo}
+      />
 
       <div class="dashboardEndbutton">
         <div onClick={navigateToDeadlineList} style={{ all: "inherit" }}>

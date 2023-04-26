@@ -1,9 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
-import "./dashboard.css";
-import Topbar from "../component/navBar/topbar";
-import { Cards } from "../component/dashboardCards/dashboardCards";
-import DashBoardSlideBar from "../component/SlideBar/dashBoardSlidebar";
 import { Avatar } from "@material-ui/core";
+import { Fab } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
+import "./dashboard.css";
+
+import Topbar from "../component/navBar/topbar";
+import Cards from "../component/dashboardCards/dashboardCards";
+import DashBoardSlideBar from "../component/SlideBar/dashBoardSlidebar";
 import Avatar1 from "./../Images/avatar.png";
 import profilePic_1 from "../Images/CardProfilePic_1.png";
 import profilePic_2 from "../Images/CardProfilePic_2.png";
@@ -11,60 +14,22 @@ import profilePic_3 from "../Images/CardProfilePic_3.png";
 import profilePic_4 from "../Images/CardProfilePic_4.png";
 import profilePic_5 from "../Images/CardProfilePic_5.png";
 import profilePic_6 from "../Images/CardProfilePic_6.png";
-import { Fab } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
 import PopUpDashboard from "../component/popUp/dashboardPopUP";
+
 import Popup from "reactjs-popup";
 import { apiAddress } from "../component/API/api";
 import { GetToken } from "../GlobalVariable";
 import ErrorpopUp, { PositivepopUp } from "../component/popUp/ErrorpopUp";
-import {ThreeCircles as Loading} from 'react-loader-spinner';
+import { ThreeCircles as Loading } from "react-loader-spinner";
 
 const Dashboard = () => {
 
-  // const projectDetails1 = [
-  //   { id: 0, title: "", createdby: "", deadline: "", ImgSrc: profilePic_1 },
-  // ];
-  // window.onload = async function () {
-  //   setIsLoading(true);
-
-  //   const token = GetToken();
-  //   console.log(token);
-  //   try {
-  //     const response = await fetch(`${apiAddress}project/getall`, {
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     });
-  //     const result = await response.json();
-  //     console.log(result);
-  //     console.log(
-  //       result[0].title,
-  //       result[0].deadline,
-  //       result[0].createdby.name,
-  //       result[0].createdby._id
-  //     );
-  //     for (let i = 0; i < result.length; i++) {
-  //       projectDetails1[i] = {
-  //         id: result[i].createdby._id,
-  //         title: result[i].title,
-  //         createdby:  result[i].createdby.name,
-  //         deadline:  result[i].deadline,
-  //         ImgSrc: profilePic_1,
-  //       };
-  //     }
-  //     console.log(projectDetails1)
-  //     setIsLoading(false);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-  let run=true;
+  let run = true;
   useEffect(() => {
-    if(run==true){
-    const token = GetToken();
-    setIsLoading(true);
-     fetch(`${apiAddress}user/getname`, {
+    if (run == true) {
+      const token = GetToken();
+      setIsLoading(true);
+      fetch(`${apiAddress}user/getname`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -74,43 +39,37 @@ const Dashboard = () => {
           return response.json();
         })
         .then((data) => {
-          setUsername(data.name)
+          setUsername(data.name);
           setIsLoading(false);
         });
-    fetch(`${apiAddress}project/getall`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => {
-        setResponsedataCode(response.status);
-        return response.json();
+      fetch(`${apiAddress}project/getall`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       })
-      .then((data) => {
-        console.log(data)
-        for (let i = 0; i < data.length; i++) {
-          
-          const newData = {
-            id: data[i].createdby._id,
-            title: data[i].title,
-            createdby: data[i].createdby.name,
-            deadline:data[i].deadline.toString().slice(0,10),
-          
-            ImgSrc: profilePic_1,
-          };
-          setData((prevData) => 
-            [...prevData, newData]
-          );
-        }
-        // setTimeout(() => {
-        //   setData('Some data');
-        //   setIsLoading(false);
-        // }, 2000);
-        // console.log(projectDetails1);
-        setIsLoading(false);
-      });
-     
-      run=false;
+        .then((response) => {
+          setResponsedataCode(response.status);
+          return response.json();
+        })
+        .then((data) => {
+          console.log(data);
+          for (let i = 0; i < data.length; i++) {
+            // console.log(i)
+            const newData = {
+              id: data[i].createdby._id,
+              title: data[i].title,
+              createdby: data[i].createdby.name,
+              deadline: data[i].deadline,
+              ImgSrc: profilePic_1,
+            };
+            // console.log(newData)
+            setData((prevData) => [...prevData, newData]);
+            // console.log(projectDetails1)
+          }
+          setIsLoading(false);
+        });
+
+      run = false;
     }
   }, []);
 
@@ -199,26 +158,31 @@ const Dashboard = () => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [projectDetails1, setData] = useState([]);
-  const [userName,setUsername] = useState("Loading");
+  const [userName, setUsername] = useState("Loading");
   function CardGenerator({ data }) {
     return (
       <div class="dashboardBlocks">
-        {/* {console.log("dfgdfgdfgfg")}
-        {console.log(projectDetails1)} */}
+        {/* {console.log(projectDetails1)}  */}
         {projectDetails1.map((projects) => (
           <Cards isCompleted={isCompleted} key={projects.id} {...projects} />
         ))}
       </div>
     );
   }
- 
 
   return (
     <div className="DashBoard">
-   { responseNameCode ||responseDataCode!==200? <Popup open={openError} closeOnDocumentClick onClose={closeModalError}>
-        <ErrorpopUp Errormsg={"Error has Occured"} onClose={closeModalError} />
-      </Popup>:""}
-   
+      {responseNameCode || responseDataCode !== 200 ? (
+        <Popup open={openError} closeOnDocumentClick onClose={closeModalError}>
+          <ErrorpopUp
+            Errormsg={"Error has Occured"}
+            onClose={closeModalError}
+          />
+        </Popup>
+      ) : (
+        ""
+      )}
+
       <Topbar />
       <div class="greetings">
         <div className="greetingsUser">
@@ -234,18 +198,25 @@ const Dashboard = () => {
         </div>
       </div>
       <hr />
-      {/* {isLoading && ( */}
-        <Loading className="Spinnner" type="Puff" color="#00BFFF" height={300} width={window.innerWidth} />
-      {/* )} */}
-      {/* {!isLoading && projectDetails1 && (
+      {isLoading && (
+        <Loading
+          className="Spinnner"
+          type="Puff"
+          color="#00BFFF"
+          height={300}
+          width={window.innerWidth}
+        />
+      )}
+      {!isLoading && projectDetails1 && (
         <CardGenerator data={projectDetails1} />
-      )} */}
+      )}
       {/* <div class="dashboardBlocks">
       {console.log("dfgdfgdfgfg")}{console.log(projectDetails1)}
         {projectDetails1.map((projects) => (
           <Cards isCompleted={isCompleted} key={projects.id} {...projects} />
         ))}
       </div> */}
+
       {/* { console.log(responseCode)} */}
 
       <Fab

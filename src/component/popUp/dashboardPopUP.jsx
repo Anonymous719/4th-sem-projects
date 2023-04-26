@@ -5,63 +5,88 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import LibraryAddOutlinedIcon from "@mui/icons-material/LibraryAddOutlined";
 import DashBoardPopUpSlidebar from "../SlideBar/dashBoardPopUpSlidebar";
-
-
-
+import { useNavigate } from "react-router-dom";
 import { apiAddress } from "../../component/API/api";
 import { GetToken } from "../../GlobalVariable";
-import ErrorpopUp ,{ PositivepopUp } from "./ErrorpopUp";
+import ErrorpopUp, { PositivepopUp } from "./ErrorpopUp";
 import Popup from "reactjs-popup";
 
-
-
 const PopUpDashboard = ({ onClose }) => {
-    
+  const navigateToProjectPage=()=>
+{
+   navigate("/projectPage");
+}
+const navigate=useNavigate();
   const [errorMsg, setErrorMsg] = useState("");
   const [openResponse, setOpenResponse] = useState(false);
   const [openError, setOpenError] = useState(false);
   const closeModalResponse = () => setOpenResponse(false);
   const closeModalError = () => setOpenError(false);
-
   const [isCreate, changeisCreate] = useState(true);
-  const [projectCode, setProjectCode] = useState("");
+  const [code, setCode] = useState("");
   const [title, setTitle] = useState("");
   const [projectTime, setProjectTime] = useState(0);
   const [deadline, setDeadline] = useState(new Date());
 
-  const handleCreateSubmit =async (event) => {
+  const handleCreateSubmit = async (event) => {
     event.preventDefault();
     const data = { title, deadline };
-    console.log("1"); console.log(title, deadline);
-   try{ const response = await fetch(`${apiAddress}project/create`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${GetToken()}`,
-      },
-      body: JSON.stringify(data)
-      
-    })
-    const result = await response.json();
-    if (response.status === 200) {
-      console.log(`Successfully created`);
-      setOpenResponse((o) => !o);
-    } else {
-      console.log(result.error);
-      setErrorMsg(result.error);
-      setOpenError((o) => !o);
-      console.log();
+    console.log("1");
+    console.log(title, deadline);
+    try {
+      const response = await fetch(`${apiAddress}project/create`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${GetToken()}`,
+        },
+        body: JSON.stringify(data),
+      });
+      const result = await response.json();
+      if (response.status === 200) {
+        console.log(`Successfully created`);
+        setOpenResponse((o) => !o);
+      } else {
+        console.log(result.error);
+        setErrorMsg(result.error);
+        setOpenError((o) => !o);
+        console.log();
+      }
+    } catch (error) {
+      console.error(error);
+      console.log("3");
     }
-      }catch(error)  {
-        console.error(error);
-        console.log("3");
-      };
     // onClose();
   };
-  const handleSubmit = (event) => {
+
+  const handleJoinSubmit = async (event) => {
     event.preventDefault();
-   
-    onClose();
+    const data = { code };
+    console.log(code);
+    try {
+      const response = await fetch(`${apiAddress}project/join`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${GetToken()}`,
+        },
+        body: JSON.stringify(data),
+      });
+      const result = await response.json();
+      if (response.status === 200) {
+        console.log(result);
+        console.log(`Successfully joined`);
+        setOpenResponse((o) => !o);
+      } else {
+        console.log(result.error);
+        setErrorMsg(result.error);
+        setOpenError((o) => !o);
+        console.log();
+      }
+    } catch (error) {
+      console.error(error);
+      console.log("3");
+    }
   };
 
   const handleDateChange = (date) => {
@@ -72,25 +97,24 @@ const PopUpDashboard = ({ onClose }) => {
     setDeadline(newDate);
   };
 
-  // ${onClose?"closed":"opened"}
   return (
     <div className="modal">
       <Popup
         open={openResponse}
         closeOnDocumentClick
-        onClose={closeModalResponse}
+        // onClose={navigateToProjectPage}
       >
         <PositivepopUp
           PositiveHeading={"Your Project has been created"}
           Positivemsg={""}
-          onClose={() => 
-            closeModalResponse
-            }
+          onClose={() =>  navigateToProjectPage}
         />
       </Popup>
+
       <Popup open={openError} closeOnDocumentClick onClose={closeModalError}>
         <ErrorpopUp Errormsg={errorMsg} onClose={closeModalError} />
       </Popup>
+
       <div className="LandingpopUpDiv " style={{ background: "transparent" }}>
         {isCreate ? (
           <form className="Landingpopup-form" onSubmit={handleCreateSubmit}>
@@ -123,10 +147,10 @@ const PopUpDashboard = ({ onClose }) => {
 
               <br />
               <button className="assignbutton ">Create Project</button>
-            </div>{" "}
+            </div>
           </form>
         ) : (
-          <form className="Landingpopup-form" onSubmit={handleSubmit}>
+          <form className="Landingpopup-form" onSubmit={handleJoinSubmit}>
             <div className="iconDiv">
               <LibraryAddOutlinedIcon
                 fontSize="large"
@@ -143,8 +167,8 @@ const PopUpDashboard = ({ onClose }) => {
                 label={"Project Code:"}
                 type={"text"}
                 placeholder={"Project code"}
-                onChange={(event) => setProjectCode(event.target.value)}
-                value={projectCode}
+                onChange={(event) => setCode(event.target.value)}
+                value={code}
               />
               {/* <InputField
                 label={"Time for this project per days (in Hours):"}

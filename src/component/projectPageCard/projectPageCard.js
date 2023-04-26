@@ -1,11 +1,27 @@
 import React from "react";
 import "./projectPageCard.css";
-
-const  ProjectPageCard = ({type,navigateToToDoPage}) => {
+import { useNavigate } from "react-router-dom";
+const  ProjectPageCard = ({type}) => {
+  const navigate=useNavigate();
+  const navigateToToDoPage=()=>
+  {
+     navigate("/todo");
+  }
+  
+  const navigateToChatPage = () => {
+    navigate("/chat");
+  };
+  
+  const navigateToResourcesPage = () => {
+    navigate("/resources");
+  };  
+  const navigateToProgressPage = () => {
+    navigate("/progress");
+  };
  switch (type) {
     case "Progress":
       return (
-        <div class="projectCardsBox">
+        <div class="projectCardsBox" onClick={navigateToProgressPage}>
           <div class="progress_title">
             <h1>{type}</h1>
             <h1>Members 04</h1>
@@ -81,14 +97,14 @@ const  ProjectPageCard = ({type,navigateToToDoPage}) => {
       );
     case "Resources":
       return (
-        <div class="projectCardsBox">
+        <div class="projectCardsBox" onClick={navigateToResourcesPage}>
           <h1>{type}</h1>
           <hr />
         </div>
       );
     case "Discussion":
       return (
-        <div class="projectCardsBox">
+        <div class="projectCardsBox" onClick={navigateToChatPage}>
           <h1>{type}</h1>
           <hr />
           <div class="discussion_message"></div>

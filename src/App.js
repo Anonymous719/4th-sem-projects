@@ -8,7 +8,7 @@ import Dashboard from "./pages/dashboard";// eslint-disable-next-line
 import DeadlineList from "./pages/deadline"// eslint-disable-next-line
 import ProjectPage from "./pages/projectpage";// eslint-disable-next-line
 import SelectorDropDown from "./component/SelectorDropDown/SelectorDropDown.js"// eslint-disable-next-line
-import ProfilePage from "./pages/profilePage";// eslint-disable-next-line
+import ProfilePage from "./pages/profilepage"; // eslint-disable-next-line
 import PopUpToDo from "./component/popUp/LandingPopUp";// eslint-disable-next-line
 import PopUpDashboard from "./component/popUp/dashboardPopUP";
 import ResourcesPage from "./pages/resourcespage";
@@ -26,20 +26,20 @@ function App() {
       {/* <DeadlineList /> */}
       {/* <ResourcesPage /> */}
       {/* <Chatpage /> */}
+      {/* <ProfilePage/> */}
 
-       {/* email and pass and redirect to  create profile page ,Gender(dropDown male Female other),required((phno, name, git link,)) DoB,  */}
+      
        {/* hr assignednpm not added sir snga discuss */}
        {/* dashborad ko radio button click garda ,front end bata backend ma change requews for status compted
         */}
         {/* create /join project ko sucess msg */}
         {/* dashboard maa completed attribute add garera loop chalaunu paryo */}
-        {/* set as completed ko radio button add */}
         {/* self more color other dim  */}
         {/* self drop down foe only head  */}
         {/* todo completed to tag/aattribute */}
-{/* <Tryyy /> */}
 
-{/* <ErrorpopUp /> */}
+
+
         <Routes>
           <Route path="/" element={<LogIn />} />
           <Route path="/dashboard" element={<Dashboard />} />
@@ -49,6 +49,7 @@ function App() {
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/resources" element={<ResourcesPage />} />
           <Route path="/chat" element={<Chatpage/>} />
+          <Route path="/progress" element={<Chatpage/>} />
         </Routes>
       </Box>
     </BrowserRouter>
