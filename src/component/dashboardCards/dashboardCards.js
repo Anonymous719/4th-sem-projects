@@ -4,7 +4,7 @@ import DeadlineBox from "../deadlineBox/deadlineBox";
 import CompleteDateBox from "../deadlineBox/completedDateBox";
 import { useNavigate } from "react-router-dom";
 
-const Cards = ({ ProjectsName, ProjectHead, Date, ImgSrc, isCompleted }) => {
+const Cards = ({ title, createdby, deadline, ImgSrc, isCompleted }) => {
   const navigateToProjectPage=()=>
 {
    navigate("/projectPage");
@@ -18,12 +18,12 @@ const navigate=useNavigate();
         src={ImgSrc}
         alt="profile  for project"
       ></img>
-      <h5>{ProjectsName}</h5>
-      <p>{ProjectHead}</p>
+      <h5>{title}</h5>
+      <p>{createdby}</p>
       {isCompleted ? (
-        <CompleteDateBox date={Date} />
+        <CompleteDateBox date={deadline} />
       ) : (
-        <DeadlineBox date={Date} />
+        <DeadlineBox date={deadline} />
       )}
     </div>
   );

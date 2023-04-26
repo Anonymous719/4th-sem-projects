@@ -1,105 +1,187 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import "./dashboard.css";
-import  Topbar  from "../component/navBar/topbar";
+import Topbar from "../component/navBar/topbar";
 import { Cards } from "../component/dashboardCards/dashboardCards";
 import DashBoardSlideBar from "../component/SlideBar/dashBoardSlidebar";
 import { Avatar } from "@material-ui/core";
-import Avatar1 from "./../Images/avatar.png"
+import Avatar1 from "./../Images/avatar.png";
 import profilePic_1 from "../Images/CardProfilePic_1.png";
 import profilePic_2 from "../Images/CardProfilePic_2.png";
 import profilePic_3 from "../Images/CardProfilePic_3.png";
 import profilePic_4 from "../Images/CardProfilePic_4.png";
 import profilePic_5 from "../Images/CardProfilePic_5.png";
 import profilePic_6 from "../Images/CardProfilePic_6.png";
-import { Fab } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
+import { Fab } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
 import PopUpDashboard from "../component/popUp/dashboardPopUP";
 import Popup from "reactjs-popup";
+import { apiAddress } from "../component/API/api";
+import { GetToken } from "../GlobalVariable";
+import ErrorpopUp, { PositivepopUp } from "../component/popUp/ErrorpopUp";
+
 const Dashboard = () => {
+  const projectDetails1 = [
+    { id: 0, title: "", createdby: "", deadline: "", ImgSrc: profilePic_1 },
+  ];
+  window.onload = async function () {
+    setIsLoading(true);
+    
+    const token = GetToken();
+    console.log(token);
+    try {
+      const response = await fetch(`${apiAddress}project/getall`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const result = await response.json();
+      console.log(result);
+      console.log(
+        result[0].title,
+        result[0].deadline,
+        result[0].createdby.name,
+        result[0].createdby._id
+      );
+      for (let i = 0; i < result.length; i++) {
+        projectDetails1[i] = {
+          id: result[i].createdby._id,
+          title: result[i].title,
+          createdby:  result[i].createdby.name,
+          deadline:  result[i].deadline,
+          ImgSrc: profilePic_1,
+        };
+      }
+      console.log(projectDetails1)
+      setIsLoading(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  // useEffect(() => {
+  //   setIsLoading(true);
+  //   const token = GetToken();
+  //   console.log(token);
+  //   try {
+  //     const response =fetch(`${apiAddress}project/getall`, {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     });
+  //     const result = response.json();
+  //     console.log(result);
+  //     console.log(
+  //       result[0].title,
+  //       result[0].deadline,
+  //       result[0].createdby.name,
+  //       result[0].createdby._id
+  //     );
+  //     let i = 0;
+  //     for (let i = 0; i < response.length; i++) {
+  //       projectDetails1[i] = {
+  //         id: result[i].createdby._id,
+  //         title: result[i].title,
+  //         createdby:  result[i].createdby.name,
+  //         deadline:  result[i].deadline,
+  //         ImgSrc: profilePic_1,
+  //       };
+  //       setIsLoading(false);
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }, []);
+
   const projectDetails = [
     {
       id: 1,
-      ProjectsName: "Green City",
-      ProjectHead: "Emma",
-      Date: "2023-11-01",
+      title: "Green City",
+      createdby: "Emma",
+      deadline: "2023-11-01",
       ImgSrc: profilePic_1,
     },
     {
       id: 2,
-      ProjectsName: "TechConnect",
-      ProjectHead: "Noah",
-      Date: "2024-07-08",
+      title: "TechConnect",
+      createdby: "Noah",
+      deadline: "2024-07-08",
       ImgSrc: profilePic_2,
     },
     {
       id: 3,
-      ProjectsName: "HealthFirst",
-      ProjectHead: "Sophia",
-      Date: "2024-09-15",
+      title: "HealthFirst",
+      createdby: "Sophia",
+      deadline: "2024-09-15",
       ImgSrc: profilePic_3,
     },
     {
       id: 4,
-      ProjectsName: "YouthEmpower",
-      ProjectHead: "William",
-      Date: "2024-11-27",
+      title: "YouthEmpower",
+      createdby: "William",
+      deadline: "2024-11-27",
       ImgSrc: profilePic_4,
     },
     {
       id: 5,
-      ProjectsName: "ArtVentures",
-      ProjectHead: "Ava",
-      Date: "2025-02-19",
+      title: "ArtVentures",
+      createdby: "Ava",
+      deadline: "2025-02-19",
       ImgSrc: profilePic_3,
     },
     {
       id: 6,
-      ProjectsName: "Green City",
-      ProjectHead: "Emma",
-      Date: "2023-11-01",
+      title: "Green City",
+      createdby: "Emma",
+      deadline: "2023-11-01",
       ImgSrc: profilePic_4,
     },
     {
       id: 7,
-      ProjectsName: "TechConnect",
-      ProjectHead: "Noah",
-      Date: "2024-07-08",
+      title: "TechConnect",
+      createdby: "Noah",
+      deadline: "2024-07-08",
       ImgSrc: profilePic_5,
     },
     {
       id: 8,
-      ProjectsName: "HealthFirst",
-      ProjectHead: "Sophia",
-      Date: "2024-09-15",
+      title: "HealthFirst",
+      createdby: "Sophia",
+      deadline: "2024-09-15",
       ImgSrc: profilePic_6,
     },
     {
       id: 9,
-      ProjectsName: "YouthEmpower",
-      ProjectHead: "William",
-      Date: "2024-11-27",
+      title: "YouthEmpower",
+      createdby: "William",
+      deadline: "2024-11-27",
       ImgSrc: profilePic_1,
     },
     {
       id: 10,
-      ProjectsName: "ArtVentures",
-      ProjectHead: "Ava",
-      Date: "2025-02-19",
+      title: "ArtVentures",
+      createdby: "Ava",
+      deadline: "2025-02-19",
       ImgSrc: profilePic_2,
     },
   ];
+
+  const [errorMsg, setErrorMsg] = useState("");
+  const [openResponse, setOpenResponse] = useState(false);
+  const [openError, setOpenError] = useState(false);
+  const closeModalError = () => setOpenError(false);
   const [isCompleted, changeCompleted] = useState(false);
   const [open, setOpen] = useState(false);
   const closeModal = () => setOpen(false);
+
+  const [isLoading, setIsLoading] = useState(false);
   return (
     <div className="DashBoard">
       <Topbar />
       <div class="greetings">
-      <div className="greetingsUser">
-        <Avatar className="avatarItems" src={Avatar1} />
-        <div>Welcome, Username</div>
-      </div>
-        
+        <div className="greetingsUser">
+          <Avatar className="avatarItems" src={Avatar1} />
+          <div>Welcome, Username</div>
+        </div>
+
         <div>
           <DashBoardSlideBar
             isCompleted={isCompleted}
@@ -108,18 +190,25 @@ const Dashboard = () => {
         </div>
       </div>
       <hr />
-      <div class="dashboardBlocks">
-        {projectDetails.map((projects) => (
+      {isLoading && <p>Loading...</p>}
+      {!isLoading && <p>Render the component here</p>}
+      {/* <div class="dashboardBlocks">
+        {projectDetails1.map((projects) => (
           <Cards isCompleted={isCompleted} key={projects.id} {...projects} />
         ))}
-      </div>
-      
-      <Fab onClick={() => setOpen((o) => !o)} color="primary" aria-label="add" style={{position: 'fixed', bottom: 32, right: 32, zIndex: 999}}>
-      <Popup open={open} closeOnDocumentClick onClose={closeModal}>
-          <PopUpDashboard  onClose={closeModal} />
+      </div> */}
+
+      <Fab
+        onClick={() => setOpen((o) => !o)}
+        color="primary"
+        aria-label="add"
+        style={{ position: "fixed", bottom: 32, right: 32, zIndex: 999 }}
+      >
+        <Popup open={open} closeOnDocumentClick onClose={closeModal}>
+          <PopUpDashboard onClose={closeModal} />
         </Popup>
-  <AddIcon />
-</Fab>
+        <AddIcon />
+      </Fab>
     </div>
   );
 };

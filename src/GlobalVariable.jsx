@@ -1,2 +1,9 @@
+import Cookies from "js-cookie";
+const GetToken=()=>{
+ const token = Cookies.get('token');
+ return token;   
+}
+
+
 var globalToken ;
-export  {globalToken};
+export  {GetToken};
