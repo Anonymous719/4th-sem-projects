@@ -1,10 +1,64 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import "./toDo.css";
 import TopToDoBar from "../component/topBar/topToDoBar";
 import ColumnProgessBox from "../component/columnToDoBox/columnToDoBox.jsx";
 import MemberListBox from "../component/memberListBox/memberListBox";
 import Topbar from "../component/navBar/topbar";
+
+import Popup from "reactjs-popup";
+import { apiAddress } from "../component/API/api";
+import { GetToken } from "../GlobalVariable";
+import ErrorpopUp, { PositivepopUp } from "../component/popUp/ErrorpopUp";
+import { ThreeCircles as Loading } from "react-loader-spinner";
+
 const ToDoPage = () => {
+  const location = useLocation();
+  const [id, setId] = useState(null);
+
+  const [open, setOpen] = useState(false);
+  const closeModal = () => setOpen(false);
+  const [responseNameCode, setResponseNameCode] = useState(null);
+  const [responseDataCode, setResponsedataCode] = useState(null);
+  const [errorMsg, setErrorMsg] = useState("");
+  const [openResponse, setOpenResponse] = useState(false);
+  const [openError, setOpenError] = useState(false);
+  const closeModalError = () => setOpenError(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  let run = true;
+  useEffect(() => {
+    if (run == true) {
+      const searchParams = new URLSearchParams(location.search);
+      const id = searchParams.get("id");
+      setId(id);
+      console.log(id);
+      const token = GetToken();
+      setIsLoading(true);
+      fetch(`${apiAddress}todo/view/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((response) => {
+          setResponsedataCode(response.status);
+          return response.json();
+        })
+        .then((data) => {
+          console.log(data);
+          setIsLoading(false);
+        }) .catch(error => {
+              // handle errors
+              console.error(error);
+            });
+
+
+      setIsLoading(false);
+      run = false;
+    }
+  }, []);
+
+  useEffect(() => {}, [location.search]);
 
   const [contentInfo, changeContentInfo] = useState([
     {
@@ -174,6 +228,46 @@ const ToDoPage = () => {
       projectSubTitle: "Etiam gravida quam id lacus pellentesque ultrices.",
       date: "1987-08-09",
     },
+    {
+      title: "Completed",
+      points: 10,
+      id: 17,
+      label: "Research",
+      projectTitle:
+        " Completed   Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      projectSubTitle:
+        "Duis sit amet urna sed ante sodales commodo eu quis odio.",
+      date: "YYYY-MM-DD",
+    },
+    {
+      title: "Completed",
+      points: 10,
+      id: 18,
+      label: "Completed",
+      projectTitle:
+        " Completed Aenean iaculis nibh sed neque scelerisque, vel consequat risus ornare.",
+      projectSubTitle:
+        "Praesent sit amet sem eget justo lacinia vehicula eget et purus.",
+      date: "1994-11-28",
+    },
+    {
+      title: "Completed",
+      points: 10,
+      id: 19,
+      label: "Research",
+      projectTitle: " Completed Etiam ultricies diam eget rutrum vestibulum.",
+      projectSubTitle: "Etiam gravida quam id lacus pellentesque ultrices.",
+      date: "1987-08-09",
+    },
+    {
+      title: "Completed",
+      points: 10,
+      id: 20,
+      label: "Research",
+      projectTitle: " Completed Etiam ultricies diam eget rutrum vestibulum.",
+      projectSubTitle: "Etiam gravida quam id lacus pellentesque ultrices.",
+      date: "1987-08-09",
+    },
   ]);
   const [addPressed, ChangeAddPressed] = useState("False");
   return (
@@ -209,6 +303,12 @@ const ToDoPage = () => {
             />
             <ColumnProgessBox
               title={"Review"}
+              contentInfo={contentInfo}
+              onClick={{}}
+              changeContentInfo={changeContentInfo}
+            />{" "}
+            <ColumnProgessBox
+              title={"Completed"}
               contentInfo={contentInfo}
               onClick={{}}
               changeContentInfo={changeContentInfo}

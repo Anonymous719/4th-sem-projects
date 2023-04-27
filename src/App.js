@@ -10,11 +10,11 @@ import ProjectPage from "./pages/projectpage";// eslint-disable-next-line
 import SelectorDropDown from "./component/SelectorDropDown/SelectorDropDown.js"// eslint-disable-next-line
 import ProfilePage from "./pages/profilepage"; // eslint-disable-next-line
 import PopUpToDo from "./component/popUp/LandingPopUp";// eslint-disable-next-line
-import PopUpDashboard from "./component/popUp/dashboardPopUP";
-import ResourcesPage from "./pages/resourcespage";
-import Chatpage from "./pages/chatpage";
-import Tryyy from "./component/API/api";
-import  ErrorpopUp from "./component/popUp/ErrorpopUp"
+import PopUpDashboard from "./component/popUp/dashboardPopUP";// eslint-disable-next-line
+import ResourcesPage from "./pages/resourcespage";// eslint-disable-next-line
+import Chatpage from "./pages/chatpage";// eslint-disable-next-line
+import Tryyy from "./component/API/api";// eslint-disable-next-line
+import  ErrorpopUp from "./component/popUp/ErrorpopUp"// eslint-disable-next-line
 function App() {
   return (
     // k
@@ -30,27 +30,21 @@ function App() {
       {/* <ProfilePage/> */}
 
       
-       {/* hr assignednpm not added sir snga discuss */}
-       {/* dashborad ko radio button click garda ,front end bata backend ma change requews for status compted
-        */}
-        {/* create /join project ko sucess msg */}
-        {/* dashboard maa completed attribute add garera loop chalaunu paryo */}
-        {/* self more color other dim  */}
-        {/* self drop down foe only head  */}
-        {/* todo completed to tag/aattribute */}
+
+{/* dashboard on complete ma msg popup */}
 
 
 
         <Routes>
           <Route path="/" element={<LogIn />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/todo" element={<ToDoPage />} />
+          <Route path="/projectPage/todo" element={<ToDoPage />} />
           <Route path="/projectPage" element={<ProjectPage />} />
-          <Route path="/deadline" element={<DeadlineList />} />
-          <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/resources" element={<ResourcesPage />} />
-          <Route path="/chat" element={<Chatpage/>} />
-          <Route path="/progress" element={<Chatpage/>} />
+          <Route path="/projectPage/deadline" element={<DeadlineList />} />
+          <Route path="/projectPage/profile" element={<ProfilePage />} />
+          <Route path="/projectPage/resources" element={<ResourcesPage />} />
+          <Route path="/projectPage/chat" element={<Chatpage/>} />
+          <Route path="/projectPage/progress" element={<Chatpage/>} />
         </Routes>
       </Box>
     </BrowserRouter>

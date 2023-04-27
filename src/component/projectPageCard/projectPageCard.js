@@ -1,22 +1,23 @@
 import React from "react";
 import "./projectPageCard.css";
 import { useNavigate } from "react-router-dom";
-const  ProjectPageCard = ({type}) => {
+const  ProjectPageCard = ({type,projectid}) => {
   const navigate=useNavigate();
   const navigateToToDoPage=()=>
   {
-     navigate("/todo");
+     navigate(`/projectPage/todo?id=${projectid}`);
+    //  history.push(`/details?id=${id}`);
   }
   
   const navigateToChatPage = () => {
-    navigate("/chat");
+    navigate(`/projectPage/chat?id=${projectid}`);
   };
   
   const navigateToResourcesPage = () => {
-    navigate("/resources");
+    navigate(`/projectPage/resources?id=${projectid}`);
   };  
   const navigateToProgressPage = () => {
-    navigate("/progress");
+    navigate(`/projectPage/progress?id=${projectid}`);
   };
  switch (type) {
     case "Progress":

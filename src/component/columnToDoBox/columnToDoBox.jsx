@@ -5,6 +5,7 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import PopUpToDo from "../popUp/LandingPopUp";
 import Popup from "reactjs-popup";
+import { useLocation } from 'react-router-dom';
 const ColumnProgessBox = ({
   title,
   contentInfo,changeContentInfo,
@@ -45,13 +46,23 @@ const Title = ({ title,contentInfo,changeContentInfo, isHead}) => {
   const [open, setOpen] = useState(false);
  
   const closeModal = () => setOpen(false);
+
+  const location = useLocation();
+  const [id, setId] = useState(null);
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const id = searchParams.get('id');
+    setId(id);
+  //   console.log(id)
+  }, [location.search])
   return (
     <div>
       <div className="title">
         <h5>{title}</h5>
         {isHead ? <AddIcon onClick={() => setOpen((o) => !o)} className="addIcon" /> :""}
         <Popup open={open} closeOnDocumentClick onClose={closeModal}>
-          <PopUpToDo  contentInfo={contentInfo} changeContentInfo={changeContentInfo} onClose={closeModal} />
+          <PopUpToDo id={id} contentInfo={contentInfo} changeContentInfo={changeContentInfo} onClose={closeModal} />
         </Popup>
       </div> 
     </div>
@@ -68,6 +79,7 @@ const Content = ({
   changeToWhere,
   isHead,
 }) => {
+  const[isSelf,changeIsSelf] = useState(false)
   const [open, setOpen] = useState(false);
 
   let menuRef = useRef();
@@ -87,10 +99,11 @@ const Content = ({
   });
 
   return (
-    <div className="content" onDrag={onDoubleClick}>
+    <div style={{backgroundColor:`${isSelf?"white":"#ccc"}`,}} className="content" onDrag={onDoubleClick}>
       <div className="date_DropDown">
         <div className="label">{label}</div>
-        <div className="menu-container" ref={menuRef}>
+        
+          {isSelf||isHead?<div className="menu-container" ref={menuRef}>
           <div
             className="menu-trigger"
             onClick={() => {
@@ -98,9 +111,7 @@ const Content = ({
             }}
           >
             {open ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
-          </div>
-
-          <div className={`dropdown-menu ${open ? "active" : "inactive"}`}>
+          </div> <div className={`dropdown-menu ${open ? "active" : "inactive"}`}>
             <ul>
               <DropdownItem
                 changeToWhere={changeToWhere}
@@ -116,18 +127,23 @@ const Content = ({
                 changeToWhere={changeToWhere}
                 onClick={onClick}
                 text={"In Progress"}
+              /><DropdownItem
+                changeToWhere={changeToWhere}
+                onClick={onClick}
+                text={"Review"}
               />
               {
                 isHead?<DropdownItem
                 changeToWhere={changeToWhere}
                 onClick={onClick}
-                text={"Review"}
+                text={"Completed"}
               />:""
               }
               
             </ul>
-          </div>
-        </div>
+          </div></div>:""}
+         
+        
       </div>
 
       <div className="projectTitle">{projectTitle}</div>

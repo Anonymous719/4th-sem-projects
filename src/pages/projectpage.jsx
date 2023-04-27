@@ -1,19 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+
 import "./projectpage.css";
 
 import  Topbar from "../component/navBar/topbar";
 import ProjectPageCard from "../component/projectPageCard/projectPageCard";
 
 const ProjectPage = () => {
-
+    const location = useLocation();
+    const [id, setId] = useState(null);
+  
+    useEffect(() => {
+      const searchParams = new URLSearchParams(location.search);
+      const id = searchParams.get('id');
+      setId(id);
+      console.log(id)
+    }, [location.search])
     return (
         <div class = "ProjectPage">
+    
+
             <Topbar />
             <div class='ProjectPageBlocks'>
-                <ProjectPageCard type={"Progress"} />
-                <ProjectPageCard type={"ToDo"}/>
-                <ProjectPageCard type={"Resources"} />
-                <ProjectPageCard type={"Discussion"} />
+                <ProjectPageCard  projectid={id} type={"Progress"} />
+                <ProjectPageCard  projectid={id} type={"ToDo"}/>
+                <ProjectPageCard  projectid={id} type={"Resources"} />
+                <ProjectPageCard  projectid={id} type={"Discussion"} />
             </div>
         </div>
     );

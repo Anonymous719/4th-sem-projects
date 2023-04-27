@@ -15,6 +15,8 @@ import profilePic_4 from "../Images/CardProfilePic_4.png";
 import profilePic_5 from "../Images/CardProfilePic_5.png";
 import profilePic_6 from "../Images/CardProfilePic_6.png";
 import PopUpDashboard from "../component/popUp/dashboardPopUP";
+import { useHistory } from 'react-router-dom';
+
 
 import Popup from "reactjs-popup";
 import { apiAddress } from "../component/API/api";
@@ -26,6 +28,7 @@ const Dashboard = () => {
 
   let run = true;
   useEffect(() => {
+
     if (run == true) {
       const token = GetToken();
       setIsLoading(true);
@@ -34,11 +37,12 @@ const Dashboard = () => {
           Authorization: `Bearer ${token}`,
         },
       })
-        .then((response) => {
+        .then((response) => {console.log("dashboard"+response.status);
           setResponseNameCode(response.status);
           return response.json();
         })
         .then((data) => {
+          
           setUsername(data.name);
           setIsLoading(false);
         });
@@ -56,7 +60,9 @@ const Dashboard = () => {
           for (let i = 0; i < data.length; i++) {
             // console.log(i)
             const newData = {
+              completedflag: data[i].completedflag,
               id: data[i].createdby._id,
+              projectid:data[i]._id,
               title: data[i].title,
               createdby: data[i].createdby.name,
               deadline: data[i].deadline,
@@ -67,6 +73,9 @@ const Dashboard = () => {
             // console.log(projectDetails1)
           }
           setIsLoading(false);
+        }).catch(error => {
+          // handle errors
+          console.error(error);
         });
 
       run = false;
@@ -146,31 +155,37 @@ const Dashboard = () => {
     },
   ];
 
+  const [open, setOpen] = useState(false);
+  const closeModal = () => setOpen(false);
   const [responseNameCode, setResponseNameCode] = useState(null);
   const [responseDataCode, setResponsedataCode] = useState(null);
   const [errorMsg, setErrorMsg] = useState("");
   const [openResponse, setOpenResponse] = useState(false);
   const [openError, setOpenError] = useState(false);
   const closeModalError = () => setOpenError(false);
+    const [isLoading, setIsLoading] = useState(false);
+    
   const [isCompleted, changeCompleted] = useState(false);
-  const [open, setOpen] = useState(false);
-  const closeModal = () => setOpen(false);
 
-  const [isLoading, setIsLoading] = useState(false);
+
+
   const [projectDetails1, setData] = useState([]);
   const [userName, setUsername] = useState("Loading");
   function CardGenerator({ data }) {
     return (
       <div class="dashboardBlocks">
         {/* {console.log(projectDetails1)}  */}
-        {projectDetails1.map((projects) => (
+        {data.map((projects) => (
           <Cards isCompleted={isCompleted} key={projects.id} {...projects} />
         ))}
       </div>
     );
   }
 
+  const uncompletedProject=projectDetails1.filter(project=>project.completedflag==false)
+  const completedProject=projectDetails1.filter(project=>project.completedflag==true)
   return (
+    
     <div className="DashBoard">
       {responseNameCode || responseDataCode !== 200 ? (
         <Popup open={openError} closeOnDocumentClick onClose={closeModalError}>
@@ -182,7 +197,6 @@ const Dashboard = () => {
       ) : (
         ""
       )}
-
       <Topbar />
       <div class="greetings">
         <div className="greetingsUser">
@@ -207,9 +221,12 @@ const Dashboard = () => {
           width={window.innerWidth}
         />
       )}
+     
       {!isLoading && projectDetails1 && (
-        <CardGenerator data={projectDetails1} />
-      )}
+        !isCompleted?<CardGenerator data={uncompletedProject} />:<CardGenerator data={completedProject} />
+      
+      )}  
+      {/*  */}
       {/* <div class="dashboardBlocks">
       {console.log("dfgdfgdfgfg")}{console.log(projectDetails1)}
         {projectDetails1.map((projects) => (
