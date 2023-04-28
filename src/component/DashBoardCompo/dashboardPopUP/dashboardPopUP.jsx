@@ -27,7 +27,7 @@ const navigate=useNavigate();
   const [code, setCode] = useState("");
   const [title, setTitle] = useState("");
   const [deadline, setDeadline] = useState(new Date());
-
+const [ProjectCode, setProjectCode]=useState(null)
   const handleCreateSubmit = async (event) => {
     event.preventDefault();
     const data = { title, deadline };
@@ -44,6 +44,7 @@ const navigate=useNavigate();
       });
       const result = await response.json();
       if (response.status === 200) {
+        setProjectCode(result.code)
         console.log(`Successfully created`);
         setOpenResponse((o) => !o);
       } else {
