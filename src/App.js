@@ -41,7 +41,7 @@ function App() {
           <Route path="/projectPage/todo" element={<ToDoPage />} />
           <Route path="/projectPage" element={<ProjectPage />} />
           <Route path="/projectPage/deadline" element={<DeadlineList />} />
-          <Route path="/projectPage/profile" element={<ProfilePage />} />
+          <Route path="/profilepage" element={<ProfilePage />} />
           <Route path="/projectPage/resources" element={<ResourcesPage />} />
           <Route path="/projectPage/chat" element={<Chatpage/>} />
           <Route path="/projectPage/progress" element={<Chatpage/>} />
