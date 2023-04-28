@@ -3,11 +3,12 @@ import "./columnToDoBox.css";
 import AddIcon from "@mui/icons-material/Add";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
-import PopUpToDo from "../popUp/LandingPopUp";
+import PopUpToDo from "../popUp/toDoPopUp";
 import Popup from "reactjs-popup";
 import { useLocation } from 'react-router-dom';
 const ColumnProgessBox = ({
   title,
+  membersList,
   contentInfo,changeContentInfo,
   onAddPressed,
   
@@ -21,13 +22,22 @@ const ColumnProgessBox = ({
     );
     changeContentInfo(updatedContentInfo);
   };
+  useEffect(() => {
+    console.log(contentInfo)
+
+  });
+  const onClicked=() => {
+
+  }
   return (
+   
     <div className="columnProgessBox">
-      <Title isHead={isHead} title={title} contentInfo={contentInfo} changeContentInfo={changeContentInfo} />
+      <Title membersList={membersList} isHead={isHead} title={title} contentInfo={contentInfo} changeContentInfo={changeContentInfo} />
       {contentInfo.map((content) =>
-        content.title === title ? (
+        content.tag === title ? (
           <Content isHead={isHead}
             key={content.id}
+            taskID={content.id}
             {...content}
             changeToWhere={changeToWhere}
             onClick={() => {
@@ -42,7 +52,7 @@ const ColumnProgessBox = ({
   );
 };
 
-const Title = ({ title,contentInfo,changeContentInfo, isHead}) => {
+const Title = ({ title,contentInfo,changeContentInfo, isHead,membersList}) => {
   const [open, setOpen] = useState(false);
  
   const closeModal = () => setOpen(false);
@@ -54,15 +64,15 @@ const Title = ({ title,contentInfo,changeContentInfo, isHead}) => {
     const searchParams = new URLSearchParams(location.search);
     const id = searchParams.get('id');
     setId(id);
-  //   console.log(id)
   }, [location.search])
   return (
     <div>
+     {/* {console.log(contentInfo)} */}
       <div className="title">
         <h5>{title}</h5>
         {isHead ? <AddIcon onClick={() => setOpen((o) => !o)} className="addIcon" /> :""}
         <Popup open={open} closeOnDocumentClick onClose={closeModal}>
-          <PopUpToDo id={id} contentInfo={contentInfo} changeContentInfo={changeContentInfo} onClose={closeModal} />
+          <PopUpToDo membersList={membersList} id={id} contentInfo={contentInfo} changeContentInfo={changeContentInfo} onClose={closeModal} />
         </Popup>
       </div> 
     </div>
@@ -70,15 +80,17 @@ const Title = ({ title,contentInfo,changeContentInfo, isHead}) => {
 };
 
 const Content = ({
+  taskID,
   label,
-  projectTitle,
-  projectSubTitle,
-  date,
+  title,
+  detail,
+  deadline,
   onClick,
   onDoubleClick,
   changeToWhere,
   isHead,
 }) => {
+  // eslint-disable-next-line
   const[isSelf,changeIsSelf] = useState(false)
   const [open, setOpen] = useState(false);
 
@@ -117,7 +129,7 @@ const Content = ({
                 changeToWhere={changeToWhere}
                 onClick={onClick}
                 text={"BackLog"}
-              />
+              /> 
               <DropdownItem
                 changeToWhere={changeToWhere}
                 onClick={onClick}
@@ -146,9 +158,9 @@ const Content = ({
         
       </div>
 
-      <div className="projectTitle">{projectTitle}</div>
-      <div className="projectSubTitle">{projectSubTitle}</div>
-      <div className="datebox">{date}</div>
+      <div className="projectTitle">{title}</div>
+      <div className="projectSubTitle">{detail}</div>
+      <div className="datebox">{deadline}</div>
     </div>
   );
 };

@@ -1,35 +1,31 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { Avatar } from "@material-ui/core";
 import { Fab } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import "./dashboard.css";
 
 import Topbar from "../component/navBar/topbar";
-import Cards from "../component/dashboardCards/dashboardCards";
-import DashBoardSlideBar from "../component/SlideBar/dashBoardSlidebar";
+import Cards from "../component/DashBoardCompo/dashboardCards/dashboardCards.js";
+import DashBoardSlideBar from "../component/DashBoardCompo/dashBoardSlidebar/dashBoardSlidebar";
 import Avatar1 from "./../Images/avatar.png";
 import profilePic_1 from "../Images/CardProfilePic_1.png";
-import profilePic_2 from "../Images/CardProfilePic_2.png";
-import profilePic_3 from "../Images/CardProfilePic_3.png";
-import profilePic_4 from "../Images/CardProfilePic_4.png";
-import profilePic_5 from "../Images/CardProfilePic_5.png";
-import profilePic_6 from "../Images/CardProfilePic_6.png";
-import PopUpDashboard from "../component/popUp/dashboardPopUP";
-import { useHistory } from 'react-router-dom';
-
+// import profilePic_2 from "../Images/CardProfilePic_2.png";
+// import profilePic_3 from "../Images/CardProfilePic_3.png";
+// import profilePic_4 from "../Images/CardProfilePic_4.png";
+// import profilePic_5 from "../Images/CardProfilePic_5.png";
+// import profilePic_6 from "../Images/CardProfilePic_6.png";
+import PopUpDashboard from "../component/DashBoardCompo/dashboardPopUP/dashboardPopUP";
 
 import Popup from "reactjs-popup";
 import { apiAddress } from "../component/API/api";
 import { GetToken } from "../GlobalVariable";
-import ErrorpopUp, { PositivepopUp } from "../component/popUp/ErrorpopUp";
+import ErrorpopUp from "../component/popUp/ErrorpopUp";
 import { ThreeCircles as Loading } from "react-loader-spinner";
 
 const Dashboard = () => {
-
   let run = true;
   useEffect(() => {
-
-    if (run == true) {
+    if (run === true) {
       const token = GetToken();
       setIsLoading(true);
       fetch(`${apiAddress}user/getname`, {
@@ -37,12 +33,12 @@ const Dashboard = () => {
           Authorization: `Bearer ${token}`,
         },
       })
-        .then((response) => {console.log("dashboard"+response.status);
+        .then((response) => {
+          console.log("dashboard" + response.status);
           setResponseNameCode(response.status);
           return response.json();
         })
         .then((data) => {
-          
           setUsername(data.name);
           setIsLoading(false);
         });
@@ -62,7 +58,7 @@ const Dashboard = () => {
             const newData = {
               completedflag: data[i].completedflag,
               id: data[i].createdby._id,
-              projectid:data[i]._id,
+              projectid: data[i]._id,
               title: data[i].title,
               createdby: data[i].createdby.name,
               deadline: data[i].deadline,
@@ -73,7 +69,8 @@ const Dashboard = () => {
             // console.log(projectDetails1)
           }
           setIsLoading(false);
-        }).catch(error => {
+        })
+        .catch((error) => {
           // handle errors
           console.error(error);
         });
@@ -82,92 +79,87 @@ const Dashboard = () => {
     }
   }, []);
 
-  const projectDetails = [
-    {
-      id: 1,
-      title: "Green City",
-      createdby: "Emma",
-      deadline: "2023-11-01",
-      ImgSrc: profilePic_1,
-    },
-    {
-      id: 2,
-      title: "TechConnect",
-      createdby: "Noah",
-      deadline: "2024-07-08",
-      ImgSrc: profilePic_2,
-    },
-    {
-      id: 3,
-      title: "HealthFirst",
-      createdby: "Sophia",
-      deadline: "2024-09-15",
-      ImgSrc: profilePic_3,
-    },
-    {
-      id: 4,
-      title: "YouthEmpower",
-      createdby: "William",
-      deadline: "2024-11-27",
-      ImgSrc: profilePic_4,
-    },
-    {
-      id: 5,
-      title: "ArtVentures",
-      createdby: "Ava",
-      deadline: "2025-02-19",
-      ImgSrc: profilePic_3,
-    },
-    {
-      id: 6,
-      title: "Green City",
-      createdby: "Emma",
-      deadline: "2023-11-01",
-      ImgSrc: profilePic_4,
-    },
-    {
-      id: 7,
-      title: "TechConnect",
-      createdby: "Noah",
-      deadline: "2024-07-08",
-      ImgSrc: profilePic_5,
-    },
-    {
-      id: 8,
-      title: "HealthFirst",
-      createdby: "Sophia",
-      deadline: "2024-09-15",
-      ImgSrc: profilePic_6,
-    },
-    {
-      id: 9,
-      title: "YouthEmpower",
-      createdby: "William",
-      deadline: "2024-11-27",
-      ImgSrc: profilePic_1,
-    },
-    {
-      id: 10,
-      title: "ArtVentures",
-      createdby: "Ava",
-      deadline: "2025-02-19",
-      ImgSrc: profilePic_2,
-    },
-  ];
+  // const projectDetails = [
+  //   {
+  //     id: 1,
+  //     title: "Green City",
+  //     createdby: "Emma",
+  //     deadline: "2023-11-01",
+  //     ImgSrc: profilePic_1,
+  //   },
+  //   {
+  //     id: 2,
+  //     title: "TechConnect",
+  //     createdby: "Noah",
+  //     deadline: "2024-07-08",
+  //     ImgSrc: profilePic_2,
+  //   },
+  //   {
+  //     id: 3,
+  //     title: "HealthFirst",
+  //     createdby: "Sophia",
+  //     deadline: "2024-09-15",
+  //     ImgSrc: profilePic_3,
+  //   },
+  //   {
+  //     id: 4,
+  //     title: "YouthEmpower",
+  //     createdby: "William",
+  //     deadline: "2024-11-27",
+  //     ImgSrc: profilePic_4,
+  //   },
+  //   {
+  //     id: 5,
+  //     title: "ArtVentures",
+  //     createdby: "Ava",
+  //     deadline: "2025-02-19",
+  //     ImgSrc: profilePic_3,
+  //   },
+  //   {
+  //     id: 6,
+  //     title: "Green City",
+  //     createdby: "Emma",
+  //     deadline: "2023-11-01",
+  //     ImgSrc: profilePic_4,
+  //   },
+  //   {
+  //     id: 7,
+  //     title: "TechConnect",
+  //     createdby: "Noah",
+  //     deadline: "2024-07-08",
+  //     ImgSrc: profilePic_5,
+  //   },
+  //   {
+  //     id: 8,
+  //     title: "HealthFirst",
+  //     createdby: "Sophia",
+  //     deadline: "2024-09-15",
+  //     ImgSrc: profilePic_6,
+  //   },
+  //   {
+  //     id: 9,
+  //     title: "YouthEmpower",
+  //     createdby: "William",
+  //     deadline: "2024-11-27",
+  //     ImgSrc: profilePic_1,
+  //   },
+  //   {
+  //     id: 10,
+  //     title: "ArtVentures",
+  //     createdby: "Ava",
+  //     deadline: "2025-02-19",
+  //     ImgSrc: profilePic_2,
+  //   },
+  // ];
 
   const [open, setOpen] = useState(false);
   const closeModal = () => setOpen(false);
   const [responseNameCode, setResponseNameCode] = useState(null);
   const [responseDataCode, setResponsedataCode] = useState(null);
-  const [errorMsg, setErrorMsg] = useState("");
-  const [openResponse, setOpenResponse] = useState(false);
   const [openError, setOpenError] = useState(false);
   const closeModalError = () => setOpenError(false);
-    const [isLoading, setIsLoading] = useState(false);
-    
+  const [isLoading, setIsLoading] = useState(false);
   const [isCompleted, changeCompleted] = useState(false);
-
-
 
   const [projectDetails1, setData] = useState([]);
   const [userName, setUsername] = useState("Loading");
@@ -182,10 +174,13 @@ const Dashboard = () => {
     );
   }
 
-  const uncompletedProject=projectDetails1.filter(project=>project.completedflag==false)
-  const completedProject=projectDetails1.filter(project=>project.completedflag==true)
+  const uncompletedProject = projectDetails1.filter(
+    (project) => project.completedflag === false
+  );
+  const completedProject = projectDetails1.filter(
+    (project) => project.completedflag === true
+  );
   return (
-    
     <div className="DashBoard">
       {responseNameCode || responseDataCode !== 200 ? (
         <Popup open={openError} closeOnDocumentClick onClose={closeModalError}>
@@ -221,11 +216,14 @@ const Dashboard = () => {
           width={window.innerWidth}
         />
       )}
-     
-      {!isLoading && projectDetails1 && (
-        !isCompleted?<CardGenerator data={uncompletedProject} />:<CardGenerator data={completedProject} />
-      
-      )}  
+
+      {!isLoading &&
+        projectDetails1 &&
+        (!isCompleted ? (
+          <CardGenerator data={uncompletedProject} />
+        ) : (
+          <CardGenerator data={completedProject} />
+        ))}
       {/*  */}
       {/* <div class="dashboardBlocks">
       {console.log("dfgdfgdfgfg")}{console.log(projectDetails1)}

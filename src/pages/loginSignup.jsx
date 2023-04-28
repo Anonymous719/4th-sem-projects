@@ -1,7 +1,7 @@
 import React from "react";
 import "./login_Signup.css";
 
-import FormBox from "../component/From_Main_Box/form_Main_box";
+import FormBox from "../component/Sign_Login_Component/From_Main_Box/form_Main_box";
 const logIn = () => {
   return (
     <div

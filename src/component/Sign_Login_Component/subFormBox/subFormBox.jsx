@@ -1,7 +1,7 @@
 import React from "react";
 import "./subFormBox.css";
-import SignUp_Part from "../sSignUpPart/signUpPart";
-import LogIn_Part from "../../logInPart/logInPart";
+import SignUp_Part from "../SignUpPart/signUpPart";
+import LogIn_Part from "../logInPart/logInPart";
 const SubFormBox = ({ isSignup, changeSignup }) => {
     return (
       <div >

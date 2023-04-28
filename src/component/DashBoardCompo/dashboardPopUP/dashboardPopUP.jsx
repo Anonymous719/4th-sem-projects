@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import "./LandingPopUp.css";
-import InputField from "../InputField/InputField";
+import "./dashboardPopUP.css";
+import InputField from "../../InputField/InputField";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import LibraryAddOutlinedIcon from "@mui/icons-material/LibraryAddOutlined";
-import DashBoardPopUpSlidebar from "../SlideBar/dashBoardPopUpSlidebar";
+import DashBoardPopUpSlidebar from "../DashBoardPopUPSlider/dashBoardPopUpSlidebar.jsx";
 import { useNavigate } from "react-router-dom";
-import { apiAddress } from "../../component/API/api";
-import { GetToken } from "../../GlobalVariable";
-import ErrorpopUp, { PositivepopUp } from "./ErrorpopUp";
+import { apiAddress } from "../../../component/API/api";
+import { GetToken } from "../../../GlobalVariable";
+import ErrorpopUp, { PositivepopUp } from "../../popUp/ErrorpopUp.jsx";
 import Popup from "reactjs-popup";
 
 const PopUpDashboard = ({ onClose }) => {
@@ -16,16 +16,16 @@ const PopUpDashboard = ({ onClose }) => {
 {
    navigate("/projectPage");
 }
+
 const navigate=useNavigate();
   const [errorMsg, setErrorMsg] = useState("");
   const [openResponse, setOpenResponse] = useState(false);
   const [openError, setOpenError] = useState(false);
-  const closeModalResponse = () => setOpenResponse(false);
+  // const closeModalResponse = () => setOpenResponse(false);
   const closeModalError = () => setOpenError(false);
   const [isCreate, changeisCreate] = useState(true);
   const [code, setCode] = useState("");
   const [title, setTitle] = useState("");
-  const [projectTime, setProjectTime] = useState(0);
   const [deadline, setDeadline] = useState(new Date());
 
   const handleCreateSubmit = async (event) => {
@@ -177,7 +177,7 @@ const navigate=useNavigate();
                 onChange={(event) => setProjectTime(event.target.value)}
                 value={projectTime}
               /> */}
-              <button className="assignbutton " type="submit">
+             <button className="assignbutton " type="submit">
                 Join Project
               </button>
             </div>

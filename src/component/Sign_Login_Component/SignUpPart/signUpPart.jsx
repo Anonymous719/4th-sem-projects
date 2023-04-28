@@ -8,15 +8,15 @@ import Cookies from "js-cookie";
 
 import "./signUpPart.css";
 
-import InputField from "../InputField/InputField";
+import InputField from "../../InputField/InputField";
 import Errormsg from "../ErrorMsgField/ErrorMsgField";
 import PasswordField from "../PasswordField/passwordField";
-import MainLogo from "./../../Images/MainLogo.png";
-import GenderSelectorDropdown from "../SelectorDropDown/GenderSelectorDropdown";
+import MainLogo from "./../../../Images/MainLogo.png";
+import GenderSelectorDropdown from "../../SelectorDropDown/GenderSelectorDropdown";
 import "react-datepicker/dist/react-datepicker.css";
-import { apiAddress } from "../API/api";
-import { PositivepopUp } from "../popUp/ErrorpopUp";
-import ErrorpopUp from "../popUp/ErrorpopUp";
+import { apiAddress } from "../../API/api";
+import { PositivepopUp } from "../../popUp/ErrorpopUp";
+import ErrorpopUp from "../../popUp/ErrorpopUp";
 
 const SignUp_Part = () => {
   const navigate = useNavigate();

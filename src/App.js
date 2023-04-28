@@ -9,8 +9,8 @@ import DeadlineList from "./pages/deadline"// eslint-disable-next-line
 import ProjectPage from "./pages/projectpage";// eslint-disable-next-line
 import SelectorDropDown from "./component/SelectorDropDown/SelectorDropDown.js"// eslint-disable-next-line
 import ProfilePage from "./pages/profilepage"; // eslint-disable-next-line
-import PopUpToDo from "./component/popUp/LandingPopUp";// eslint-disable-next-line
-import PopUpDashboard from "./component/popUp/dashboardPopUP";// eslint-disable-next-line
+import PopUpToDo from "./component/popUp/toDoPopUp";// eslint-disable-next-line
+// eslint-disable-next-line
 import ResourcesPage from "./pages/resourcespage";// eslint-disable-next-line
 import Chatpage from "./pages/chatpage";// eslint-disable-next-line
 import Tryyy from "./component/API/api";// eslint-disable-next-line

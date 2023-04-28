@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./logInPart.css";
 import { Google, Facebook, GitHub } from "@mui/icons-material";
 import { Button } from "@material-ui/core";
@@ -6,34 +6,28 @@ import { useNavigate } from "react-router-dom";
 import Popup from "reactjs-popup";
 import Cookies from "js-cookie";
 
-
-
-import InputField from "../InputField/InputField";
+import InputField from "../../InputField/InputField";
 import Errormsg from "../ErrorMsgField/ErrorMsgField";
 import PasswordField from "../PasswordField/passwordField";
-import MainLogo from "./../../Images/MainLogo.png";
-import { apiAddress } from "../API/api";
-import { PositivepopUp } from "../popUp/ErrorpopUp";
-import ErrorpopUp from "../popUp/ErrorpopUp";
+import MainLogo from "./../../../Images/MainLogo.png";
+import { apiAddress } from "../../API/api";
+
+import ErrorpopUp, { PositivepopUp } from "../../popUp/ErrorpopUp";
 
 const LogIn_Part = () => {
   const navigate = useNavigate();
   const navigateToDashboard = () => {
     navigate("/dashboard");
   };
- const [isError, setIsError] = useState("");
+  const [isError, setIsError] = useState("");
   const [openResponse, setOpenResponse] = useState(false);
   const [openError, setOpenError] = useState(false);
   const closeModalError = () => setOpenError(false);
   const closeModalResponse = () => setOpenResponse(false);
-  const [data, setData] = useState({});
-  const [response, setResponse] = useState({});
+  // const [data, setData] = useState({});;
   const [email, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [myData, setMyData] = useState([]);
- 
-
-  
+  // const [myData, setMyData] = useState([]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -54,7 +48,6 @@ const LogIn_Part = () => {
       if (response.status === 200) {
         Cookies.set("token", result.token, { expires: 7 }); // expires after 7 days
         setOpenResponse((o) => !o);
-       
       } else {
         console.log(result.error);
         setIsError(result.error);
@@ -65,9 +58,9 @@ const LogIn_Part = () => {
     }
   };
 
-  useEffect(() => {
-    console.log(myData);
-  }, [myData]);
+  // useEffect(() => {
+  //   console.log(myData);
+  // }, [myData]);
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -85,12 +78,7 @@ const LogIn_Part = () => {
   //   console.log(isError);
   //   // fetchData();
   // }, [isError]);
-  async function fetchData() {
-    const response = await fetch("http://172.17.1.58:8000/api/user/login");
-    const json = await response.json();
-    setData(json);
-    await console.log(data);
-  }
+
   console.log(Cookies.get("token"));
   return (
     <form className="loginForm" onSubmit={handleSubmit}>
@@ -102,7 +90,7 @@ const LogIn_Part = () => {
         <PositivepopUp
           PositiveHeading={"Sucessfully LogIN"}
           Positivemsg={"You have successfully logged in"}
-          onClose={ ()=>navigateToDashboard()}
+          onClose={() => navigateToDashboard()}
         />
       </Popup>
       <Popup open={openError} closeOnDocumentClick onClose={closeModalError}>

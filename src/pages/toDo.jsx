@@ -14,17 +14,19 @@ import { ThreeCircles as Loading } from "react-loader-spinner";
 
 const ToDoPage = () => {
   const location = useLocation();
+  const [dataSet,setDataSet] = useState([])
   const [id, setId] = useState(null);
 
   const [open, setOpen] = useState(false);
   const closeModal = () => setOpen(false);
   const [responseNameCode, setResponseNameCode] = useState(null);
-  const [responseDataCode, setResponsedataCode] = useState(null);
+  const [responseDataCode, setResponseCode] = useState(null);
   const [errorMsg, setErrorMsg] = useState("");
   const [openResponse, setOpenResponse] = useState(false);
   const [openError, setOpenError] = useState(false);
   const closeModalError = () => setOpenError(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [member, setMembers] = useState([]);
 
   let run = true;
   useEffect(() => {
@@ -32,33 +34,68 @@ const ToDoPage = () => {
       const searchParams = new URLSearchParams(location.search);
       const id = searchParams.get("id");
       setId(id);
-      console.log(id);
+      // console.log(id);
       const token = GetToken();
       setIsLoading(true);
+      fetch(`${apiAddress}project/view/${id}`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((response) => {
+          setResponseCode(response.status);
+          return response.json();
+        })
+        .then((data) => {
+          for (let member of data.members) {
+            const newData = { name: member.name, id: member._id };
+            setMembers((prevData) => [...prevData, newData]);
+          }
+        })
+        .catch((error) => {
+          // handle errors
+          console.error(error);
+        });
       fetch(`${apiAddress}todo/view/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
         .then((response) => {
-          setResponsedataCode(response.status);
+          setResponseCode(response.status);
           return response.json();
         })
         .then((data) => {
-          console.log(data);
+          for (let list of data[0].list) {
+          
+            const newData = {
+              completedflag: list.completedflag,
+              completedon: list.completedon,
+              deadline: list.deadline,
+              detail: list.detail,
+              label: list.label,
+              point: list.point,
+              tag: list.tag,
+              title: list.title,
+              _id: list._id,
+            };
+            // console.log(newData);
+            setDataSet((prevData) => [...prevData, newData]);
+            
+          }
+          
           setIsLoading(false);
-        }) .catch(error => {
-              // handle errors
-              console.error(error);
-            });
-
+        })
+        .catch((error) => {
+          // handle errors
+          console.error(error);
+        });
 
       setIsLoading(false);
       run = false;
     }
   }, []);
-
-  useEffect(() => {}, [location.search]);
 
   const [contentInfo, changeContentInfo] = useState([
     {
@@ -272,44 +309,49 @@ const ToDoPage = () => {
   const [addPressed, ChangeAddPressed] = useState("False");
   return (
     <div>
+    {/* { console.log(dataSet)} */}
       <Topbar />
       <div className="progressContainer">
         <div className="leftCointainer">
           <TopToDoBar />
           <div className="columns">
             <ColumnProgessBox
+              membersList={member}
               onAddPressed={() => {
                 ChangeAddPressed(true);
                 console.log(addPressed);
               }}
               title={"BackLog"}
-              contentInfo={contentInfo}
+              contentInfo={dataSet}
               onClick={() => {
                 console.log("prtessed");
               }}
               changeContentInfo={changeContentInfo}
             />
             <ColumnProgessBox
+              membersList={member}
               title={"To Do"}
-              contentInfo={contentInfo}
+              contentInfo={dataSet}
               onClick={{}}
               changeContentInfo={changeContentInfo}
             />
             <ColumnProgessBox
               title={"In Progress"}
-              contentInfo={contentInfo}
+              contentInfo={dataSet}
               onClick={{}}
               changeContentInfo={changeContentInfo}
             />
             <ColumnProgessBox
+              membersList={member}
               title={"Review"}
-              contentInfo={contentInfo}
+              contentInfo={dataSet}
               onClick={{}}
               changeContentInfo={changeContentInfo}
             />{" "}
             <ColumnProgessBox
+              membersList={member}
               title={"Completed"}
-              contentInfo={contentInfo}
+              contentInfo={dataSet}
               onClick={{}}
               changeContentInfo={changeContentInfo}
             />

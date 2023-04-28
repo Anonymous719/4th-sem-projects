@@ -3,10 +3,10 @@ import { useNavigate } from "react-router-dom";
 
 import "./dashboardCards.css";
 
-import DeadlineBox from "../deadlineBox/deadlineBox";
+import DeadlineBox from "../deadlineBox/deadlineBox.jsx";
 import CompleteDateBox from "../deadlineBox/completedDateBox";
-import { apiAddress } from "../API/api.jsx";
-import { GetToken } from "../../GlobalVariable";
+import { apiAddress } from "../../API/api.jsx";
+import { GetToken } from "../../../GlobalVariable";
 
 const Cards = ({
   title,
