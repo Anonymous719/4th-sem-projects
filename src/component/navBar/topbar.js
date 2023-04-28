@@ -14,7 +14,7 @@ const Topbar = () => {
     navigate("/deadline");
   };
   const navigateToProfilePage = () => {
-    return navigate("/profile");
+    return navigate("/profilepage");
   };
   const navigateToDashboard = () => {
     return navigate("/dashboard");
