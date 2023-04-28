@@ -5,39 +5,55 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import PopUpToDo from "../popUp/toDoPopUp";
 import Popup from "reactjs-popup";
-import { useLocation } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
+import { apiAddress } from "../API/api";
+import { GetToken } from "../../GlobalVariable";
 const ColumnProgessBox = ({
+  selfID,
   title,
   membersList,
-  contentInfo,changeContentInfo,
+  contentInfo,
+  changeContentInfo,
   onAddPressed,
-  
+    isHead
 }) => {
-  const isHead=true;
+ 
   const [toWhere, changeToWhere] = useState("");
-
+  const [Projectid, setId] = useState(null);
+  const [assignedtoID,setAssignedtoID]=useState(null)
   const onClickChange = (id, toWhere) => {
     const updatedContentInfo = contentInfo.map((element) =>
       element.id === id ? { ...element, title: toWhere } : element
     );
     changeContentInfo(updatedContentInfo);
   };
+  const location = useLocation();
+
   useEffect(() => {
-    console.log(contentInfo)
-
+    setAssignedtoID()
+    const searchParams = new URLSearchParams(location.search);
+    const Id = searchParams.get("id");
+    setId(Id);
+    // console.log(contentInfo);
   });
-  const onClicked=() => {
-
-  }
+  const onClicked = () => {};
   return (
-   
     <div className="columnProgessBox">
-      <Title membersList={membersList} isHead={isHead} title={title} contentInfo={contentInfo} changeContentInfo={changeContentInfo} />
+      <Title
+        membersList={membersList}
+        isHead={isHead}
+        title={title}
+        contentInfo={contentInfo}
+        changeContentInfo={changeContentInfo}
+      />
       {contentInfo.map((content) =>
         content.tag === title ? (
-          <Content isHead={isHead}
-            key={content.id}
-            taskID={content.id}
+          <Content
+          selfID={selfID}
+          assignedtoID={content.assignedto}
+            isHead={isHead}
+            key={content._id}
+            taskID={content._id}
             {...content}
             changeToWhere={changeToWhere}
             onClick={() => {
@@ -52,9 +68,15 @@ const ColumnProgessBox = ({
   );
 };
 
-const Title = ({ title,contentInfo,changeContentInfo, isHead,membersList}) => {
+const Title = ({
+  title,
+  contentInfo,
+  changeContentInfo,
+  isHead,
+  membersList,
+}) => {
   const [open, setOpen] = useState(false);
- 
+
   const closeModal = () => setOpen(false);
 
   const location = useLocation();
@@ -62,25 +84,37 @@ const Title = ({ title,contentInfo,changeContentInfo, isHead,membersList}) => {
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
-    const id = searchParams.get('id');
+    const id = searchParams.get("id");
     setId(id);
-  }, [location.search])
+  }, [location.search]);
   return (
     <div>
-     {/* {console.log(contentInfo)} */}
+      {/* {console.log(contentInfo)} */}
       <div className="title">
         <h5>{title}</h5>
-        {isHead ? <AddIcon onClick={() => setOpen((o) => !o)} className="addIcon" /> :""}
+        {isHead ? (
+          <AddIcon onClick={() => setOpen((o) => !o)} className="addIcon" />
+        ) : (
+          ""
+        )}
         <Popup open={open} closeOnDocumentClick onClose={closeModal}>
-          <PopUpToDo membersList={membersList} id={id} contentInfo={contentInfo} changeContentInfo={changeContentInfo} onClose={closeModal} />
+          <PopUpToDo
+            membersList={membersList}
+            id={id}
+            contentInfo={contentInfo}
+            changeContentInfo={changeContentInfo}
+            onClose={closeModal}
+          />
         </Popup>
-      </div> 
+      </div>
     </div>
   );
 };
 
 const Content = ({
+  selfID,
   taskID,
+  assignedtoID,
   label,
   title,
   detail,
@@ -91,9 +125,9 @@ const Content = ({
   isHead,
 }) => {
   // eslint-disable-next-line
-  const[isSelf,changeIsSelf] = useState(false)
+  const [isSelf, changeIsSelf] = useState(false);
   const [open, setOpen] = useState(false);
-
+  const [Projectid, setId] = useState(null);
   let menuRef = useRef();
 
   useEffect(() => {
@@ -102,60 +136,116 @@ const Content = ({
         setOpen(false);
       }
     };
-
+    var check=selfID===assignedtoID;
+    changeIsSelf(check);
+    // changeIsSelf(true)
     document.addEventListener("mousedown", handler);
-
+    const searchParams = new URLSearchParams(location.search);
+    const Id = searchParams.get("id");
+    setId(Id);
     return () => {
       document.removeEventListener("mousedown", handler);
     };
   });
 
+  const [title1, migrateWhere] = useState("");
+  const location = useLocation();
+
+  const onClick1 = async () => {
+    const token = GetToken(),
+      data = { tag: title1 };
+
+    console.log(data);
+    try {
+      const response = await fetch(
+        `${apiAddress}todo/update/${Projectid}/${taskID}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+
+          body: JSON.stringify(data),
+        }
+      );
+      const result = await response.json();
+      console.log(result);
+      console.log(response.status);
+      if (response.status === 200) {
+        console.log("sdcsdcdc");
+      } else {
+        console.log(result.error);
+        // setErrorMsg(result.error);
+        // setOpenError((o) => !o);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
-    <div style={{backgroundColor:`${isSelf?"white":"#ccc"}`,}} className="content" onDrag={onDoubleClick}>
+    
+    <div
+      style={{ backgroundColor: `${isSelf ? "white" : "#ccc"}` }}
+      className="content"
+      onDrag={onDoubleClick}
+    >
+    {/* {console.log(selfID===assignedtoID)} */}
       <div className="date_DropDown">
         <div className="label">{label}</div>
-        
-          {isSelf||isHead?<div className="menu-container" ref={menuRef}>
-          <div
-            className="menu-trigger"
-            onClick={() => {
-              setOpen(!open);
-            }}
-          >
-            {open ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
-          </div> <div className={`dropdown-menu ${open ? "active" : "inactive"}`}>
-            <ul>
-              <DropdownItem
-                changeToWhere={changeToWhere}
-                onClick={onClick}
-                text={"BackLog"}
-              /> 
-              <DropdownItem
-                changeToWhere={changeToWhere}
-                onClick={onClick}
-                text={"To Do"}
-              />
-              <DropdownItem
-                changeToWhere={changeToWhere}
-                onClick={onClick}
-                text={"In Progress"}
-              /><DropdownItem
-                changeToWhere={changeToWhere}
-                onClick={onClick}
-                text={"Review"}
-              />
-              {
-                isHead?<DropdownItem
-                changeToWhere={changeToWhere}
-                onClick={onClick}
-                text={"Completed"}
-              />:""
-              }
-              
-            </ul>
-          </div></div>:""}
-         
-        
+
+        {isSelf || isHead ? (
+          <div className="menu-container" ref={menuRef}>
+            <div
+              className="menu-trigger"
+              onClick={() => {
+                setOpen(!open);
+              }}
+            >
+              {open ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
+            </div>{" "}
+            <div className={`dropdown-menu ${open ? "active" : "inactive"}`}>
+              <ul>
+                <DropdownItem
+                  changeToWhere={migrateWhere}
+                  // {changeToWhere}
+                  onClick={onClick1}
+                  text={"BackLog"}
+                />
+                <DropdownItem
+                  changeToWhere={migrateWhere}
+                  // {changeToWhere}
+                  onClick={onClick1}
+                  text={"To Do"}
+                />
+                <DropdownItem
+                  changeToWhere={migrateWhere}
+                  // {changeToWhere}
+                  onClick={onClick1}
+                  text={"In Progress"}
+                />
+                <DropdownItem
+                  changeToWhere={migrateWhere}
+                  // {changeToWhere}
+                  onClick={onClick1}
+                  text={"Review"}
+                />
+                {isHead ? (
+                  <DropdownItem
+                    changeToWhere={migrateWhere}
+                    onClick={onClick1}
+                    text={"Completed"}
+                  />
+                ) : (
+                  ""
+                )}
+              </ul>
+            </div>
+          </div>
+        ) : (
+          ""
+        )}
       </div>
 
       <div className="projectTitle">{title}</div>
@@ -169,13 +259,10 @@ function DropdownItem({ changeToWhere, onClick, text }) {
   async function handleClicked() {
     changeToWhere(text);
     cd(true);
-
     console.log(d);
-    console.log("dfvsdfdsfsdfsdfdsf");
   }
   useEffect(() => {
     if (d) {
-      console.log("34");
       onClick();
     }
     // eslint-disable-next-line

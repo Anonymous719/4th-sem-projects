@@ -14,7 +14,7 @@ import { ThreeCircles as Loading } from "react-loader-spinner";
 
 const ToDoPage = () => {
   const location = useLocation();
-  const [dataSet,setDataSet] = useState([])
+  const [dataSet, setDataSet] = useState([]);
   const [id, setId] = useState(null);
 
   const [open, setOpen] = useState(false);
@@ -27,7 +27,8 @@ const ToDoPage = () => {
   const closeModalError = () => setOpenError(false);
   const [isLoading, setIsLoading] = useState(false);
   const [member, setMembers] = useState([]);
-
+  const [isHead, setHead] = useState(false);
+  const [selfID,setSelfID] = useState(null);
   let run = true;
   useEffect(() => {
     if (run == true) {
@@ -37,6 +38,56 @@ const ToDoPage = () => {
       // console.log(id);
       const token = GetToken();
       setIsLoading(true);
+      var isHead = true;
+      async function FETCH() {
+        const searchParams = new URLSearchParams(location.search);
+        const Projectid = searchParams.get("id");
+        try {
+          const response = await fetch(
+            `${apiAddress}project/iscreater/${Projectid}`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          const result = await response.json();
+          if (response.status === 200) {
+            setHead(result.flag);
+          } else {
+            // console.log(result.error);
+            // setErrorMsg(result.error);
+            // setOpenError((o) => !o);
+          }
+        } catch (e) {
+          console.log(e);
+        }
+        try {
+          const response = await fetch(
+            `${apiAddress}project/getid`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          const result = await response.json();
+          if (response.status === 200) {
+          setSelfID(result.userid);
+          } else {
+            // console.log(result.error);
+            // setErrorMsg(result.error);
+            // setOpenError((o) => !o);
+          }
+        } catch (e) {
+          console.log(e);
+        }
+      }
+      FETCH();
       fetch(`${apiAddress}project/view/${id}`, {
         method: "GET",
         headers: {
@@ -67,9 +118,10 @@ const ToDoPage = () => {
           return response.json();
         })
         .then((data) => {
+          // console.log(data);
           for (let list of data[0].list) {
-          
             const newData = {
+              assignedto: list.assignedto,
               completedflag: list.completedflag,
               completedon: list.completedon,
               deadline: list.deadline,
@@ -82,9 +134,8 @@ const ToDoPage = () => {
             };
             // console.log(newData);
             setDataSet((prevData) => [...prevData, newData]);
-            
           }
-          
+
           setIsLoading(false);
         })
         .catch((error) => {
@@ -309,13 +360,14 @@ const ToDoPage = () => {
   const [addPressed, ChangeAddPressed] = useState("False");
   return (
     <div>
-    {/* { console.log(dataSet)} */}
+      {/* { console.log(dataSet)} */}
       <Topbar />
       <div className="progressContainer">
         <div className="leftCointainer">
           <TopToDoBar />
           <div className="columns">
-            <ColumnProgessBox
+            <ColumnProgessBox selfID={selfID}
+              isHead={isHead}
               membersList={member}
               onAddPressed={() => {
                 ChangeAddPressed(true);
@@ -329,26 +381,32 @@ const ToDoPage = () => {
               changeContentInfo={changeContentInfo}
             />
             <ColumnProgessBox
+            selfID={selfID}
+              isHead={isHead}
               membersList={member}
               title={"To Do"}
               contentInfo={dataSet}
               onClick={{}}
               changeContentInfo={changeContentInfo}
             />
-            <ColumnProgessBox
+            <ColumnProgessBox selfID={selfID}
+              isHead={isHead}
+              membersList={member}
               title={"In Progress"}
               contentInfo={dataSet}
               onClick={{}}
               changeContentInfo={changeContentInfo}
             />
-            <ColumnProgessBox
+            <ColumnProgessBox selfID={selfID}
+              isHead={isHead}
               membersList={member}
               title={"Review"}
               contentInfo={dataSet}
               onClick={{}}
               changeContentInfo={changeContentInfo}
             />{" "}
-            <ColumnProgessBox
+            <ColumnProgessBox selfID={selfID}
+              isHead={isHead}
               membersList={member}
               title={"Completed"}
               contentInfo={dataSet}
