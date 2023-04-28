@@ -204,7 +204,7 @@ const Content = ({
               }}
             >
               {open ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
-            </div>{" "}
+            </div>
             <div className={`dropdown-menu ${open ? "active" : "inactive"}`}>
               <ul>
                 <DropdownItem

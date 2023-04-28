@@ -9,15 +9,17 @@ import { useLocation } from "react-router-dom";
 
 const ProjectPageCard = ({ type, projectid }) => {
   const [isLoading, setIsLoading] = useState(false);
-
+  const [nameSet, setNameSet] = useState([]);
   const [open, setOpen] = useState(false);
   const closeModal = () => setOpen(false);
   const [responseNameCode, setResponseNameCode] = useState(null);
   const [responseCode, setResponseCode] = useState(null);
   const [openError, setOpenError] = useState(false);
   const closeModalError = () => setOpenError(false);
-  const [landingpageProgressDataSet, setLandingPageProgressDataSet] = useState([]);
-const [projectCode,setProjectCode]=useState(null)
+  const [landingpageProgressDataSet, setLandingPageProgressDataSet] = useState(
+    []
+  );
+  const [projectCode, setProjectCode] = useState(null);
   const [isCompleted, changeCompleted] = useState(false);
 
   const [projectDetails1, setData] = useState([]);
@@ -39,26 +41,26 @@ const [projectCode,setProjectCode]=useState(null)
   };
   const location = useLocation();
   // const tryy=.percentage
-let run = true;
+  let run = true;
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
     const id = searchParams.get("id");
-    
+
     if (run === true) {
       const token = GetToken();
       setIsLoading(true);
+
       fetch(`${apiAddress}user/getname`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
         .then((response) => {
-          console.log("dashboard" + response.status);
+          // console.log("dashboard" + response.status);
           setResponseNameCode(response.status);
           return response.json();
         })
-        .then((data) => {
-        });
+        .then((data) => {});
       fetch(`${apiAddress}todo/projectprogress/${id}`, {
         headers: {
           "Content-Type": "application/json",
@@ -79,70 +81,85 @@ let run = true;
               _id: data._id,
               percentage: data.completedPoints / data.totalPoints,
             };
-            // console.log(typeof(newData.percentage))
+            GetName(data._id)
             setLandingPageProgressDataSet((prevData) => [...prevData, newData]);
           }
           setIsLoading(false);
+        })
+
+        .catch((error) => {
+          // handle errors
+          console.error(error);
+        });
+      fetch(`${apiAddress}project/view/${id}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((response) => {
+          setResponseCode(response.status);
+          return response.json();
+        })
+        .then((datas) => {
+          console.log("code       "+datas.code);
         })
         .catch((error) => {
           // handle errors
           console.error(error);
         });
-        fetch(`${apiAddress}project/view/${id}`, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        })
-          .then((response) => {
-            setResponseCode(response.status);
-            return response.json();
-          })
-          .then((datas) => {
-            console.log(datas.code)
-          })
-          .catch((error) => {
-            // handle errors
-            console.error(error);
-          });
-      
+
       run = false;
     }
   }, []);
+
+
+  
+const[trys,changeTRys] =useState(1);
+  const GetallName = (datas) => {
+   console.log(datas.length +"u")
+    for (let data=0;data<datas.length;data++) {
+      console.log(data,datas.length)
+      GetName(datas[data]._id);
+    }
+  };
   async function GetName(sid) {
-        try {
-          const data={sid}
-          console.log(sid);
-          const response = await fetch(`${apiAddress}/user/getname/${sid}`, {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${GetToken()}`,
-            },
-          });
-          const result = await response.json();
-          console.log(result);
-          console.log(response.status);
-          if (response.status === 200) {
-            console.log(result)
-          } else {
-            console.log(result.error);
-            // setErrorMsg(result.error);
-            // setOpenError((o) => !o);
-          }
-        } catch (error) {
-          console.error(error);
-        }
+    if(trys===1)
+   { try {
+      console.log("7");
+      const response = await fetch(`${apiAddress}user/getname/${sid}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${GetToken()}`,
+        },
+      });
+      const result = await response.json();
+      console.log(result.name);
+      if (response.status === 200) {
+        const newData=result.name;
+        setNameSet((prevData)=>[...prevData,newData])
+
+        console.log("name received");
+      } else {
+        console.log(result.error);
       }
+    } catch (error) {
+      console.error(error);
+    }
+  changeTRys(trys+1)}
+  }
+
   switch (type) {
     case "Progress":
       return (
         <div class="projectCardsBox">
           <div class="progress_title">
             <h1>{type}</h1>
-            <h1>Members 04</h1>
+            {/* <h1>Members 04</h1> */}
           </div>
-          {landingpageProgressDataSet.length !== 0 &&
+          {landingpageProgressDataSet.length !== 0 &&nameSet!==0 &&
+         
             landingpageProgressDataSet.map((data) => (
               <div>
                 <div onClick={navigateToProgressPage}>
@@ -151,17 +168,19 @@ let run = true;
                     <div class="progress_scores">
                       <div class="progress_namebar">
                         <p>
-                        {console.log(data._id)}
-                          {/* {console.log(GetName(data._id)) } */}
+                        {nameSet[landingpageProgressDataSet.indexOf(data)]}
                         </p>
-                        <hr />
+                       {/* { ProgressBar(data.percentage)} */}
                       </div>
+                      {/* <p>{data.completedPoints} %</p>
+                      <p>{data.totalPoints} %</p> */}
                       <p>{data.percentage} %</p>
                     </div>
                   </div>
                 </div>
               </div>
             ))}
+             
         </div>
       );
     case "ToDo":
@@ -211,7 +230,27 @@ let run = true;
       return <div></div>;
   }
 };
+function ProgressBar({ percent }) {
+  const [width, setWidth] = useState(0);
 
+  useEffect(() => {
+    let timeoutId;
+
+    if (width < percent) {
+      timeoutId = setTimeout(() => {
+        setWidth(prevWidth => prevWidth + 1);
+      }, 10);
+    }
+
+    return () => clearTimeout(timeoutId);
+  }, [width, percent]);
+
+  return (
+    <div style={{ backgroundColor: '#ccc', height: '20px', width: '100%' }}>
+      <div style={{ backgroundColor: 'blue', height: '20px', width: `${width}%` }} />
+    </div>
+  );
+}
 export default ProjectPageCard;
 
 // function ProjectPageCard({type}) {
