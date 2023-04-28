@@ -48,7 +48,7 @@ const Dashboard = () => {
         },
       })
         .then((response) => {
-          setResponsedataCode(response.status);
+          setResponseCode(response.status);
           return response.json();
         })
         .then((data) => {
@@ -155,7 +155,7 @@ const Dashboard = () => {
   const [open, setOpen] = useState(false);
   const closeModal = () => setOpen(false);
   const [responseNameCode, setResponseNameCode] = useState(null);
-  const [responseDataCode, setResponsedataCode] = useState(null);
+  const [responseCode, setResponseCode] = useState(null);
   const [openError, setOpenError] = useState(false);
   const closeModalError = () => setOpenError(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -182,7 +182,7 @@ const Dashboard = () => {
   );
   return (
     <div className="DashBoard">
-      {responseNameCode || responseDataCode !== 200 ? (
+      {responseNameCode || responseCode !== 200 ? (
         <Popup open={openError} closeOnDocumentClick onClose={closeModalError}>
           <ErrorpopUp
             Errormsg={"Error has Occured"}

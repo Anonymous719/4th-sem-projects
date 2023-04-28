@@ -21,6 +21,7 @@ const Cards = ({
   const [errorMsg, setErrorMsg] = useState("");
 
   const navigateToProjectPage = () => {
+    
     navigate(`/projectPage?id=${projectid}`);
   };
   const navigate = useNavigate();
@@ -51,7 +52,7 @@ const Cards = ({
         })
         .then((data) => {
           if (responseStatus == 200) {
-            console.log(data.message);
+            console.log(data);
             setResponseText(data.message);
             console.log(responseText);
           } else {
