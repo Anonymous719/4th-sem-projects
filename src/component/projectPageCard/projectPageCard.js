@@ -72,16 +72,17 @@ const ProjectPageCard = ({ type, projectid }) => {
           return response.json();
         })
         .then((datas) => {
-          //   console.log(data[0].completedPoints);
+          // console.log(datas);
+          // //   console.log(data[0].completedPoints);
           for (let data of datas) {
             // console.log(i);
             const newData = {
               completedPoints: data.completedPoints,
               totalPoints: data.totalPoints,
               _id: data._id,
-              percentage: data.completedPoints / data.totalPoints,
+              percentage: (data.completedPoints / data.totalPoints)*100,
             };
-            GetName(data._id)
+           
             setLandingPageProgressDataSet((prevData) => [...prevData, newData]);
           }
           setIsLoading(false);
@@ -115,66 +116,69 @@ const ProjectPageCard = ({ type, projectid }) => {
 
 
   
-const[trys,changeTRys] =useState(1);
-  const GetallName = (datas) => {
-   console.log(datas.length +"u")
-    for (let data=0;data<datas.length;data++) {
-      console.log(data,datas.length)
-      GetName(datas[data]._id);
-    }
-  };
-  async function GetName(sid) {
-    if(trys===1)
-   { try {
-      console.log("7");
-      const response = await fetch(`${apiAddress}user/getname/${sid}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${GetToken()}`,
-        },
-      });
-      const result = await response.json();
-      console.log(result.name);
-      if (response.status === 200) {
-        const newData=result.name;
-        setNameSet((prevData)=>[...prevData,newData])
+// const[trys,changeTRys] =useState(1);
+//   const GetallName = (datas) => {
+//    console.log(datas.length +"u")
+//     for (let data=0;data<datas.length;data++) {
+//       console.log(data,datas.length)
+//       GetName(datas[data]._id);
+//     }
+//   };
+//   async function GetName(sid) {
+//     if(trys===1)
+//    { try {
+//       console.log("7");
+//       const response = await fetch(`${apiAddress}user/getname/${sid}`, {
+//         method: "GET",
+//         headers: {
+//           "Content-Type": "application/json",
+//           Authorization: `Bearer ${GetToken()}`,
+//         },
+//       });
+//       const result = await response.json();
+//       console.log(result.name);
+//       if (response.status === 200) {
+//         const newData=result.name;
+//         setNameSet((prevData)=>[...prevData,newData])
 
-        console.log("name received");
-      } else {
-        console.log(result.error);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  changeTRys(trys+1)}
-  }
+//         console.log("name received");
+//       } else {
+//         console.log(result.error);
+//       }
+//     } catch (error) {
+//       console.error(error);
+//     }
+//   changeTRys(trys+1)}
+//   }
 
   switch (type) {
     case "Progress":
       return (
-        <div class="projectCardsBox">
+        <div style={{width:"100%"}} class="projectCardsBox">
           <div class="progress_title">
             <h1>{type}</h1>
             {/* <h1>Members 04</h1> */}
           </div>
-          {landingpageProgressDataSet.length !== 0 &&nameSet!==0 &&
          
+            {landingpageProgressDataSet.length !== 0 &&nameSet!==0 &&
             landingpageProgressDataSet.map((data) => (
               <div>
-                <div onClick={navigateToProgressPage}>
+              {/* onClick={navigateToProgressPage} */}
+                <div >
                   <hr />
                   <div class="progress_members">
                     <div class="progress_scores">
                       <div class="progress_namebar">
-                        <p>
-                        {nameSet[landingpageProgressDataSet.indexOf(data)]}
-                        </p>
-                       {/* { ProgressBar(data.percentage)} */}
+                        {data._id}
+                                             
                       </div>
+                      <div style={{width:"50%"}}>
+                        <ProgressBar percentage={data.percentage} />
+                      </div>
+                      
                       {/* <p>{data.completedPoints} %</p>
                       <p>{data.totalPoints} %</p> */}
-                      <p>{data.percentage} %</p>
+                      <p style={{width:"25%"}} >{data.percentage} %</p>
                     </div>
                   </div>
                 </div>
@@ -191,24 +195,7 @@ const[trys,changeTRys] =useState(1);
             <h1>YY:MM:DD</h1>
           </div>
           <hr />
-          <div class="todo_list">
-            <div class="todo_task">
-              <p>Task 1 </p>
-              <p>YY:MM:DD</p>
-            </div>
-            <div class="todo_task">
-              <p>Task 2 </p>
-              <p>YY:MM:DD</p>
-            </div>
-            <div class="todo_task">
-              <p>Task 3 </p>
-              <p>YY:MM:DD</p>
-            </div>
-            <div class="todo_task">
-              <p>Task 4 </p>
-              <p>YY:MM:DD</p>
-            </div>
-          </div>
+       
         </div>
       );
     case "Resources":
@@ -230,27 +217,33 @@ const[trys,changeTRys] =useState(1);
       return <div></div>;
   }
 };
-function ProgressBar({ percent }) {
-  const [width, setWidth] = useState(0);
+function ProgressBar({percentage}) {
+  // const [percentage, setPercentage] = useState(0);
 
-  useEffect(() => {
-    let timeoutId;
-
-    if (width < percent) {
-      timeoutId = setTimeout(() => {
-        setWidth(prevWidth => prevWidth + 1);
-      }, 10);
-    }
-
-    return () => clearTimeout(timeoutId);
-  }, [width, percent]);
+  // function handleInputChange(event) {
+  //   const input = event.target.value;
+  //   setPercentage(input);
+  // }
 
   return (
-    <div style={{ backgroundColor: '#ccc', height: '20px', width: '100%' }}>
-      <div style={{ backgroundColor: 'blue', height: '20px', width: `${width}%` }} />
+    <div className="progress-bar-container">
+      <div
+        className="progress-bar"
+        style={{ width: `${percentage}%` }}
+      >
+        {percentage}%
+      </div>
+      {/* <input
+        type="range"
+        min="0"
+        max="100"
+        value={percentage}
+        onChange={handleInputChange}
+      /> */}
     </div>
   );
 }
+
 export default ProjectPageCard;
 
 // function ProjectPageCard({type}) {

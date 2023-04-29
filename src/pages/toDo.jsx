@@ -121,7 +121,8 @@ const ToDoPage = () => {
           // console.log(data);
           for (let list of data[0].list) {
             const newData = {
-              assignedto: list.assignedto,
+              assignedto: list.assignedto._id,
+              assignedtoName:list.assignedto.name,
               completedflag: list.completedflag,
               completedon: list.completedon,
               deadline: list.deadline,

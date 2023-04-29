@@ -49,6 +49,7 @@ const ColumnProgessBox = ({
       {contentInfo.map((content) =>
         content.tag === title ? (
           <Content
+          assignedtoName={content.assignedtoName}
           selfID={selfID}
           assignedtoID={content.assignedto}
             isHead={isHead}
@@ -114,6 +115,7 @@ const Title = ({
 const Content = ({
   selfID,
   taskID,
+  assignedtoName,
   assignedtoID,
   label,
   title,
@@ -187,11 +189,12 @@ const Content = ({
   return (
     
     <div
-      style={{ backgroundColor: `${isSelf ? "white" : "#ccc"}` }}
+    //self may be needed to change
+      style={{ backgroundColor: `${!isSelf ? "white" : "#ccc"}` }}
       className="content"
       onDrag={onDoubleClick}
     >
-    {/* {console.log(selfID===assignedtoID)} */}
+    {/* {console.log(selfID,assignedtoID)} */}
       <div className="date_DropDown">
         <div className="label">{label}</div>
 
@@ -251,6 +254,8 @@ const Content = ({
       <div className="projectTitle">{title}</div>
       <div className="projectSubTitle">{detail}</div>
       <div className="datebox">{deadline}</div>
+      <br></br>
+      <div>Assign to: {assignedtoName}</div>
     </div>
   );
 };
