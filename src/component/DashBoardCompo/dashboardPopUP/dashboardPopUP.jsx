@@ -12,12 +12,15 @@ import ErrorpopUp, { PositivepopUp } from "../../popUp/ErrorpopUp.jsx";
 import Popup from "reactjs-popup";
 
 const PopUpDashboard = ({ onClose }) => {
-  const navigateToProjectPage=()=>
-{
-   navigate("/projectPage");
-}
+  const navigateToProjectPage = () => {
+    navigate("/projectPage");
+  };
+  const navigateToDashboardPage = () => {
+    navigate("/Dashboard");
+    window.location.reload(true)
+  };
 
-const navigate=useNavigate();
+  const navigate = useNavigate();
   const [errorMsg, setErrorMsg] = useState("");
   const [openResponse, setOpenResponse] = useState(false);
   const [openError, setOpenError] = useState(false);
@@ -27,7 +30,7 @@ const navigate=useNavigate();
   const [code, setCode] = useState("");
   const [title, setTitle] = useState("");
   const [deadline, setDeadline] = useState(new Date());
-const [ProjectCode, setProjectCode]=useState(null)
+  const [ProjectCode, setProjectCode] = useState(null);
   const handleCreateSubmit = async (event) => {
     event.preventDefault();
     const data = { title, deadline };
@@ -44,7 +47,7 @@ const [ProjectCode, setProjectCode]=useState(null)
       });
       const result = await response.json();
       if (response.status === 200) {
-        setProjectCode(result.code)
+        setProjectCode(result.code);
         console.log(`Successfully created`);
         setOpenResponse((o) => !o);
       } else {
@@ -108,7 +111,7 @@ const [ProjectCode, setProjectCode]=useState(null)
         <PositivepopUp
           PositiveHeading={"Your Project has been created"}
           Positivemsg={""}
-          onClose={() =>  navigateToProjectPage}
+          onClose={() => navigateToDashboardPage}
         />
       </Popup>
 
@@ -178,7 +181,7 @@ const [ProjectCode, setProjectCode]=useState(null)
                 onChange={(event) => setProjectTime(event.target.value)}
                 value={projectTime}
               /> */}
-             <button className="assignbutton " type="submit">
+              <button className="assignbutton " type="submit">
                 Join Project
               </button>
             </div>

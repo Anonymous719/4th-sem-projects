@@ -28,7 +28,7 @@ const ToDoPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [member, setMembers] = useState([]);
   const [isHead, setHead] = useState(false);
-  const [selfID,setSelfID] = useState(null);
+  const [selfID, setSelfID] = useState(null);
   let run = true;
   useEffect(() => {
     if (run == true) {
@@ -65,19 +65,16 @@ const ToDoPage = () => {
           console.log(e);
         }
         try {
-          const response = await fetch(
-            `${apiAddress}project/getid`,
-            {
-              method: "GET",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
+          const response = await fetch(`${apiAddress}project/getid`, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          });
           const result = await response.json();
           if (response.status === 200) {
-          setSelfID(result.userid);
+            setSelfID(result.userid);
           } else {
             // console.log(result.error);
             // setErrorMsg(result.error);
@@ -122,7 +119,7 @@ const ToDoPage = () => {
           for (let list of data[0].list) {
             const newData = {
               assignedto: list.assignedto._id,
-              assignedtoName:list.assignedto.name,
+              assignedtoName: list.assignedto.name,
               completedflag: list.completedflag,
               completedon: list.completedon,
               deadline: list.deadline,
@@ -366,55 +363,61 @@ const ToDoPage = () => {
       <div className="progressContainer">
         <div className="leftCointainer">
           <TopToDoBar />
-          <div className="columns">
-            <ColumnProgessBox selfID={selfID}
-              isHead={isHead}
-              membersList={member}
-              onAddPressed={() => {
-                ChangeAddPressed(true);
-                console.log(addPressed);
-              }}
-              title={"BackLog"}
-              contentInfo={dataSet}
-              onClick={() => {
-                console.log("prtessed");
-              }}
-              changeContentInfo={changeContentInfo}
-            />
-            <ColumnProgessBox
-            selfID={selfID}
-              isHead={isHead}
-              membersList={member}
-              title={"To Do"}
-              contentInfo={dataSet}
-              onClick={{}}
-              changeContentInfo={changeContentInfo}
-            />
-            <ColumnProgessBox selfID={selfID}
-              isHead={isHead}
-              membersList={member}
-              title={"In Progress"}
-              contentInfo={dataSet}
-              onClick={{}}
-              changeContentInfo={changeContentInfo}
-            />
-            <ColumnProgessBox selfID={selfID}
-              isHead={isHead}
-              membersList={member}
-              title={"Review"}
-              contentInfo={dataSet}
-              onClick={{}}
-              changeContentInfo={changeContentInfo}
-            />{" "}
-            <ColumnProgessBox selfID={selfID}
-              isHead={isHead}
-              membersList={member}
-              title={"Completed"}
-              contentInfo={dataSet}
-              onClick={{}}
-              changeContentInfo={changeContentInfo}
-            />
-          </div>
+          {member && selfID && dataSet && (
+            <div className="columns">
+              <ColumnProgessBox
+                selfID={selfID}
+                isHead={isHead}
+                membersList={member}
+                onAddPressed={() => {
+                  ChangeAddPressed(true);
+                  console.log(addPressed);
+                }}
+                title={"BackLog"}
+                contentInfo={dataSet}
+                onClick={() => {
+                  console.log("prtessed");
+                }}
+                changeContentInfo={changeContentInfo}
+              />
+              <ColumnProgessBox
+                selfID={selfID}
+                isHead={isHead}
+                membersList={member}
+                title={"To Do"}
+                contentInfo={dataSet}
+                onClick={{}}
+                changeContentInfo={changeContentInfo}
+              />
+              <ColumnProgessBox
+                selfID={selfID}
+                isHead={isHead}
+                membersList={member}
+                title={"In Progress"}
+                contentInfo={dataSet}
+                onClick={{}}
+                changeContentInfo={changeContentInfo}
+              />
+              <ColumnProgessBox
+                selfID={selfID}
+                isHead={isHead}
+                membersList={member}
+                title={"Review"}
+                contentInfo={dataSet}
+                onClick={{}}
+                changeContentInfo={changeContentInfo}
+              />{" "}
+              <ColumnProgessBox
+                selfID={selfID}
+                isHead={isHead}
+                membersList={member}
+                title={"Completed"}
+                contentInfo={dataSet}
+                onClick={{}}
+                changeContentInfo={changeContentInfo}
+              />
+            </div>
+          )}
         </div>
         <div className="rightCointainer">
           <MemberListBox />

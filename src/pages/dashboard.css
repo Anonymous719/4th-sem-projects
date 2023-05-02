@@ -6,6 +6,11 @@
 .Spinnner{
   box-shadow: 0 0 100vmax rgb(85, 37, 37);
 }
+.NoProjectFound{
+  display: flex;
+    height: 400px;
+    align-items: center;
+}
 .dashboardBlocks {
   display: flex;
   flex-wrap: wrap;

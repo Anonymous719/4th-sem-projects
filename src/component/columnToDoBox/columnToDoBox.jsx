@@ -15,12 +15,11 @@ const ColumnProgessBox = ({
   contentInfo,
   changeContentInfo,
   onAddPressed,
-    isHead
+  isHead,
 }) => {
- 
   const [toWhere, changeToWhere] = useState("");
   const [Projectid, setId] = useState(null);
-  const [assignedtoID,setAssignedtoID]=useState(null)
+  const [assignedtoID, setAssignedtoID] = useState(null);
   const onClickChange = (id, toWhere) => {
     const updatedContentInfo = contentInfo.map((element) =>
       element.id === id ? { ...element, title: toWhere } : element
@@ -30,7 +29,7 @@ const ColumnProgessBox = ({
   const location = useLocation();
 
   useEffect(() => {
-    setAssignedtoID()
+    setAssignedtoID();
     const searchParams = new URLSearchParams(location.search);
     const Id = searchParams.get("id");
     setId(Id);
@@ -49,9 +48,9 @@ const ColumnProgessBox = ({
       {contentInfo.map((content) =>
         content.tag === title ? (
           <Content
-          assignedtoName={content.assignedtoName}
-          selfID={selfID}
-          assignedtoID={content.assignedto}
+            assignedtoName={content.assignedtoName}
+            selfID={selfID}
+            assignedtoID={content.assignedto}
             isHead={isHead}
             key={content._id}
             taskID={content._id}
@@ -133,21 +132,25 @@ const Content = ({
   let menuRef = useRef();
 
   useEffect(() => {
-    let handler = (e) => {
-      if (!menuRef.current.contains(e.target)) {
-        setOpen(false);
-      }
-    };
-    var check=selfID===assignedtoID;
+    if (isHead) {
+      let handler = (e) => {
+        if (!menuRef.current.contains(e.target)) {
+          setOpen(false);
+        }
+        document.addEventListener("mousedown", handler);
+      };
+      return () => {
+        document.removeEventListener("mousedown", handler);
+      };
+    }
+
+    var check = selfID === assignedtoID;
     changeIsSelf(check);
     // changeIsSelf(true)
-    document.addEventListener("mousedown", handler);
+
     const searchParams = new URLSearchParams(location.search);
     const Id = searchParams.get("id");
     setId(Id);
-    return () => {
-      document.removeEventListener("mousedown", handler);
-    };
   });
 
   const [title1, migrateWhere] = useState("");
@@ -187,14 +190,13 @@ const Content = ({
   };
 
   return (
-    
     <div
-    //self may be needed to change
+      //self may be needed to change
       style={{ backgroundColor: `${!isSelf ? "white" : "#ccc"}` }}
       className="content"
       onDrag={onDoubleClick}
     >
-    {/* {console.log(selfID,assignedtoID)} */}
+      {/* {console.log(selfID,assignedtoID)} */}
       <div className="date_DropDown">
         <div className="label">{label}</div>
 

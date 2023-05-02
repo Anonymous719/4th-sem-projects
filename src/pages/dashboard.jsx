@@ -79,6 +79,7 @@ const Dashboard = () => {
     }
   }, []);
 
+
   // const projectDetails = [
   //   {
   //     id: 1,
@@ -224,6 +225,8 @@ const Dashboard = () => {
         ) : (
           <CardGenerator data={completedProject} />
         ))}
+        {!isLoading &&
+        (<h1 className="NoProjectFound">No Project Found</h1>)}
       {/*  */}
       {/* <div class="dashboardBlocks">
       {console.log("dfgdfgdfgfg")}{console.log(projectDetails1)}
