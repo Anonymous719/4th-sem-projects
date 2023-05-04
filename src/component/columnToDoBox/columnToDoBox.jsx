@@ -132,6 +132,8 @@ const Content = ({
   let menuRef = useRef();
 
   useEffect(() => {
+    var check = selfID === assignedtoID;
+    changeIsSelf(check);
     if (isHead) {
       let handler = (e) => {
         if (!menuRef.current.contains(e.target)) {
@@ -144,8 +146,6 @@ const Content = ({
       };
     }
 
-    var check = selfID === assignedtoID;
-    changeIsSelf(check);
     // changeIsSelf(true)
 
     const searchParams = new URLSearchParams(location.search);
@@ -159,11 +159,13 @@ const Content = ({
   const onClick1 = async () => {
     const token = GetToken(),
       data = { tag: title1 };
-
+    
     console.log(data);
     try {
+      const searchParams = new URLSearchParams(location.search);
+    const Id = searchParams.get("id");
       const response = await fetch(
-        `${apiAddress}todo/update/${Projectid}/${taskID}`,
+        `${apiAddress}todo/update/${Id}/${taskID}`,
         {
           method: "PATCH",
           headers: {
@@ -193,10 +195,12 @@ const Content = ({
     <div
       //self may be needed to change
       style={{ backgroundColor: `${!isSelf ? "white" : "#ccc"}` }}
+      
       className="content"
       onDrag={onDoubleClick}
     >
-      {/* {console.log(selfID,assignedtoID)} */}
+    {/* {console.log(isSelf)}
+      {console.log(selfID,assignedtoID)} */}
       <div className="date_DropDown">
         <div className="label">{label}</div>
 
