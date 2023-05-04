@@ -35,13 +35,14 @@ const ResourcesPage = () => {
           return response.json();
         })
         .then((data) => {
-          console.log(data)
-          for (let i = 0; i < data.length; i++) {
+          console.log(data.list)
+          // console.log(data)
+          for (let i = 0; i < data.list.length; i++) {
             const newData = {
-              createdAt: data[i].createdAt,
-              link: data[i].link,
-              title: data[i].title,
-              uploadedBy: data[i].uploadedBy,
+              createdAt: data.list[i].createdAt,
+              link: data.list[i].link,
+              title: data.list[i].title,
+              uploadedBy: data.list[i].uploadedBy,
             };
             setResources((preValue) => [...preValue, newData])
           }
@@ -67,9 +68,8 @@ const ResourcesPage = () => {
   return (
     <div class="resourcepage">
       <Topbar />
-
-      <div>
-        <h1 id="resource_title">Resources</h1>
+ <h1 id="resource_title">Resources</h1>
+      <div className="resourcesContent">
         <div class="resource_title">
           <h2>Name</h2>
           <h2>Link</h2>
@@ -102,20 +102,20 @@ const ResourcesPage = () => {
   );
 };
 
-function ResourceGenerator({ data }) {
-  
+const ResourceGenerator=({data})=> {
+ console.log(data) 
   return (
-    <div class="dashboardBlocks">
+   
+    <div>
       {/* {console.log(projectDetails1)}  */}
-      {data.list.map((projects) => (
-        <Resource_listelement name={data.title} link={data.link} uploadedby={data.uploadedBy} uploadedon={data.createdOn} {...projects} />
+      {data.map((project) => (
+        <Resource_listelement name={project.title} link={project.link} uploadedby={project.uploadedBy} uploadedon={project.createdAt} {...project} />
       ))}
     </div>
   );
 }
 
 const Resource_listelement=({name, link, uploadedby, uploadedon}) =>{
-  console.log("Test1");
   return (
     <div class="resource_listelement">
       <h3>{name}</h3>

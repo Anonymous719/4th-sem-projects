@@ -1,8 +1,15 @@
 .resourcepage{
+    min-height: 100vh;
     background-color: #bef0ff;
+}
+.resourcesContent{
+    display: flex;
+    flex-direction: column;
+     align-items: center;
 }
 
 .resource_title{
+    width: 80%;
     display: flex;
     justify-content: space-between;
     padding:1em;

@@ -89,11 +89,11 @@ const Chatpage = () => {
         })
         .then((data) => {
           // console.log("Hello");
-          // console.log(data);
-          for (let i = 0; i < data.length; i++) {
+          console.log(data.message);
+          for (let i = 0; i < data.message.length; i++) {
             const newData = {
-              createdAt: data[i].createdAt,
-              name: data[i].name,
+              createdAt: data.message[i].createdAt,
+              name: data.message[i].name,
             };
             setSentMessageCollection((preVal)=>[...preVal, newData]);
           }
