@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useReducer } from "react";
 import "./resourcespage.css";
 import Topbar from "../component/navBar/topbar";
@@ -18,6 +19,7 @@ const ResourcesPage = () => {
   const id = searchParams.get("id");
   useEffect(() => {
     if (run === true) {
+      setResources([])
       const token = GetToken();
       console.log(token);
       setIsLoading(true);
@@ -55,7 +57,7 @@ const ResourcesPage = () => {
 
       run = false;
     }
-  }, []);
+  }, [reducerValue]);
   const [open, setOpen] = useState(false);
   const closeModal = () => setOpen(false);
   const [responseNameCode, setResponseNameCode] = useState(null);
@@ -106,7 +108,7 @@ const ResourceGenerator=({data})=> {
  console.log(data) 
   return (
    
-    <div>
+    <div className="resource_list">
       {/* {console.log(projectDetails1)}  */}
       {data.map((project) => (
         <Resource_listelement name={project.title} link={project.link} uploadedby={project.uploadedBy} uploadedon={project.createdAt} {...project} />
@@ -116,15 +118,20 @@ const ResourceGenerator=({data})=> {
 }
 
 const Resource_listelement=({name, link, uploadedby, uploadedon}) =>{
+  const httplink=link;
   return (
-    <div class="resource_listelement">
+    <div>
+        <div class="resource_listelement">
       <h3>{name}</h3>
       <h3>
-        <a href={link}>{link}</a>
+        <a href={httplink}>{link}</a>
       </h3>
       <h3>{uploadedby}</h3>
-      <h3>{uploadedon}</h3>
+      <h3>{uploadedon.toString().slice(0,10)}</h3>
     </div>
+   < hr/>
+    </div>
+  
   );
 }
 
