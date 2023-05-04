@@ -1,4 +1,5 @@
-import React, { useState, useEffect,useReducer } from "react";
+chatpage.js
+import React, { useState, useEffect, useReducer } from "react";
 import "./chatpage.css";
 import Chatelement from "../component/chatelement/chatelement";
 import Topbar from "../component/navBar/topbar";
@@ -54,8 +55,8 @@ const Chatpage = () => {
       messege: "Hello",
       isSelfSender: false,
     },
-  ]; 
-  const [reducerValue,forcedUpdate] = useReducer(x=>x+1,1)
+  ];
+  const [reducerValue, forcedUpdate] = useReducer(x => x + 1, 1)
   const [open, setOpen] = useState(false);
   const closeModal = () => setOpen(false);
   const [responseNameCode, setResponseNameCode] = useState(null);
@@ -88,13 +89,15 @@ const Chatpage = () => {
           return response.json();
         })
         .then((data) => {
-          console.log(data);
+          // console.log("Hello");
+          console.log(data.message);
           for (let i = 0; i < data.message.length; i++) {
             const newData = {
               createdAt: data.message[i].createdAt,
               name: data.message[i].name,
+              message: data.message[i].detail
             };
-            setSentMessageCollection((preVal)=>[...preVal, newData]);
+            setSentMessageCollection((preVal) => [...preVal, newData]);
           }
         })
         .catch((error) => {
@@ -143,11 +146,11 @@ const Chatpage = () => {
           <hr id="chatdivider" />
           <div class="chat-container">
             <div class="chatpagechats">
-              {msgList.map((msg) => (
-                <Chatelement key={msg.id} {...msg} />
-              ))}
             </div>
-            {sentMessageCollection && console.log(sentMessageCollection)}
+            {sentMessageCollection && sentMessageCollection.map((msg) => (
+              console.log(msg),
+              <Chatelement sender={msg.name} messege={msg.message} />
+            ))}
             <div class="chatinput">
               <input
                 type="text"
