@@ -1,4 +1,4 @@
-chatpage.js
+
 import React, { useState, useEffect, useReducer } from "react";
 import "./chatpage.css";
 import Chatelement from "../component/chatelement/chatelement";
