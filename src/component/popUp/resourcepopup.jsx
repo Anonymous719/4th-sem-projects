@@ -9,7 +9,7 @@ import { apiAddress } from "../../component/API/api";
 import { GetToken } from "../../GlobalVariable";
 import ErrorpopUp, { PositivepopUp } from "./ErrorpopUp.jsx";
 import Popup from "reactjs-popup";
-
+import { useLocation } from "react-router-dom";
 const PopUpResource = ({ onClose, ForcedReload }) => {
   const navigateToProjectPage = () => {
     navigate("/projectPage");
@@ -30,69 +30,74 @@ const PopUpResource = ({ onClose, ForcedReload }) => {
   const [title, setTitle] = useState("");
   const [link, setLink] = useState("");
   const [ProjectCode, setProjectCode] = useState(null);
+  const location = useLocation();
   const handleCreateSubmit = async (event) => {
+    
     event.preventDefault();
-    const data = {};
+    const data = {title,link};
+    console.log(data);
     console.log("1");
-    console.log(title, link);
-    //   try {
-    //     const response = await fetch(`${apiAddress}resource/create/${projectCode}`, {
-    //       method: "POST",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //         Authorization: `Bearer ${GetToken()}`,
-    //       },
-    //       body: JSON.stringify(data),
-    //     });
-    //     const result = await response.json();
-    //     if (response.status === 200) {
-    //       setProjectCode(result.code);
-    //       console.log(`Successfully created`);
-    //       setOpenResponse((o) => !o);
-    //     } else {
-    //       console.log(result.error);
-    //       setErrorMsg(result.error);
-    //       setOpenError((o) => !o);
-    //       console.log();
-    //     }
-    //   } catch (error) {
-    //     console.error(error);
-    //     console.log("3");
-    //   }
-    //   ForcedReload()
-    //   // onClose();
-    // };
+     const searchParams = new URLSearchParams(location.search);
+    const id = searchParams.get("id");
+      try {
+        const response = await fetch(`${apiAddress}resource/create/${id}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${GetToken()}`,
+          },
+          body: JSON.stringify(data),
+        });
 
-    // const handleJoinSubmit = async (event) => {
-    //   event.preventDefault();
-    //   const data = { code };
-    //   console.log(code);
-    //   try {
-    //     const response = await fetch(`${apiAddress}project/join`, {
-    //       method: "PATCH",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //         Authorization: `Bearer ${GetToken()}`,
-    //       },
-    //       body: JSON.stringify(data),
-    //     });
-    //     const result = await response.json();
-    //     if (response.status === 200) {
-    //       console.log(result);
-    //       console.log(`Successfully joined`);
-    //       setOpenResponse((o) => !o);
-    //     } else {
-    //       console.log(result.error);
-    //       setErrorMsg(result.error);
-    //       setOpenError((o) => !o);
-    //       console.log();
-    //     }
-    //   } catch (error) {
-    //     console.error(error);
-    //     console.log("3");
-    //   }
-    //   ForcedReload()
-  };
+        const result = await response.json();
+        if (response.status === 200) {
+          setProjectCode(result.code);
+          console.log(`Successfully created`);
+          setOpenResponse((o) => !o);
+        } else {
+          console.log(result.error);
+          setErrorMsg(result.error);
+          setOpenError((o) => !o);
+          console.log();
+        }
+      } catch (error) {
+        console.error(error);
+        console.log("3");
+      }
+      ForcedReload()
+      // onClose();
+    };
+
+  //   const handleJoinSubmit = async (event) => {
+  //     event.preventDefault();
+  //     const data = { code };
+  //     console.log(code);
+  //     try {
+  //       const response = await fetch(`${apiAddress}resource/create/${id}`, {
+  //         method: "PATCH",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: `Bearer ${GetToken()}`,
+  //         },
+  //         body: JSON.stringify(data),
+  //       });
+  //       const result = await response.json();
+  //       if (response.status === 200) {
+  //         console.log(result);
+  //         console.log(`Successfully joined`);
+  //         setOpenResponse((o) => !o);
+  //       } else {
+  //         console.log(result.error);
+  //         setErrorMsg(result.error);
+  //         setOpenError((o) => !o);
+  //         console.log();
+  //       }
+  //     } catch (error) {
+  //       console.error(error);
+  //       console.log("3");
+  //     }
+  //     ForcedReload()
+  // };
 
   // const handleDateChange = (date) => {
   //   const year = date.getFullYear();
