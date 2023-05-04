@@ -27,6 +27,7 @@
     position: sticky;
     bottom: 0;
     margin:auto;
+    display: flex;
 }
 
 .chatinput input{ border-radius: 30px;
@@ -35,4 +36,10 @@
     margin:auto;
     height: 50px;
     padding: 10px;
+}
+
+.chatinput button{
+    border: 1px solid #000;
+    border-radius: 30%;
+    width: 80px;
 }
