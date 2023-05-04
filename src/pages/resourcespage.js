@@ -10,8 +10,6 @@ import { useLocation } from "react-router-dom";
 import PopUpResource from "../component/popUp/resourcepopup";
 
 
-
-
 const ResourcesPage = () => {
   const [reducerValue,forcedUpdate] = useReducer(x=>x+1,1)
   const location = useLocation();

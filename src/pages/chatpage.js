@@ -107,6 +107,7 @@ const location = useLocation();
           </div>
           <div class="chatinput">
             <input type="text" placeholder="Type your message..."  />
+            <button onclick="">Post</button>
           </div>
         </div>
       </div>
