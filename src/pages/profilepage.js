@@ -2,9 +2,43 @@ import React from 'react';
 import './profilePage.css';
 import Topbar from '../component/navBar/topbar.js';
 import Skillbox from '../component/skillbox/skillbox.js';
-import {alphanumericToNumber,selectHobbies} from'./otherfunctions'
+import { alphanumericToNumber, selectHobbies } from './otherfunctions'
+import profilePic_1 from "../Images/CardProfilePic_1.png";
+import profilePic_2 from "../Images/CardProfilePic_2.png";
+import profilePic_3 from "../Images/CardProfilePic_3.png";
+import profilePic_4 from "../Images/CardProfilePic_4.png";
+import profilePic_5 from "../Images/CardProfilePic_5.png";
+import profilePic_6 from "../Images/CardProfilePic_6.png";
+import { GetToken } from "../GlobalVariable";
 
 const ProfilePage = () => {
+
+    const token = GetToken();
+    const seed = alphanumericToNumber(token);
+    var pic = profilePic_1;
+    const pic_selector = (seed % 6 + 1)
+    switch (pic_selector) {
+        case 1:
+            pic = profilePic_1;
+            break;
+        case 2:
+            pic = profilePic_2;
+            break;
+        case 3:
+            pic = profilePic_3;
+            break;
+        case 4:
+            pic = profilePic_4;
+            break;
+        case 5:
+            pic = profilePic_5;
+            break;
+        default:
+            pic = profilePic_6;
+    }
+
+    
+
     return (
         <div>
 
@@ -12,7 +46,7 @@ const ProfilePage = () => {
             <div className='allpageprofile'>
                 <div className="profile-page">
                     <div className="profile-info">
-                        <img src="https://via.placeholder.com/150" alt="Profile" />
+                        <img src={pic} alt="Profile" />
                         <h2>John Doe</h2>
                         <p>Email: john.doe@example.com</p>
                         <p>Phone: 123-456-7890</p>
@@ -40,11 +74,11 @@ const ProfilePage = () => {
                     <div classname='skills'>
                         <h1>Interest</h1>
                         <div className='skilllist'>
-                            {Skillbox(selectHobbies(5,2).slice(0,1))}
-                            {Skillbox(selectHobbies(5,2).slice(1,2))}
-                            {Skillbox(selectHobbies(5,2).slice(2,3))}
-                            {Skillbox(selectHobbies(5,2).slice(3,4))}
-                            {Skillbox(selectHobbies(5,2).slice(4,5))}
+                            {Skillbox(selectHobbies(5, seed).slice(0, 1))}
+                            {Skillbox(selectHobbies(5, seed).slice(1, 2))}
+                            {Skillbox(selectHobbies(5, seed).slice(2, 3))}
+                            {Skillbox(selectHobbies(5, seed).slice(3, 4))}
+                            {Skillbox(selectHobbies(5, seed).slice(4, 5))}
                         </div>
                     </div>
                     <br />
