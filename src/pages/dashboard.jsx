@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 import { Avatar } from "@material-ui/core";
 import { Fab } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
@@ -22,10 +22,11 @@ import { GetToken } from "../GlobalVariable";
 import ErrorpopUp from "../component/popUp/ErrorpopUp";
 import { ThreeCircles as Loading } from "react-loader-spinner";
 
-const Dashboard = () => {
+const Dashboard = () => {  const [reducerValue,forcedUpdate] = useReducer(x=>x+1,1)
   let run = true;
   useEffect(() => {
     if (run === true) {
+      setData([])
       const token = GetToken();
       setIsLoading(true);
       fetch(`${apiAddress}user/getname`, {
@@ -77,7 +78,7 @@ const Dashboard = () => {
 
       run = false;
     }
-  }, []);
+  }, [reducerValue]);
 
 
   // const projectDetails = [
@@ -244,7 +245,7 @@ const Dashboard = () => {
         style={{ position: "fixed", bottom: 32, right: 32, zIndex: 999 }}
       >
         <Popup open={open} closeOnDocumentClick onClose={closeModal}>
-          <PopUpDashboard onClose={closeModal} />
+          <PopUpDashboard ForcedReload={forcedUpdate} onClose={closeModal} />
         </Popup>
         <AddIcon />
       </Fab>

@@ -40,7 +40,7 @@ const MemberListBox = () => {
           return response.json();
         })
         .then((data) => {
-          console.log(data)
+          // console.log(data)
           for (let member of data.members) {
             const newData = { name: member.name, id: member._id };
             setMembers((prevData) => [...prevData, newData]);

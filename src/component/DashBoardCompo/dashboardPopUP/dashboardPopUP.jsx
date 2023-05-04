@@ -11,13 +11,13 @@ import { GetToken } from "../../../GlobalVariable";
 import ErrorpopUp, { PositivepopUp } from "../../popUp/ErrorpopUp.jsx";
 import Popup from "reactjs-popup";
 
-const PopUpDashboard = ({ onClose }) => {
+const PopUpDashboard = ({ onClose ,ForcedReload}) => {
   const navigateToProjectPage = () => {
     navigate("/projectPage");
   };
   const navigateToDashboardPage = () => {
     navigate("/Dashboard");
-    window.location.reload(true)
+    document.location.reload(true)
   };
 
   const navigate = useNavigate();
@@ -60,6 +60,7 @@ const PopUpDashboard = ({ onClose }) => {
       console.error(error);
       console.log("3");
     }
+    ForcedReload()
     // onClose();
   };
 
@@ -91,6 +92,7 @@ const PopUpDashboard = ({ onClose }) => {
       console.error(error);
       console.log("3");
     }
+    ForcedReload()
   };
 
   const handleDateChange = (date) => {
@@ -105,8 +107,7 @@ const PopUpDashboard = ({ onClose }) => {
     <div className="modal">
       <Popup
         open={openResponse}
-        closeOnDocumentClick
-        // onClose={navigateToProjectPage}
+        closeOnDocumentClick onClose={navigateToDashboardPage}
       >
         <PositivepopUp
           PositiveHeading={"Your Project has been created"}
