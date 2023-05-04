@@ -103,17 +103,19 @@ const ResourcesPage = () => {
 };
 
 function ResourceGenerator({ data }) {
+  
   return (
     <div class="dashboardBlocks">
       {/* {console.log(projectDetails1)}  */}
-      {data.map((projects) => (
-        <Resource_listelement name={data.name} link={data.link} uploadedby={data.uploaded} uploadedon={data.uploadedOn} {...projects} />
+      {data.list.map((projects) => (
+        <Resource_listelement name={data.title} link={data.link} uploadedby={data.uploadedBy} uploadedon={data.createdOn} {...projects} />
       ))}
     </div>
   );
 }
 
 const Resource_listelement=({name, link, uploadedby, uploadedon}) =>{
+  console.log("Test1");
   return (
     <div class="resource_listelement">
       <h3>{name}</h3>
