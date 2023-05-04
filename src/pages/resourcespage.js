@@ -1,17 +1,17 @@
 import React, { useState, useEffect, useReducer } from "react";
 import "./resourcespage.css";
-import Topbar from '../component/navBar/topbar';
-import { Fab } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
+import Topbar from "../component/navBar/topbar";
+import { Fab } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
 import Popup from "reactjs-popup";
 import { apiAddress } from "../component/API/api";
 import { GetToken } from "../GlobalVariable";
 import { useLocation } from "react-router-dom";
 import PopUpResource from "../component/popUp/resourcepopup";
 
-
 const ResourcesPage = () => {
-  const [reducerValue,forcedUpdate] = useReducer(x=>x+1,1)
+  const [resource, setResources] = useState([]);
+  const [reducerValue, forcedUpdate] = useReducer((x) => x + 1, 1);
   const location = useLocation();
   let run = true;
   const searchParams = new URLSearchParams(location.search);
@@ -21,10 +21,11 @@ const ResourcesPage = () => {
       const token = GetToken();
       console.log(token);
       setIsLoading(true);
+      console.log(token);
       fetch(`${apiAddress}resource/view/${id}`, {
-        method: 'GET',
+        method: "GET",
         headers: {
-          // 'Content-Type': 'application/json',
+          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
       })
@@ -34,7 +35,16 @@ const ResourcesPage = () => {
           return response.json();
         })
         .then((data) => {
-          console.log(data);
+          console.log(data)
+          for (let i = 0; i < data.length; i++) {
+            const newData = {
+              createdAt: data[i].createdAt,
+              link: data[i].link,
+              title: data[i].title,
+              uploadedBy: data[i].uploadedBy,
+            };
+            setResources((preValue) => [...preValue, newData])
+          }
 
         })
         .catch((error) => {
@@ -55,20 +65,27 @@ const ResourcesPage = () => {
   const [isCompleted, changeCompleted] = useState(false);
 
   return (
-    <div class='resourcepage'>
+    <div class="resourcepage">
       <Topbar />
+
       <div>
-        <h1 id='resource_title'>Resources</h1>
-        <div class='resource_title'>
+        <h1 id="resource_title">Resources</h1>
+        <div class="resource_title">
           <h2>Name</h2>
           <h2>Link</h2>
           <h2>Uploaded By</h2>
           <h2>Uploaded On</h2>
         </div>
-        <hr id='resource_divider' />
-
-        {resource_listelement("Ram", "http://www.github.com", "hari", "2010/10/20")}
-
+        <hr id="resource_divider" />
+        {resource && (
+          <ResourceGenerator data={resource} />
+          // resource_listelement(
+          // "Ram",
+          // "http://www.github.com",
+          // "hari",
+          // "2010/10/20"
+          // )
+        )}
       </div>
       <Fab
         onClick={() => setOpen((o) => !o)}
@@ -83,16 +100,30 @@ const ResourcesPage = () => {
       </Fab>
     </div>
   );
+};
+
+function ResourceGenerator({ data }) {
+  return (
+    <div class="dashboardBlocks">
+      {/* {console.log(projectDetails1)}  */}
+      {data.map((projects) => (
+        <Resource_listelement name={data.name} link={data.link} uploadedby={data.uploaded} uploadedon={data.uploadedOn} {...projects} />
+      ))}
+    </div>
+  );
 }
 
-
-function resource_listelement(name, link, uploadedby, uploadedon) {
-  return (<div class='resource_listelement'>
-    <h3>{name}</h3>
-    <h3><a href={link}>{link}</a></h3>
-    <h3>{uploadedby}</h3>
-    <h3>{uploadedon}</h3>
-  </div>)
+const Resource_listelement=({name, link, uploadedby, uploadedon}) =>{
+  return (
+    <div class="resource_listelement">
+      <h3>{name}</h3>
+      <h3>
+        <a href={link}>{link}</a>
+      </h3>
+      <h3>{uploadedby}</h3>
+      <h3>{uploadedon}</h3>
+    </div>
+  );
 }
 
-export default ResourcesPage
+export default ResourcesPage;
