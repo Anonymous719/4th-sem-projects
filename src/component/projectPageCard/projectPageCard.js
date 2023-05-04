@@ -7,8 +7,7 @@ import { GetToken } from "../../GlobalVariable";
 import { ThreeCircles as Loading } from "react-loader-spinner";
 import { useLocation } from "react-router-dom";
 
-const ProjectPageCard = ({ type, projectid }) => {
-  const [isLoading, setIsLoading] = useState(false);
+const ProjectPageCard = ({ type, projectid, isLoading, setIsLoading}) => {
   const [nameSet, setNameSet] = useState([]);
   const [open, setOpen] = useState(false);
   const closeModal = () => setOpen(false);

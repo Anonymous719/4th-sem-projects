@@ -88,8 +88,7 @@ const Chatpage = () => {
           return response.json();
         })
         .then((data) => {
-          // console.log("Hello");
-          console.log(data.message);
+          console.log(data);
           for (let i = 0; i < data.message.length; i++) {
             const newData = {
               createdAt: data.message[i].createdAt,
@@ -117,7 +116,7 @@ const Chatpage = () => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${GetToken()}`,
       },
-      body: JSON.stringify(FormDataEvent),
+      body: JSON.stringify(data),
     })
       .then((response) => {
         console.log(response.status);
