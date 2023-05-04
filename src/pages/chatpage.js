@@ -54,10 +54,6 @@ const Chatpage = () => {
             msgList.map((msg)=>
             <Chatelement key={msg.id } {...msg}/>)
           }
-            <Chatelement sender="Ramesh" messege="Hello" />
-            <Chatelement sender="Ramesh" messege="Test 1" />
-            <Chatelement sender="Ramesh" messege="Hello" />
-            <Chatelement sender="Ramesh" messege="Hello" />
           </div>
           <div class="chatinput">
             <input type="text" placeholder="Type your message..."  />
