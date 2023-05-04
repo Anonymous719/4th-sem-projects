@@ -30,12 +30,11 @@ const ResourcesPage = () => {
           })
             .then((response) => {
               setResponseCode(response.status);
-              console.log("Hello");
+              
               return response.json();
             })
-            .then((data) => {
-              console.log(data);
-              
+            .then((data) => {console.log("Hello");
+              console.log(data); 
             })
             .catch((error) => {
               // handle errors

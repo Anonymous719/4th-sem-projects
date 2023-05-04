@@ -1,8 +1,16 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import "./chatpage.css";
 import Chatelement from "../component/chatelement/chatelement";
 import Topbar from "../component/navBar/topbar";
 import MemberListBox from "../component/memberListBox/memberListBox";
+import { Fab } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+import Popup from "reactjs-popup";
+import { apiAddress } from "../component/API/api";
+import { GetToken } from "../GlobalVariable";
+import { useLocation } from "react-router-dom";
+
+
 const Chatpage = () => {
   const msgList=[{
     id:1,
@@ -41,6 +49,48 @@ const Chatpage = () => {
     isSelfSender:false,
   },
 ]
+const location = useLocation();
+    let run = true;
+    const searchParams = new URLSearchParams(location.search);
+    const id = searchParams.get("id");
+    useEffect(() => {
+        if (run === true) {
+          const token = GetToken();
+          // console.log(token);
+          setIsLoading(true);
+          fetch(`${apiAddress}chat/see/${id}`, {
+             method:'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`,
+            },
+          })
+            .then((response) => {
+              console.log(response.status);
+              setResponseCode(response.status);
+              
+              return response.json();
+            })
+            .then((data) => {console.log("Hello");
+              console.log(data); 
+            })
+            .catch((error) => {
+              // handle errors
+              console.error(error);
+            });
+    
+          run = false;
+        }
+      }, []);
+    const [open, setOpen] = useState(false);
+    const closeModal = () => setOpen(false);
+    const [responseNameCode, setResponseNameCode] = useState(null);
+    const [responseCode, setResponseCode] = useState(null);
+    const [openError, setOpenError] = useState(false);
+    const closeModalError = () => setOpenError(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [isCompleted, changeCompleted] = useState(false);
+
   return (
     <div class="chatpage">
       <Topbar />
