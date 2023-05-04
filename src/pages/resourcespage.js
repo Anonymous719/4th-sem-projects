@@ -10,7 +10,7 @@ import { useLocation } from "react-router-dom";
 import PopUpResource from "../component/popUp/resourcepopup";
 
 const ResourcesPage = () => {
-  const [resource,setResources]=useState([]);
+  const [resource, setResources] = useState([]);
   const [reducerValue, forcedUpdate] = useReducer((x) => x + 1, 1);
   const location = useLocation();
   let run = true;
@@ -35,17 +35,18 @@ const ResourcesPage = () => {
           return response.json();
         })
         .then((data) => {
-          console.log(data)
-          for (let i = 0; i < data.length; i++) {
-          const newData = {
-            createdAt: data[i].createdAt,
-            link: data[i].link,
-            title: data[i].title,
-            uploadedBy: data[i].uploadedBy,
-          };
-          setResources((preValue)=>[...preValue,newData])
-         }
-          
+          console.log(data.list)
+          // console.log(data)
+          for (let i = 0; i < data.list.length; i++) {
+            const newData = {
+              createdAt: data.list[i].createdAt,
+              link: data.list[i].link,
+              title: data.list[i].title,
+              uploadedBy: data.list[i].uploadedBy,
+            };
+            setResources((preValue) => [...preValue, newData])
+          }
+
         })
         .catch((error) => {
           // handle errors
@@ -67,9 +68,8 @@ const ResourcesPage = () => {
   return (
     <div class="resourcepage">
       <Topbar />
-     
-      <div>
-        <h1 id="resource_title">Resources</h1>
+ <h1 id="resource_title">Resources</h1>
+      <div className="resourcesContent">
         <div class="resource_title">
           <h2>Name</h2>
           <h2>Link</h2>
@@ -77,12 +77,15 @@ const ResourcesPage = () => {
           <h2>Uploaded On</h2>
         </div>
         <hr id="resource_divider" />
-        {resource && (resource_listelement(
-          "Ram",
-          "http://www.github.com",
-          "hari",
-          "2010/10/20"
-        ))}
+        {resource && (
+          <ResourceGenerator data={resource} />
+          // resource_listelement(
+          // "Ram",
+          // "http://www.github.com",
+          // "hari",
+          // "2010/10/20"
+          // )
+        )}
       </div>
       <Fab
         onClick={() => setOpen((o) => !o)}
@@ -99,7 +102,18 @@ const ResourcesPage = () => {
   );
 };
 
-function resource_listelement(name, link, uploadedby, uploadedon) {
+function ResourceGenerator({ data }) {
+  return (
+    <div class="dashboardBlocks">
+      {/* {console.log(projectDetails1)}  */}
+      {data.map((projects) => (
+        <Resource_listelement name={data.name} link={data.link} uploadedby={data.uploaded} uploadedon={data.uploadedOn} {...projects} />
+      ))}
+    </div>
+  );
+}
+
+const Resource_listelement=({name, link, uploadedby, uploadedon}) =>{
   return (
     <div class="resource_listelement">
       <h3>{name}</h3>
