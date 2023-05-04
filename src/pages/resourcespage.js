@@ -103,7 +103,9 @@ const ResourcesPage = () => {
 };
 
 function ResourceGenerator({ data }) {
+ console.log(data) 
   return (
+   
     <div class="dashboardBlocks">
       {/* {console.log(projectDetails1)}  */}
       {data.map((projects) => (
