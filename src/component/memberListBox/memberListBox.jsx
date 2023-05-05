@@ -24,6 +24,7 @@ const MemberListBox = () => {
   let run = true;
   useEffect(() => {
     if (run === true) {
+      setMembers([])
       const searchParams = new URLSearchParams(location.search);
       const id = searchParams.get("id");
       // console.log(id);
@@ -40,7 +41,7 @@ const MemberListBox = () => {
           return response.json();
         })
         .then((data) => {
-          // console.log(data)
+          // console.log(data.members)
           for (let member of data.members) {
             const newData = { name: member.name, id: member._id };
             setMembers((prevData) => [...prevData, newData]);
@@ -58,10 +59,10 @@ const MemberListBox = () => {
       <div className="memberTitleContainer">
         <h3>Memebers</h3>
       </div>
-      {members.map((items) => (
-        <MemberListTiles key={items.id} {...items} />
+{member && member.map((items) => (
+  console.log(items),
+        <MemberListTiles key={items.id} {...items} imgSrc={""} />
       ))}
-
       {/* <MemberListTiles />
    <MemberListTiles />
    <MemberListTiles />
@@ -70,12 +71,12 @@ const MemberListBox = () => {
   );
 };
 
-const MemberListTiles = ({ names, imgSrc }) => {
+const MemberListTiles = ({name, imgSrc }) => {
   return (
     <div>
       <div className="member">
         <Avatar className="memberPhoto" alt="image" src={imgSrc} />
-        <div className="memberName">{names}</div>
+        <div className="memberName">{name}</div>
       </div>{" "}
       <div className="dividers"></div>
     </div>

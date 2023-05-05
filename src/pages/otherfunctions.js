@@ -34,5 +34,3 @@ export function selectHobbies(count, seed) {
     // Select the first 5 hobbies from the shuffled array
     return shuffledHobbies.slice(0, count).map(obj => obj.hobby);
 }
-
-

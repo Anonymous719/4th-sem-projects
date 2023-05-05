@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState ,useReducer} from "react";
 import { useLocation } from "react-router-dom";
 import "./toDo.css";
 import TopToDoBar from "../component/topBar/topToDoBar";
@@ -13,6 +13,7 @@ import ErrorpopUp, { PositivepopUp } from "../component/popUp/ErrorpopUp";
 import { ThreeCircles as Loading } from "react-loader-spinner";
 
 const ToDoPage = () => {
+  const [reducerValue,forcedUpdate] = useReducer(x=>x+1,1)
   const location = useLocation();
   const [dataSet, setDataSet] = useState([]);
   const [id, setId] = useState(null);
@@ -32,6 +33,8 @@ const ToDoPage = () => {
   let run = true;
   useEffect(() => {
     if (run == true) {
+      setMembers([]);
+      setDataSet([]);
       const searchParams = new URLSearchParams(location.search);
       const id = searchParams.get("id");
       setId(id);
@@ -136,7 +139,6 @@ const ToDoPage = () => {
             setDataSet((prevData) => [...prevData, newData]);
           }
 
-          setIsLoading(false);
         })
         .catch((error) => {
           // handle errors
@@ -146,7 +148,7 @@ const ToDoPage = () => {
       setIsLoading(false);
       run = false;
     }
-  }, []);
+  }, [reducerValue]);
 
   const [contentInfo, changeContentInfo] = useState([
     {
@@ -362,12 +364,22 @@ const ToDoPage = () => {
     <div>
       {/* { console.log(dataSet)} */}
       <Topbar />
+      
       <div className="progressContainer">
         <div className="leftCointainer">
           <TopToDoBar />
+          {isLoading && (
+        <Loading
+          className="Spinnner"
+          type="Puff"
+          color="#00BFFF"
+          height={300}
+          width={window.innerWidth}
+        />
+      )}
           {member && selfID && dataSet && (
             <div className="columns">
-              <ColumnProgessBox
+              <ColumnProgessBox forcedUpdate={forcedUpdate}
                 selfID={selfID}
                 isHead={isHead}
                 membersList={member}
@@ -382,7 +394,7 @@ const ToDoPage = () => {
                 }}
                 changeContentInfo={changeContentInfo}
               />
-              <ColumnProgessBox
+              <ColumnProgessBox forcedUpdate={forcedUpdate}
                 selfID={selfID}
                 isHead={isHead}
                 membersList={member}
@@ -392,6 +404,7 @@ const ToDoPage = () => {
                 changeContentInfo={changeContentInfo}
               />
               <ColumnProgessBox
+              forcedUpdate={forcedUpdate}
                 selfID={selfID}
                 isHead={isHead}
                 membersList={member}
@@ -400,7 +413,7 @@ const ToDoPage = () => {
                 onClick={{}}
                 changeContentInfo={changeContentInfo}
               />
-              <ColumnProgessBox
+              <ColumnProgessBox forcedUpdate={forcedUpdate}
                 selfID={selfID}
                 isHead={isHead}
                 membersList={member}
@@ -408,8 +421,8 @@ const ToDoPage = () => {
                 contentInfo={dataSet}
                 onClick={{}}
                 changeContentInfo={changeContentInfo}
-              />{" "}
-              <ColumnProgessBox
+              />
+              <ColumnProgessBox forcedUpdate={forcedUpdate}
                 selfID={selfID}
                 isHead={isHead}
                 membersList={member}

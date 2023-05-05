@@ -22,11 +22,12 @@ import { GetToken } from "../GlobalVariable";
 import ErrorpopUp from "../component/popUp/ErrorpopUp";
 import { ThreeCircles as Loading } from "react-loader-spinner";
 
-const Dashboard = () => {  const [reducerValue,forcedUpdate] = useReducer(x=>x+1,1)
+const Dashboard = () => {
+  const [reducerValue, forcedUpdate] = useReducer((x) => x + 1, 1);
   let run = true;
   useEffect(() => {
     if (run === true) {
-      setData([])
+      setData([]);
       const token = GetToken();
       setIsLoading(true);
       fetch(`${apiAddress}user/getname`, {
@@ -79,7 +80,6 @@ const Dashboard = () => {  const [reducerValue,forcedUpdate] = useReducer(x=>x+1
       run = false;
     }
   }, [reducerValue]);
-
 
   // const projectDetails = [
   //   {
@@ -166,11 +166,18 @@ const Dashboard = () => {  const [reducerValue,forcedUpdate] = useReducer(x=>x+1
   const [projectDetails1, setData] = useState([]);
   const [userName, setUsername] = useState("Loading");
   function CardGenerator({ data }) {
+    console.log(data)
     return (
       <div class="dashboardBlocks">
+      
         {/* {console.log(projectDetails1)}  */}
         {data.map((projects) => (
-          <Cards isCompleted={isCompleted} key={projects.id} {...projects} />
+          <Cards
+            forcedUpdate={forcedUpdate}
+            isCompleted={projects.completedflag}
+            key={projects.id}
+            {...projects}
+          />
         ))}
       </div>
     );
@@ -226,18 +233,9 @@ const Dashboard = () => {  const [reducerValue,forcedUpdate] = useReducer(x=>x+1
         ) : (
           <CardGenerator data={completedProject} />
         ))}
-        {!isLoading &&
-        (<h1 className="NoProjectFound">No Project Found</h1>)}
-      {/*  */}
-      {/* <div class="dashboardBlocks">
-      {console.log("dfgdfgdfgfg")}{console.log(projectDetails1)}
-        {projectDetails1.map((projects) => (
-          <Cards isCompleted={isCompleted} key={projects.id} {...projects} />
-        ))}
-      </div> */}
-
-      {/* { console.log(responseCode)} */}
-
+      {!isLoading && projectDetails1.length == 0 && (
+        <h1 className="NoProjectFound">No Project Found</h1>
+      )}
       <Fab
         onClick={() => setOpen((o) => !o)}
         color="primary"

@@ -13,6 +13,7 @@ import { GetToken } from "../../GlobalVariable";
 import ErrorpopUp, { PositivepopUp } from "../popUp/ErrorpopUp";
 import Popup from "reactjs-popup";
 const PopUpToDo = ({
+  forcedUpdate,
   onClose,
   onPressed,
   contentInfo,
@@ -58,6 +59,7 @@ const PopUpToDo = ({
       console.log(response.status);
       if (response.status === 200) {
         setOpenResponse(true);
+        forcedUpdate();
       } else {
         console.log(result.error);
         setErrorMsg(result.error);

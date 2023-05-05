@@ -8,7 +8,7 @@ import CompleteDateBox from "../deadlineBox/completedDateBox";
 import { apiAddress } from "../../API/api.jsx";
 import { GetToken } from "../../../GlobalVariable";
 
-const Cards = ({
+const Cards = ({forcedUpdate,
   title,
   createdby,
   deadline,
@@ -26,14 +26,21 @@ const Cards = ({
   };
   const navigate = useNavigate();
   const [iscomplete, setIsActive] = useState(isCompleted);
-
+const [run, changeRun] = useState(!isCompleted);
   function handleClick() {
+  // console.log(  title,
+  //   createdby,
+  //   deadline,
+  //   ImgSrc,
+  //   isCompleted,
+  //   projectid,)
+    console.log(iscomplete)
     setIsActive((prevState) => !prevState);
   }
-  const [run, changeRun] = useState(!isCompleted);
-
+  
   useEffect(() => {
-    if (iscomplete == run) {
+    if (iscomplete === run) {
+      console.log(iscomplete)
       changeRun(false);
       const token = GetToken();
       const data = { iscomplete };
@@ -51,7 +58,7 @@ const Cards = ({
           return response.json();
         })
         .then((data) => {
-          if (responseStatus == 200) {
+          if (responseStatus === 200) {
             console.log(data);
             setResponseText(data.message);
             console.log(responseText);
@@ -66,6 +73,7 @@ const Cards = ({
           console.error(error);
         });
     }
+     // eslint-disable-next-line
   }, [iscomplete]);
 
   return (

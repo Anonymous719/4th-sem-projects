@@ -23,8 +23,13 @@
 .resource_listelement{
     display: flex;
     justify-content: space-between;
-    padding:1em;
-    margin:1em;
+    padding:0.5em;
+    margin:0.5em;
+}
+.resource_listelement h3{
+    width:auto;
+    text-align:center;
+    width:20vw;
 }
 .resource_listelement h3{
     width:auto;

@@ -96,7 +96,7 @@ const Chatpage = () => {
               name: data.message[i].name,
               message: data.message[i].detail
             };
-            setSentMessageCollection((preVal) => [...preVal, newData]);
+            setSentMessageCollection((preVal) => [ newData,...preVal]);
           }
         })
         .catch((error) => {
@@ -142,15 +142,7 @@ const Chatpage = () => {
       <div className="Chat_Division">
         <div className="ChatSection">
           <h1 class="chattitle">Discussion</h1>
-          <hr id="chatdivider" />
-          <div class="chat-container">
-            <div class="chatpagechats">
-            </div>
-            {sentMessageCollection && sentMessageCollection.map((msg) => (
-              console.log(msg),
-              <Chatelement sender={msg.name} messege={msg.message} />
-            ))}
-            <div class="chatinput">
+          <hr id="chatdivider" /><div class="chatinput">
               <input
                 type="text"
                 placeholder="Type your message..."
@@ -159,6 +151,14 @@ const Chatpage = () => {
               />
               <button onClick={onPost}>Post</button>
             </div>
+          <div class="chat-container">
+            <div class="chatpagechats">
+            </div>
+            {sentMessageCollection && sentMessageCollection.map((msg) => (
+              console.log(msg),
+              <Chatelement sender={msg.name} messege={msg.message} />
+            ))}
+            
           </div>
         </div>
 

@@ -8,7 +8,9 @@ import Popup from "reactjs-popup";
 import { useLocation } from "react-router-dom";
 import { apiAddress } from "../API/api";
 import { GetToken } from "../../GlobalVariable";
+
 const ColumnProgessBox = ({
+  forcedUpdate,
   selfID,
   title,
   membersList,
@@ -38,7 +40,9 @@ const ColumnProgessBox = ({
   const onClicked = () => {};
   return (
     <div className="columnProgessBox">
+    
       <Title
+        forcedUpdate={forcedUpdate}
         membersList={membersList}
         isHead={isHead}
         title={title}
@@ -48,6 +52,7 @@ const ColumnProgessBox = ({
       {contentInfo.map((content) =>
         content.tag === title ? (
           <Content
+            forcedUpdate={forcedUpdate}
             assignedtoName={content.assignedtoName}
             selfID={selfID}
             assignedtoID={content.assignedto}
@@ -69,6 +74,7 @@ const ColumnProgessBox = ({
 };
 
 const Title = ({
+  forcedUpdate,
   title,
   contentInfo,
   changeContentInfo,
@@ -99,6 +105,7 @@ const Title = ({
         )}
         <Popup open={open} closeOnDocumentClick onClose={closeModal}>
           <PopUpToDo
+            forcedUpdate={forcedUpdate}
             membersList={membersList}
             id={id}
             contentInfo={contentInfo}
@@ -112,6 +119,7 @@ const Title = ({
 };
 
 const Content = ({
+  forcedUpdate,
   selfID,
   taskID,
   assignedtoName,
@@ -159,28 +167,26 @@ const Content = ({
   const onClick1 = async () => {
     const token = GetToken(),
       data = { tag: title1 };
-    
+
     console.log(data);
     try {
       const searchParams = new URLSearchParams(location.search);
-    const Id = searchParams.get("id");
-      const response = await fetch(
-        `${apiAddress}todo/update/${Id}/${taskID}`,
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
+      const Id = searchParams.get("id");
+      const response = await fetch(`${apiAddress}todo/update/${Id}/${taskID}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
 
-          body: JSON.stringify(data),
-        }
-      );
+        body: JSON.stringify(data),
+      });
       const result = await response.json();
       console.log(result);
       console.log(response.status);
       if (response.status === 200) {
         console.log("sdcsdcdc");
+        forcedUpdate()
       } else {
         console.log(result.error);
         // setErrorMsg(result.error);
@@ -195,11 +201,10 @@ const Content = ({
     <div
       //self may be needed to change
       style={{ backgroundColor: `${!isSelf ? "white" : "#ccc"}` }}
-      
       className="content"
       onDrag={onDoubleClick}
     >
-    {/* {console.log(isSelf)}
+      {/* {console.log(isSelf)}
       {console.log(selfID,assignedtoID)} */}
       <div className="date_DropDown">
         <div className="label">{label}</div>
@@ -259,7 +264,7 @@ const Content = ({
 
       <div className="projectTitle">{title}</div>
       <div className="projectSubTitle">{detail}</div>
-      <div className="datebox">{deadline}</div>
+      <div className="datebox">{deadline.toString().slice(0,10)}</div>
       <br></br>
       <div>Assign to: {assignedtoName}</div>
     </div>
