@@ -106,7 +106,7 @@ const ResourceGenerator=({data})=> {
  console.log(data) 
   return (
    
-    <div>
+    <div className="resource_list">
       {/* {console.log(projectDetails1)}  */}
       {data.map((project) => (
         <Resource_listelement name={project.title} link={project.link} uploadedby={project.uploadedBy} uploadedon={project.createdAt} {...project} />
@@ -116,11 +116,12 @@ const ResourceGenerator=({data})=> {
 }
 
 const Resource_listelement=({name, link, uploadedby, uploadedon}) =>{
+  const httplink=`http://${link}`;
   return (
     <div class="resource_listelement">
       <h3>{name}</h3>
       <h3>
-        <a href={link}>{link}</a>
+        <a href={httplink}>{link}</a>
       </h3>
       <h3>{uploadedby}</h3>
       <h3>{uploadedon}</h3>

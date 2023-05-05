@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useReducer } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 import "./chatpage.css";
 import Chatelement from "../component/chatelement/chatelement";
 import Topbar from "../component/navBar/topbar";
@@ -54,8 +54,8 @@ const Chatpage = () => {
       messege: "Hello",
       isSelfSender: false,
     },
-  ]; 
-  const [reducerValue,forcedUpdate] = useReducer(x=>x+1,1)
+  ];
+  const [reducerValue, forcedUpdate] = useReducer(x => x + 1, 1)
   const [open, setOpen] = useState(false);
   const closeModal = () => setOpen(false);
   const [responseNameCode, setResponseNameCode] = useState(null);
@@ -94,8 +94,9 @@ const Chatpage = () => {
             const newData = {
               createdAt: data.message[i].createdAt,
               name: data.message[i].name,
+              message: data.message[i].detail
             };
-            setSentMessageCollection((preVal)=>[...preVal, newData]);
+            setSentMessageCollection((preVal) => [...preVal, newData]);
           }
         })
         .catch((error) => {
@@ -117,7 +118,7 @@ const Chatpage = () => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${GetToken()}`,
       },
-      body: JSON.stringify(FormDataEvent),
+      body: JSON.stringify(data),
     })
       .then((response) => {
         console.log(response.status);
@@ -144,11 +145,11 @@ const Chatpage = () => {
           <hr id="chatdivider" />
           <div class="chat-container">
             <div class="chatpagechats">
-              {msgList.map((msg) => (
-                <Chatelement key={msg.id} {...msg} />
-              ))}
             </div>
-            {sentMessageCollection && console.log(sentMessageCollection)}
+            {sentMessageCollection && sentMessageCollection.map((msg) => (
+              console.log(msg),
+              <Chatelement sender={msg.name} messege={msg.message} />
+            ))}
             <div class="chatinput">
               <input
                 type="text"
