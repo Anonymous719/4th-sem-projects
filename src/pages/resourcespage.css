@@ -31,6 +31,11 @@
     text-align:center;
     width:20vw;
 }
+.resource_listelement h3{
+    width:auto;
+    text-align:center;
+    width:20vw;
+}
 
 #resource_divider{
     border:2px solid #000;
