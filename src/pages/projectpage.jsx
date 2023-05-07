@@ -100,6 +100,13 @@ const ProjectPage = () => {
           type={"Progress"}
         />
         <ProjectPageCard
+          key={5}
+          projectid={id}
+          isLoading={isLoading}
+          setIsLoading={setIsLoading}
+          type={"Project Code"}
+        />
+        <ProjectPageCard
           key={2}
           projectid={id}
           isLoading={isLoading}

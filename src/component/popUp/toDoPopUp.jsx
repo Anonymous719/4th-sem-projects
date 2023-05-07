@@ -111,21 +111,21 @@ const PopUpToDo = ({
           <InputField
             label={""}
             type={"text"}
-            placeholder={"Project Label"}
+            placeholder={"Task Label"}
             onChange={(event) => setLabel(event.target.value)}
             value={label}
           />
           <InputField
             label={""}
             type={"text"}
-            placeholder={"Project Name"}
+            placeholder={"Task Name"}
             onChange={(event) => setTitle(event.target.value)}
             value={title}
           />
           <InputField
             label={""}
             type={"text"}
-            placeholder={"Project Description"}
+            placeholder={"Task Description"}
             onChange={(event) => setDetail(event.target.value)}
             value={detail}
           />

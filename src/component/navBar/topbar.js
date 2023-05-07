@@ -7,6 +7,8 @@ import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import AddIcon from "@mui/icons-material/Add";
 import MainLogo from "./../../Images/MainLogo.png";
 import AssignmentIcon from "@mui/icons-material/Assignment";
+import LogoutIcon from '@mui/icons-material/Logout';
+import Cookies from 'js-cookie';
 
 const Topbar = () => {
   const navigate = useNavigate();
@@ -19,6 +21,9 @@ const Topbar = () => {
   const navigateToDashboard = () => {
     return navigate("/dashboard");
   };
+  const navigateToLogIn = () => {
+    return navigate("/");
+  }
 
   return (
     <div class="dashboardTopbar">
@@ -34,11 +39,19 @@ const Topbar = () => {
           <AssignmentIcon />
         </div>
 
-        <AddIcon />
-        <NotificationsActiveIcon />
+        {/* <AddIcon /> */}
+        {/* <NotificationsActiveIcon /> */}
+      
         <div onClick={navigateToProfilePage} style={{ all: "inherit" }}>
           <Avatar className="avatarItems" src={Avatar1} />
         </div>
+        <div onClick={()=>{
+          Cookies.remove('token');
+          navigateToLogIn();
+        }} style={{ all: "inherit" }}>
+          <LogoutIcon />
+        </div>
+        
       </div>
     </div>
   );

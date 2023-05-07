@@ -8,7 +8,8 @@ import CompleteDateBox from "../deadlineBox/completedDateBox";
 import { apiAddress } from "../../API/api.jsx";
 import { GetToken } from "../../../GlobalVariable";
 
-const Cards = ({forcedUpdate,
+const Cards = ({
+  forcedUpdate,
   title,
   createdby,
   deadline,
@@ -28,14 +29,9 @@ const Cards = ({forcedUpdate,
   const [iscomplete, setIsActive] = useState(isCompleted);
 const [run, changeRun] = useState(!isCompleted);
   function handleClick() {
-  // console.log(  title,
-  //   createdby,
-  //   deadline,
-  //   ImgSrc,
-  //   isCompleted,
-  //   projectid,)
-    console.log(iscomplete)
+    console.log(iscomplete);
     setIsActive((prevState) => !prevState);
+    
   }
   
   useEffect(() => {
@@ -67,12 +63,16 @@ const [run, changeRun] = useState(!isCompleted);
             console.log(errorMsg);
           }
           console.log(data);
+          if(data.message==="Congratulation Project successfully completed" || data.message==="Project successfully updated"){
+            forcedUpdate();
+          }
         })
         .catch((error) => {
           // handle errors here
           console.error(error);
         });
     }
+   
      // eslint-disable-next-line
   }, [iscomplete]);
 
@@ -97,7 +97,8 @@ const [run, changeRun] = useState(!isCompleted);
         Set as completed
         <button
           className={`toggle-button ${iscomplete ? "active" : ""}`}
-          onClick={handleClick}
+          onClick={()=>{handleClick();
+          }}
         >
           <div className="toggle-button__inner" />
         </button>

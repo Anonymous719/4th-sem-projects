@@ -102,6 +102,7 @@ const ProjectPageCard = ({ type, projectid, isLoading, setIsLoading}) => {
           return response.json();
         })
         .then((datas) => {
+          setProjectCode(datas.code);
           console.log("code       "+datas.code);
         })
         .catch((error) => {
@@ -112,7 +113,6 @@ const ProjectPageCard = ({ type, projectid, isLoading, setIsLoading}) => {
       run = false;
     }
   }, []);
-
 
   
 // const[trys,changeTRys] =useState(1);
@@ -158,7 +158,6 @@ const ProjectPageCard = ({ type, projectid, isLoading, setIsLoading}) => {
             <h1>{type}</h1>
             {/* <h1>Members 04</h1> */}
           </div>
-         
             {landingpageProgressDataSet.length !== 0 &&nameSet!==0 &&
             landingpageProgressDataSet.map((data) => (
               <div>
@@ -183,7 +182,7 @@ const ProjectPageCard = ({ type, projectid, isLoading, setIsLoading}) => {
                 </div>
               </div>
             ))}
-             
+             <hr />
         </div>
       );
     case "ToDo":
@@ -194,7 +193,6 @@ const ProjectPageCard = ({ type, projectid, isLoading, setIsLoading}) => {
             <h1>YY:MM:DD</h1>
           </div>
           <hr />
-       
         </div>
       );
     case "Resources":
@@ -212,6 +210,16 @@ const ProjectPageCard = ({ type, projectid, isLoading, setIsLoading}) => {
           <div class="discussion_message"></div>
         </div>
       );
+      case "Project Code":
+        return (
+          <div class="projectCardsBox" >
+            <div class="todo_title">
+              <h1>{type}</h1>
+              <h1>{projectCode}</h1>
+            </div>
+            <hr />
+          </div>
+        );
     default:
       return <div></div>;
   }
