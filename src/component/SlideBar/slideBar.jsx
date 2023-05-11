@@ -15,7 +15,7 @@ const SlideBar = ({ isSignup, changeSignup }) => {
           color: !isSignup ? "white" : "black",
         }}
       >
-        logIn
+        Log In
       </div>{" "}
       <div
         onClick={() => changeSignup(true)}

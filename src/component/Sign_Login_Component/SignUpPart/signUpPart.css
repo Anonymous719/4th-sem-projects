@@ -11,12 +11,12 @@
   width: 250px;
   height: 95%;
   width: 400px;
-  background-color: white;
-  background: radial-gradient(
+  /* background-color: white; */
+  /* background: radial-gradient(
     circle,
     rgba(238, 174, 202, 1) 0%,
     rgba(146, 163, 184, 1) 100%
-  );
+  ); */
   border-radius: 88px;
   padding-bottom: 10px;
 }

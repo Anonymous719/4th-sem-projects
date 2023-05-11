@@ -118,7 +118,7 @@ const LogIn_Part = () => {
         {/* <p style={{ textAlign: "right" }}>Forgot password?</p> */}
         <Errormsg msg="errorr" hidden={true} />
         <button className="button " type="submit">
-          Submit
+          LogIN
         </button>
 <br/><br/><br/>
         {/* <h4>LogIn With</h4>

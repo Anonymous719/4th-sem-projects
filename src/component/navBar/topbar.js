@@ -35,9 +35,9 @@ const Topbar = () => {
       />
 
       <div class="dashboardEndbutton">
-        <div onClick={navigateToDeadlineList} style={{ all: "inherit" }}>
+        {/* <div onClick={navigateToDeadlineList} style={{ all: "inherit" }}>
           <AssignmentIcon />
-        </div>
+        </div> */}
 
         {/* <AddIcon /> */}
         {/* <NotificationsActiveIcon /> */}

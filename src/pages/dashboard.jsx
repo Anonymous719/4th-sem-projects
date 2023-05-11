@@ -170,7 +170,7 @@ const Dashboard = () => {
   function CardGenerator({ data }) {
     console.log(data)
     return (
-      <div class="dashboardBlocks">
+      <div  class="dashboardBlocks">
       
         {/* {console.log(projectDetails1)}  */}
         {data.map((projects) => (
