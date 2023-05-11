@@ -115,18 +115,18 @@ const LogIn_Part = () => {
           errorMsgHidden={false}
         />
 
-        <p style={{ textAlign: "right" }}>Forgot password?</p>
+        {/* <p style={{ textAlign: "right" }}>Forgot password?</p> */}
         <Errormsg msg="errorr" hidden={true} />
         <button className="button " type="submit">
           Submit
         </button>
-
-        <h4>LogIn With</h4>
+<br/><br/><br/>
+        {/* <h4>LogIn With</h4>
         <div className="buttonList">
           <Button className="buttonlog" startIcon={<Google />}></Button>
           <Button className="buttonlog" startIcon={<Facebook />}></Button>
           <Button className="buttonlog" startIcon={<GitHub />}></Button>
-        </div>
+        </div> */}
       </div>
     </form>
   );
