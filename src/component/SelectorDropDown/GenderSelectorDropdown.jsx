@@ -31,7 +31,7 @@ const GenderSelectorDropdown = ({setGender}) => {
         onClick={handleOpen}
         className={`gender_selector-header ${!selected && "selected"}`}
       >
-        {selected ? selected : "Select Category"}
+        {selected ? selected : "Select Gender"}
         <BiChevronDown size={20} className={`${open && "rotate-180"}`} />
       </div>
       <ul className={`gender_selector-list ${open ? "open" : ""}`}>
