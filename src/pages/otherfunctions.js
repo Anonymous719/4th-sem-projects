@@ -1,18 +1,24 @@
-export function alphanumericToNumber(alphanumericString) {
-    alphanumericString = alphanumericString.slice(20);
-    const charCodes = Array.from(alphanumericString, c => c.charCodeAt(0));
+export function alphanumericToNumber(code) {
+  let num = parseInt(code, 36);
 
-  // multiply each character code by a power of 62
-  let power = charCodes.length - 1;
-  const base = 62;
-  let total = 0;
-  for (const code of charCodes) {
-    total += code * (base ** power);
-    power--;
+  // If the code is not a valid number, return NaN
+  if (isNaN(num)) {
+    return NaN;
   }
 
-  // convert total to an integer and return it
-  return parseInt(total);
+  // Generate a random number between 0 and 1 using Math.random()
+  let random = Math.random();
+
+  // Multiply the random number by 100 to get a new number between 0 and 100
+  let scaled = random * 100;
+
+  // Add 1 to the scaled number to get a number between 1 and 100
+  let shifted = scaled + 1;
+
+  // Round the shifted number down to the nearest integer
+  let result = Math.floor(shifted);
+
+  return result;
 }
 
 export function selectHobbies(count, seed) {
