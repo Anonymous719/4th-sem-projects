@@ -9,12 +9,14 @@ import Cards from "../component/DashBoardCompo/dashboardCards/dashboardCards.js"
 import DashBoardSlideBar from "../component/DashBoardCompo/dashBoardSlidebar/dashBoardSlidebar";
 import Avatar1 from "./../Images/avatar.png";
 import profilePic_1 from "../Images/CardProfilePic_1.png";
-// import profilePic_2 from "../Images/CardProfilePic_2.png";
-// import profilePic_3 from "../Images/CardProfilePic_3.png";
-// import profilePic_4 from "../Images/CardProfilePic_4.png";
-// import profilePic_5 from "../Images/CardProfilePic_5.png";
-// import profilePic_6 from "../Images/CardProfilePic_6.png";
+import profilePic_2 from "../Images/CardProfilePic_2.png";
+import profilePic_3 from "../Images/CardProfilePic_3.png";
+import profilePic_4 from "../Images/CardProfilePic_4.png";
+import profilePic_5 from "../Images/CardProfilePic_5.png";
+import profilePic_6 from "../Images/CardProfilePic_6.png";
 import PopUpDashboard from "../component/DashBoardCompo/dashboardPopUP/dashboardPopUP";
+
+import {alphanumericToNumber} from './otherfunctions.js';
 
 import Popup from "reactjs-popup";
 import { apiAddress } from "../component/API/api";
@@ -64,7 +66,7 @@ const Dashboard = () => {
               title: data[i].title,
               createdby: data[i].createdby.name,
               deadline: data[i].deadline,
-              ImgSrc: profilePic_1,
+              ImgSrc: getprojectimg(data[i]._id),
             };
             // console.log(newData)
             setData((prevData) => [...prevData, newData]);
@@ -250,5 +252,32 @@ const Dashboard = () => {
     </div>
   );
 };
+
+
+
+function getprojectimg(id){
+  let random = Math.floor(Math.random() * 6) + 1;
+  var pic;
+  switch (random%6) {
+    case 1:
+      pic = profilePic_1;
+      break;
+    case 2:
+      pic = profilePic_2;
+      break;
+    case 3:
+      pic = profilePic_4;
+      break;
+    case 4:
+      pic = profilePic_5;
+      break;
+      case 5:
+        pic = profilePic_5;
+        break;
+    default:
+      pic = profilePic_6;
+  }
+  return pic;
+}
 
 export default Dashboard;
