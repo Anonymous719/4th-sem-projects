@@ -79,7 +79,7 @@ const ProjectPageCard = ({ type, projectid, isLoading, setIsLoading}) => {
               completedPoints: data.completedPoints,
               totalPoints: data.totalPoints,
               _id: data._id,
-              percentage: (data.completedPoints / data.totalPoints)*100,
+              percentage: ((data.completedPoints / data.totalPoints)*100).toFixed(2),
             };
            
             setLandingPageProgressDataSet((prevData) => [...prevData, newData]);
