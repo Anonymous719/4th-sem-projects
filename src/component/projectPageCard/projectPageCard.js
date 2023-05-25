@@ -25,7 +25,7 @@ const ProjectPageCard = ({ type, projectid, isLoading, setIsLoading}) => {
   const navigate = useNavigate();
   const navigateToToDoPage = () => {
     navigate(`/projectPage/todo?id=${projectid}`);
-    //  history.push(`/details?id=${id}`);
+
   };
 
   const navigateToChatPage = () => {
@@ -39,7 +39,7 @@ const ProjectPageCard = ({ type, projectid, isLoading, setIsLoading}) => {
     navigate(`/projectPage/progress?id=${projectid}`);
   };
   const location = useLocation();
-  // const tryy=.percentage
+
   let run = true;
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
@@ -71,10 +71,9 @@ const ProjectPageCard = ({ type, projectid, isLoading, setIsLoading}) => {
           return response.json();
         })
         .then((datas) => {
-          // console.log(datas);
-          // //   console.log(data[0].completedPoints);
+         
           for (let data of datas) {
-            // console.log(i);
+
             const newData = {
               completedPoints: data.completedPoints,
               totalPoints: data.totalPoints,
@@ -114,41 +113,6 @@ const ProjectPageCard = ({ type, projectid, isLoading, setIsLoading}) => {
     }
   }, []);
 
-  
-// const[trys,changeTRys] =useState(1);
-//   const GetallName = (datas) => {
-//    console.log(datas.length +"u")
-//     for (let data=0;data<datas.length;data++) {
-//       console.log(data,datas.length)
-//       GetName(datas[data]._id);
-//     }
-//   };
-//   async function GetName(sid) {
-//     if(trys===1)
-//    { try {
-//       console.log("7");
-//       const response = await fetch(`${apiAddress}user/getname/${sid}`, {
-//         method: "GET",
-//         headers: {
-//           "Content-Type": "application/json",
-//           Authorization: `Bearer ${GetToken()}`,
-//         },
-//       });
-//       const result = await response.json();
-//       console.log(result.name);
-//       if (response.status === 200) {
-//         const newData=result.name;
-//         setNameSet((prevData)=>[...prevData,newData])
-
-//         console.log("name received");
-//       } else {
-//         console.log(result.error);
-//       }
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   changeTRys(trys+1)}
-//   }
 
   switch (type) {
     case "Progress":
@@ -174,8 +138,7 @@ const ProjectPageCard = ({ type, projectid, isLoading, setIsLoading}) => {
                         <ProgressBar percentage={data.percentage} />
                       </div>
                       
-                      {/* <p>{data.completedPoints} %</p>
-                      <p>{data.totalPoints} %</p> */}
+                      
                       <p style={{width:"25%"}} >{data.percentage} %</p>
                     </div>
                   </div>
@@ -225,12 +188,7 @@ const ProjectPageCard = ({ type, projectid, isLoading, setIsLoading}) => {
   }
 };
 function ProgressBar({percentage}) {
-  // const [percentage, setPercentage] = useState(0);
 
-  // function handleInputChange(event) {
-  //   const input = event.target.value;
-  //   setPercentage(input);
-  // }
 
   return (
     <div className="progress-bar-container">
@@ -240,108 +198,10 @@ function ProgressBar({percentage}) {
       >
         {percentage}%
       </div>
-      {/* <input
-        type="range"
-        min="0"
-        max="100"
-        value={percentage}
-        onChange={handleInputChange}
-      /> */}
+   
     </div>
   );
 }
 
 export default ProjectPageCard;
 
-// function ProjectPageCard({type}) {
-
-//   // if(type === "Progress"){
-//   //     return (
-//   //         <div class = 'projectCardsBox'>
-//   //             <div class = 'progress_title'>
-//   //             <h1>{type}</h1>
-//   //             <h1>Members  04</h1>
-//   //             </div>
-//   //             <hr />
-//   //             <div class = 'progress_members'>
-//   //                 <div class = 'progress_scores'>
-//   //                     <div class = 'progress_namebar'><p><pre>Name 1  </pre></p>
-//   //                     <hr /></div>
-//   //                     <p>60%</p>
-//   //                 </div>
-//   //                 <div class = 'progress_scores'>
-//   //                     <div class = 'progress_namebar'><p><pre>Name 2  </pre></p>
-//   //                     <hr /></div>
-//   //                     <p>30%</p>
-//   //                 </div>
-//   //                 <div class = 'progress_scores'>
-//   //                     <div class = 'progress_namebar'><p><pre>Name 3  </pre></p>
-//   //                     <hr /></div>
-//   //                     <p>80%</p>
-//   //                 </div>
-//   //                 <div class = 'progress_scores'>
-//   //                     <div class = 'progress_namebar'><p><pre>Name 4  </pre></p>
-//   //                     <hr /></div>
-//   //                     <p>45%</p>
-//   //                 </div>
-//   //             </div>
-//   //         </div>
-
-//   //     );
-//   // }
-//   // else if(type === "ToDo"){
-//   //     return (
-//   //         <div class = 'projectCardsBox'>
-//   //             <div class = 'todo_title'>
-//   //                 <h1>{type}</h1>
-//   //                 <h1>YY:MM:DD</h1>
-//   //             </div>
-//   //             <hr />
-//   //             <div class = 'todo_list'>
-//   //                 <div class = 'todo_task'>
-//   //                     <p>Task 1 </p>
-//   //                     <p>YY:MM:DD</p>
-//   //                 </div>
-//   //                 <div class = 'todo_task'>
-//   //                     <p>Task 2 </p>
-//   //                     <p>YY:MM:DD</p>
-//   //                 </div>
-//   //                 <div class = 'todo_task'>
-//   //                     <p>Task 3 </p>
-//   //                     <p>YY:MM:DD</p>
-//   //                 </div>
-//   //                 <div class = 'todo_task'>
-//   //                     <p>Task 4 </p>
-//   //                     <p>YY:MM:DD</p>
-//   //                 </div>
-//   //             </div>
-//   //         </div>
-
-//   //     );
-//   // }else if(type === "Resources"){
-//   //     return (
-//   //         <div class = 'projectCardsBox'>
-//   //             <h1>{type}</h1>
-//   //             <hr />
-//   //         </div>
-
-//   //     );
-//   // }else if(type === "Discussion"){
-//   //     return (
-//   //         <div class = 'cardsBox'>
-//   //             <h1>{type}</h1>
-//   //             <hr />
-//   //             <div class='discussion_message'>
-
-//   //             </div>
-//   //         </div>
-
-//   //     );
-//   // }else{
-//   //     return (
-//   //         <div></div>
-//   //     )
-//   // }
-// }
-
-// export { ProjectPageCard };

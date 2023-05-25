@@ -3,15 +3,11 @@ import "./deadline.css";
 import  Topbar from "../component/navBar/topbar";
 
 function DigitalTimer({ deadline }) {
-  // const [days, setDays] = useState(deadline.daysLeft);
-  // const [hours, setHours] = useState(0);
-  // const [minutes, setMinutes] = useState(0);
-  // const [seconds, setSeconds] = useState(0);
+
   const [days, setDays] = useState(deadline.daysLeft);
   const [hours, setHours] = useState(deadline.hoursLeft);
   const [minutes, setMinutes] = useState(deadline.minutesLeft);
   const [seconds, setSeconds] = useState(deadline.secondsLeft);
-  // console.log(deadline.hoursLeft,)
   useEffect(() => {
     const interval = setInterval(() => {
       setSeconds((seconds) => seconds - 1);
@@ -149,7 +145,6 @@ const DeadlineList = () => {
 
     return { daysLeft, hoursLeft, minutesLeft, secondsLeft };
   }
-  // style={{background:"whitesmoke"}}
   return (
     <div className="deadlineContainers">
       <Topbar />

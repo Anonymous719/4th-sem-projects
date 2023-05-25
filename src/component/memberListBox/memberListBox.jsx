@@ -63,10 +63,6 @@ const MemberListBox = () => {
   console.log(items),
         <MemberListTiles key={items.id} {...items} imgSrc={""} />
       ))}
-      {/* <MemberListTiles />
-   <MemberListTiles />
-   <MemberListTiles />
-   <MemberListTiles /> */}
     </div>
   );
 };

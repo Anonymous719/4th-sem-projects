@@ -60,9 +60,6 @@ const ToDoPage = () => {
           if (response.status === 200) {
             setHead(result.flag);
           } else {
-            // console.log(result.error);
-            // setErrorMsg(result.error);
-            // setOpenError((o) => !o);
           }
         } catch (e) {
           console.log(e);
@@ -77,13 +74,8 @@ const ToDoPage = () => {
           });
           const result = await response.json();
           if (response.status === 200) {
-            // console.log(result.userid)
-            // console.log(result.userid);
             setSelfID(result.userid);
           } else {
-            // console.log(result.error);
-            // setErrorMsg(result.error);
-            // setOpenError((o) => !o);
           }
         } catch (e) {
           console.log(e);

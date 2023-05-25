@@ -1,9 +1,7 @@
 import React from "react";
-// import { GestureDetector } from "react-onsenui";
 import "./slideBar.css";
 
 const SlideBar = ({ isSignup, changeSignup }) => {
-  // const [isSignup, changeSignup] = useState(false);
 
   return (
     <div className="top_slidebar">

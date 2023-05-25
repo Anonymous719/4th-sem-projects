@@ -22,62 +22,8 @@ const ProjectPage = () => {
     const searchParams = new URLSearchParams(location.search);
     const id = searchParams.get("id");
     setId(id);
-    // console.log(id);
   }, [location.search]);
-  //   let run = true;
-  //   useEffect(() => {
-  //     const searchParams = new URLSearchParams(location.search);
-  //     const id = searchParams.get("id");
-  //     if (run === true) {
-  //       const token = GetToken();
-  //       setIsLoading(true);
-  //       fetch(`${apiAddress}user/getname`, {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       })
-  //         .then((response) => {
-  //           console.log("dashboard" + response.status);
-  //           setResponseNameCode(response.status);
-  //           return response.json();
-  //         })
-  //         .then((data) => {
-  //         //   console.log(data);
-  //           setIsLoading(false);
-  //         });
-  //       fetch(`${apiAddress}todo/projectprogress/${id}`, {
-  //         headers: {
-  //             'Content-Type': 'application/json',
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       })
-  //         .then((response) => {
-  //           setResponseCode(response.status);
-  //           return response.json();
-  //         })
-  //         .then((datas) => {
-  //         //   console.log(data[0].completedPoints);
-  //           for (let data of datas) {
-  //             // console.log(i);
-  //             const newData = {
-  //               completedPoints: data.completedPoints,
-  //               totalPoints: data.totalPoints,
-  //               _id: data._id,
-  //               percentage:data.completedPoints/data.totalPoints,
-  //             };
-  //             // console.log(typeof(newData.percentage))
-  //             setLandingPageProgressDataSet((prevData) => [...prevData, newData])
-  //           }
-  //           setIsLoading(false);
-  //         })
-  //         .catch((error) => {
-  //           // handle errors
-  //           console.error(error);
-  //         });
 
-  //       run = false;
-  //     }
-  //   }, []);
   return (
     <div class="ProjectPage">
       <Topbar />
@@ -133,21 +79,3 @@ const ProjectPage = () => {
 };
 
 export default ProjectPage;
-
-// class Projectpage extends React.Component {
-//     render() {
-//         return (
-//             <div class = "dashboard">
-//                 <Topbar />
-//                 <div class='dashboardBlocks'>
-//                     {Cards("Progress")}
-//                     {Cards("ToDo")}
-//                     {Cards("Resources")}
-//                     {Cards("Discussion")}
-//                 </div>
-//             </div>
-//         );
-//     }
-// }
-
-// export  Projectpage };

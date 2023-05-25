@@ -7,8 +7,6 @@ const logIn = () => {
     <div 
       style={{backgroundImage:`url(${BackGroundImg})` ,
         textAlign: "center",
-        // background:
-        //   "linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(40,37,145,0.9417016806722689) 48%, rgba(0,212,255,1) 100%)",
         height: "100vh",
       }}
     >

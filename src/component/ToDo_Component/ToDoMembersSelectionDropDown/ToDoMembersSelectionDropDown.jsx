@@ -54,12 +54,3 @@ const ToDoMembersSelectionDropDown = ({members,setMembers}) => {
 }
 
 export default ToDoMembersSelectionDropDown
-
-// const SelectorDropDown = ({setProjectCategory}) => {
-
- 
-// };
-// const Selector = () => {
-  
-// };
-// export default SelectorDropDown;

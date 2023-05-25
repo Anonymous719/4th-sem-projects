@@ -68,44 +68,6 @@ const PopUpResource = ({ onClose, ForcedReload }) => {
       // onClose();
     };
 
-  //   const handleJoinSubmit = async (event) => {
-  //     event.preventDefault();
-  //     const data = { code };
-  //     console.log(code);
-  //     try {
-  //       const response = await fetch(`${apiAddress}resource/create/${id}`, {
-  //         method: "PATCH",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Authorization: `Bearer ${GetToken()}`,
-  //         },
-  //         body: JSON.stringify(data),
-  //       });
-  //       const result = await response.json();
-  //       if (response.status === 200) {
-  //         console.log(result);
-  //         console.log(`Successfully joined`);
-  //         setOpenResponse((o) => !o);
-  //       } else {
-  //         console.log(result.error);
-  //         setErrorMsg(result.error);
-  //         setOpenError((o) => !o);
-  //         console.log();
-  //       }
-  //     } catch (error) {
-  //       console.error(error);
-  //       console.log("3");
-  //     }
-  //     ForcedReload()
-  // };
-
-  // const handleDateChange = (date) => {
-  //   const year = date.getFullYear();
-  //   const month = date.getMonth() + 1; // Month is zero-indexed, so we add 1
-  //   const day = date.getDate();
-  //   const newDate = new Date(`${year}-${month}-${day}`);
-  //   setDeadline(newDate);
-  // };
 
   return (
     <div className="modal">
@@ -172,13 +134,6 @@ const PopUpResource = ({ onClose, ForcedReload }) => {
                 onChange={(event) => setCode(event.target.value)}
                 value={code}
               />
-              {/* <InputField
-                label={"Time for this project per days (in Hours):"}
-                type={"number"}
-                placeholder={"Time for this project per days"}
-                onChange={(event) => setProjectTime(event.target.value)}
-                value={projectTime}
-              /> */}
               <button className="assignbutton " type="submit">
                 Join Project
               </button>

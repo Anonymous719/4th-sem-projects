@@ -81,12 +81,6 @@ const ResourcesPage = () => {
         <hr id="resource_divider" />
         {resource && (
           <ResourceGenerator data={resource} />
-          // resource_listelement(
-          // "Ram",
-          // "http://www.github.com",
-          // "hari",
-          // "2010/10/20"
-          // )
         )}
       </div>
       <Fab

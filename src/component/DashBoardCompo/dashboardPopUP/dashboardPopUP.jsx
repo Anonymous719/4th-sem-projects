@@ -175,13 +175,6 @@ const PopUpDashboard = ({ onClose ,ForcedReload}) => {
                 onChange={(event) => setCode(event.target.value)}
                 value={code}
               />
-              {/* <InputField
-                label={"Time for this project per days (in Hours):"}
-                type={"number"}
-                placeholder={"Time for this project per days"}
-                onChange={(event) => setProjectTime(event.target.value)}
-                value={projectTime}
-              /> */}
               <button className="assignbutton " type="submit">
                 Join Project
               </button>

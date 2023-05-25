@@ -3,8 +3,7 @@ import React from "react";
 import "././dashBoardSlidebar.css";
 
 const DashBoardSlideBar = ({ isCompleted, changeCompleted }) => {
-  // const [isSignup, changeSignup] = useState(false);
-    // isSignup=true;
+
   return (
     <div className="dashboard_slidebar">
       <div

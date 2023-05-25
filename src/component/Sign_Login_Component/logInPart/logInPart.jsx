@@ -27,8 +27,6 @@ const LogIn_Part = () => {
   // const [data, setData] = useState({});;
   const [email, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  // const [myData, setMyData] = useState([]);
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -58,10 +56,6 @@ const LogIn_Part = () => {
     }
   };
 
-  // useEffect(() => {
-  //   console.log(myData);
-  // }, [myData]);
-
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
   };
@@ -69,15 +63,6 @@ const LogIn_Part = () => {
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
-
-  // useEffect(() => {
-  //   console.log(data);
-  //   // fetchData();
-  // }, [data]);
-  // useEffect(() => {
-  //   console.log(isError);
-  //   // fetchData();
-  // }, [isError]);
 
   console.log(Cookies.get("token"));
   return (
@@ -115,18 +100,13 @@ const LogIn_Part = () => {
           errorMsgHidden={false}
         />
 
-        {/* <p style={{ textAlign: "right" }}>Forgot password?</p> */}
         <Errormsg msg="errorr" hidden={true} />
         <button className="button " type="submit">
           LogIN
         </button>
-<br/><br/><br/>
-        {/* <h4>LogIn With</h4>
-        <div className="buttonList">
-          <Button className="buttonlog" startIcon={<Google />}></Button>
-          <Button className="buttonlog" startIcon={<Facebook />}></Button>
-          <Button className="buttonlog" startIcon={<GitHub />}></Button>
-        </div> */}
+        <br />
+        <br />
+        <br />
       </div>
     </form>
   );

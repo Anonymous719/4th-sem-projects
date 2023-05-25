@@ -172,12 +172,6 @@ const SignUp_Part = () => {
               Sign Up
             </button>
             <br/><br/><br/>
-            {/* <h4>SignUP With</h4>
-            <div className="buttonList">
-              <Button className="buttonlog" startIcon={<Google />}></Button>
-              <Button className="buttonlog" startIcon={<Facebook />}></Button>
-              <Button className="buttonlog" startIcon={<GitHub />}></Button>
-            </div> */}
           </div>
         </form>
       ) : (

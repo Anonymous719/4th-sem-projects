@@ -15,7 +15,6 @@ const Ssssss = () => {
       style={{ position: "fixed", bottom: 32, right: 32, zIndex: 999 }}
     >
       <Popup open={open} closeOnDocumentClick onClose={closeModal}>
-        {/* <ErrorpopUpppp Errormsg="svdsvdv" onClose={closeModal} /> */}
          <PositivepopUp PositiveHeading={"Sucessfully LogIN"} Positivemsg={"you have sucessfully "} onClose={closeModal} />
       </Popup>
       dsxgvdsrgdsfg

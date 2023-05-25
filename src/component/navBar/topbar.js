@@ -35,13 +35,6 @@ const Topbar = () => {
       />
 
       <div class="dashboardEndbutton">
-        {/* <div onClick={navigateToDeadlineList} style={{ all: "inherit" }}>
-          <AssignmentIcon />
-        </div> */}
-
-        {/* <AddIcon /> */}
-        {/* <NotificationsActiveIcon /> */}
-      
         <div onClick={navigateToProfilePage} style={{ all: "inherit" }}>
           <Avatar className="avatarItems" src={Avatar1} />
         </div>
@@ -59,4 +52,3 @@ const Topbar = () => {
 
 export default Topbar;
 
-// class Topbar extends React.Component {
