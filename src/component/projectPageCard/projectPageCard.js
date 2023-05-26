@@ -153,7 +153,7 @@ const ProjectPageCard = ({ type, projectid, isLoading, setIsLoading}) => {
         <div class="projectCardsBox" onClick={navigateToToDoPage}>
           <div class="todo_title">
             <h1>{type}</h1>
-            <h1>YY:MM:DD</h1>
+            
           </div>
           <hr />
         </div>
